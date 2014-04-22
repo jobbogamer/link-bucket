@@ -21,7 +21,7 @@ class Link(db.Model):
 	def __init__(self, url, date, title, icon):
 		self.url = url
 		self.date = date
-		self.archived = false
+		self.archived = False
 		self.title = title
 		self.icon = icon
 
