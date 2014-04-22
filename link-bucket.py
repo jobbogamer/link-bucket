@@ -30,7 +30,7 @@ class Link(db.Model):
 
 
 @app.route('/')
-def hello():
+def index():
 	return 'Hello World!'
 
 if (__name__ == "__main__"):
