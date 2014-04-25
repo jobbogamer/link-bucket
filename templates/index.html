@@ -2,12 +2,14 @@
 {% block content %}
 	<ul id="items">
 		{% for item in items %}
-		<li class="item {{ ages[item.id] }}">
-			<h2 class="title">{{ item.title }}</h2>
-			<div class="meta">
-				<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info">{{ domains[item.id] }} • {{ times[item.id] }}</p>
-			</div>
-		</li>
+		<a href="{{ item.url }}" target="_blank">
+			<li class="item {{ ages[item.id] }}">
+				<h2 class="title">{{ item.title }}</h2>
+				<div class="meta">
+					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info">{{ domains[item.id] }} – {{ times[item.id] }}</p>
+				</div>
+			</li>
+		</a>
 		{% else %}
 		<li class="noitems">No links yet.</li>
 		{% endfor %}

@@ -5,6 +5,7 @@ body {
 	background: #e4e4e4;
 
 	font-family: "Helvetica Neue", "Arial", sans-serif;
+	font-weight: 300;
 }
 
 h1 {
@@ -15,6 +16,10 @@ h1 {
 	font-size: 21px;
 	line-height: 21px;
 	font-weight: 300;
+}
+
+a {
+	text-decoration: none;
 }
 
 div.header {
@@ -33,19 +38,58 @@ ul#items {
 }
 
 ul#items li.item {
-	margin-top: 16px;
-	margin-bottom: 48px;
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
 
 	font-size: 16px;
 	line-height: 16px;
+
+	background: white;
+	border: 1px solid #9F9F9F;
+}
+
+ul#items li.item.days {
+	background: rgba(255, 255, 255, 1);
+	border: 1px solid rgba(162, 162, 162, 1);
+}
+
+ul#items li.item.weeks {
+	background: rgba(255, 255, 255, 0.8);
+	border: 1px solid rgba(162, 162, 162, 0.8);
+}
+
+ul#items li.item.months {
+	background: rgba(255, 255, 255, 0.6);
+	border: 1px solid rgba(162, 162, 162, 0.6);
+}
+
+ul#items li.item.years {
+	background: rgba(255, 255, 255, 0.4);
+	border: 1px solid rgba(162, 162, 162, 0.4);
 }
 
 ul#items li.item h2.title {
-	margin: 0;
+	margin: 0 0 8px 0;
 	padding: 0;
 
 	font-size: 18px;
 	line-height: 18px;
+	font-weight: 400;
+
+	color: rgba(0, 0, 0, 1);
+}
+
+ul#items li.item.weeks h2.title {
+	color: rgba(0, 0, 0, 0.8);
+}
+
+ul#items li.item.months h2.title {
+	color: rgba(0, 0, 0, 0.6);
+}
+
+ul#items li.item.years h2.title {
+	color: rgba(0, 0, 0, 0.4);
 }
 
 ul#items li.item img.icon {
@@ -57,6 +101,20 @@ ul#items li.item p.info {
 	margin: 0;
 	padding: 0;
 	float: left;
+
+	color: rgba(127, 127, 127, 1);
+}
+
+ul#items li.item.weeks p.info {
+	color: rgba(127, 127, 127, 0.8);
+}
+
+ul#items li.item.months p.info {
+	color: rgba(127, 127, 127, 0.6);
+}
+
+ul#items li.item.years p.info {
+	color: rgba(127, 127, 127, 0.4);
 }
 
 @media (max-width: 500px) {
