@@ -1,0 +1,38 @@
+body {
+	padding: 0;
+	margin: 0;
+
+	background: #e4e4e4;
+}
+
+h1 {
+	padding: 0;
+	margin: 0;
+
+	text-align: center;
+	font-size: 21px;
+	line-height: 21px;
+	font-weight: 300;
+}
+
+div.header {
+	padding: 12px 0;
+
+	background: white;
+	border-bottom: 1px solid #9F9F9F;
+}
+
+ul#items {
+	width: 500px;
+	margin: 0 auto;
+}
+
+ul#items li.item {
+	
+}
+
+@media (max-width: 500px) {
+	ul#items {
+		width: 320px;
+	}
+}
