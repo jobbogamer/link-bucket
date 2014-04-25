@@ -26,7 +26,7 @@ class Link(db.Model):
 		self.icon = icon
 
 	def __repr__(self):
-		return "<Link(" + str(self.id) + ") " + str(self.url) + " >"
+		return "[Link(%d) %s]" % (self.id, self.url)
 
 
 @app.route('/')
@@ -34,4 +34,4 @@ def index():
 	return 'Hello World!'
 
 if (__name__ == "__main__"):
-	app.run()
+	app.run(debug = True)
