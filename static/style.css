@@ -3,6 +3,8 @@ body {
 	margin: 0;
 
 	background: #e4e4e4;
+
+	font-family: "Helvetica Neue", "Arial", sans-serif;
 }
 
 h1 {
@@ -28,7 +30,7 @@ ul#items {
 }
 
 ul#items li.item {
-	
+
 }
 
 @media (max-width: 500px) {
