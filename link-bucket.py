@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from urlparse import urlparse
 from flask import Flask, render_template, flash, url_for, abort, request
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -52,6 +53,7 @@ def index():
 
 	ages = {}
 	times = {}
+	domains = {}
 	for item in items:
 		delta = now - item.date
 
@@ -68,7 +70,9 @@ def index():
 		else:
 			ages[item.id] = "years"
 
-	return render_template('index.html', items=items, ages=ages, times=times)
+		domains[item.id] = urlparse(item.url).hostname
+
+	return render_template('index.html', items=items, ages=ages, times=times, domains=domains)
 
 if (__name__ == "__main__"):
 	app.run(debug = True)
