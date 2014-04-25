@@ -2,7 +2,7 @@
 {% block content %}
 	<ul id="items">
 		{% for item in items %}
-		<li class="item">{{ item.url }}</li>
+		<li class="item {{ ages[item.id] }}">{{ item.url }} ({{ times[item.id] }})</li>
 		{% else %}
 		<li class="noitems">No links yet.</li>
 		{% endfor %}
