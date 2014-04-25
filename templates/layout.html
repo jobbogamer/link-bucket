@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>LinkBucket</title>
+		<link rel=stylesheet type=text/css href="{{ url_for(’static’, filename=’style.css’) }}">
+	</head>
+
+	<body>
+		<div class="header">
+			<h1>LinkBucket</h1>
+		</div>
+
+		<div class="content">
+			{% block content %}{% endblock %}
+		</div>
+
+		<div class="footer">
+			<p>LinkBucket 0.1 • <a href="http://github.com/jobbogamer/link-bucket">GitHub</a></p>
+		</div>
+	</body>
+</html>
