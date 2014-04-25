@@ -61,7 +61,9 @@ def index():
 		times[item.id] = get_relative_time(seconds)
 
 		days = delta.days
-		if days < 7:
+		if days < 1:
+			ages[item.id] = "today"
+		elif days < 7:
 			ages[item.id] = "days"
 		elif days < 28:
 			ages[item.id] = "weeks"
