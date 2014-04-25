@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+	<ul id="items">
+		{% for item in items %}
+		<li class="item">{{ item.url }}</li>
+		{% else %}
+		<li class="noitems">No links yet.</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
