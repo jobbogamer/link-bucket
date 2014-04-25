@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -31,7 +31,8 @@ class Link(db.Model):
 
 @app.route('/')
 def index():
-	return 'Hello World!'
+	items = Link.query.filter_by(archived = False).all()
+	return render_template('index.html', items=items)
 
 if (__name__ == "__main__"):
 	app.run(debug = True)
