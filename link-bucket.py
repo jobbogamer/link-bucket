@@ -33,14 +33,12 @@ class Link(db.Model):
 	date = db.Column(db.DateTime)
 	archived = db.Column(db.Boolean)
 	title = db.Column(db.String)
-	icon = db.Column(db.String)
 
-	def __init__(self, url, date, title, icon):
+	def __init__(self, url, date, title):
 		self.url = url
 		self.date = date
 		self.archived = False
 		self.title = title
-		self.icon = icon
 
 	def __repr__(self):
 		return "[Link(%d) %s]" % (self.id, self.url)
