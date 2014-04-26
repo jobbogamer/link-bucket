@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 	<form action="{{ url_for('add') }}" method="POST" class="add-item">
-		<input type="text" name="title" value="Title" />
-		<input type="text" name="url" value="URL" />
-		<select name="type">
+		<input type="text" name="title" value="Title" class="title" onfocus="if(this.value=='Title') this.value='';" onblur="if(this.value=='') this.value='Title';"/><br/>
+		<input type="text" name="url" value="URL" class="url" onfocus="if(this.value=='URL') this.value='';" onblur="if(this.value=='') this.value='URL';"/><br/>
+		<select name="type" class="type">
 			<option value="0">General</option>
 			<option value="1">Image</option>
 			<option value="2">Video</option>
-		</select>
-		<input type="submit" value="Add" />
+		</select><br/>
+		<input type="submit" value="Add" class="submit" />
 	</form>
 {% endblock %}

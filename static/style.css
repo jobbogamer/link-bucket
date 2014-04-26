@@ -29,6 +29,10 @@ div.header {
 	border-bottom: 1px solid #9F9F9F;
 }
 
+
+
+
+
 ul#items {
 	width: 500px;
 	margin: 0 auto;
@@ -130,8 +134,71 @@ ul#items li.item.years p.info {
 	color: rgba(127, 127, 127, 0.2);
 }
 
+
+
+
+
+form.add-item {
+	box-sizing: border-box;
+	width: 500px;
+	margin: 16px auto 0 auto;
+	padding: 8px;
+
+	background: white;
+	border: 1px solid #9F9F9F;
+}
+
+input:focus {
+	outline: none;
+}
+
+select:focus {
+	outline: none;
+}
+
+input[type="text"] {
+	width: 100%;
+	margin-bottom: 8px;
+
+	border: none;
+	border-bottom: 1px solid #9F9F9F;
+
+	font-family: "Helvetica Neue", "Arial", sans-serif;
+	font-size: 18px;
+
+	color: #9F9F9F;
+}
+
+input[type="text"]:focus {
+	color: black;
+}
+
+input.url {
+	margin-bottom: 16px;
+
+	font-size: 14px;
+}
+
+select.type {
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+input.submit {
+	display: block;
+	margin: 0 auto;
+}
+
+
+
+
+
 @media (max-width: 500px) {
 	ul#items {
 		width: 320px;
+	}
+
+	form {
+		width: 500px;
 	}
 }
