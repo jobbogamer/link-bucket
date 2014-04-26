@@ -7,8 +7,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
 db = SQLAlchemy(app)
 
@@ -48,7 +48,7 @@ class Link(db.Model):
 @app.route('/')
 def index():
 	db.create_all()
-	
+
 	items = Link.query.filter_by(archived = False).all()
 	items = sorted(items, key=lambda link: link.id, reverse=True)
 	now = datetime.now()

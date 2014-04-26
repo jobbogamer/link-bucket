@@ -55,6 +55,19 @@ ul#items li.item {
 	border: 1px solid #9F9F9F;
 }
 
+ul#items li.noitems {
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
+
+	font-size: 18px;
+	line-height: 18px;
+	text-align: center;
+
+	background: white;
+	border: 1px solid #9F9F9F;
+}
+
 ul#items li.item.today {
 	background: rgba(255, 255, 255, 1);
 	border: 1px solid rgba(162, 162, 162, 1);
