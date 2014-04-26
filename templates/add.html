@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+	<form action="{{ url_for('add') }}" method="POST" class="add-item">
+		<input type="text" name="title" value="Title" />
+		<input type="text" name="url" value="URL" />
+		<select name="type">
+			<option value="0">General</option>
+			<option value="1">Image</option>
+			<option value="2">Video</option>
+		</select>
+		<input type="submit" value="Add" />
+	</form>
+{% endblock %}
