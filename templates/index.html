@@ -3,7 +3,7 @@
 	<ul id="items">
 		{% for item in items %}
 		<a href="{{ item.url }}" title="{{ item.url }}" target="_blank">
-			<li class="item {{ ages[item.id] }}">
+			<li id="item-{{ item.id }}" class="item {{ ages[item.id] }}">
 				<h2 class="title">{{ item.title }}</h2>
 				<div class="meta">
 					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info">{{ domains[item.id] }} – {{ times[item.id] }}</p>
