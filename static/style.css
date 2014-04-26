@@ -209,6 +209,16 @@ input.submit {
 		width: 320px;
 	}
 
+	ul#items li.item {
+		border-left: none;
+		border-right: none;
+	}
+
+	ul#items li.noitems {
+		border-left: none;
+		border-right: none;
+	}
+
 	form {
 		width: 500px;
 	}
