@@ -47,6 +47,8 @@ class Link(db.Model):
 
 @app.route('/')
 def index():
+	db.create_all()
+	
 	items = Link.query.filter_by(archived = False).all()
 	items = sorted(items, key=lambda link: link.id, reverse=True)
 	now = datetime.now()
