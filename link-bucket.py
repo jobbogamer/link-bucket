@@ -5,6 +5,7 @@ from flask import Flask, render_template, flash, url_for, abort, request
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
@@ -78,6 +79,21 @@ def index():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
+	message = ''
+	error = False
+	
+	if request.method == 'POST':
+		item = Link(request.form['url'], datetime.now(), request.form['title'])
+		db.session.add(item)
+		db.session.commit()
+		message = "Link added."
+
+	if len(message) > 0:
+		if error:
+			flash(message, 'error')
+		else:
+			flash(message, 'success')
+
 	return render_template('add.html')
 
 
