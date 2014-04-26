@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from urlparse import urlparse
-from flask import Flask, render_template, flash, url_for, abort, request
+from flask import Flask, render_template, flash, url_for, abort, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -97,6 +97,28 @@ def add():
 			flash(message, 'success')
 
 	return render_template('add.html')
+
+
+@app.route('/api/create/')
+def api_create_no_params():
+	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
+
+@app.route('/api/create/<anything>/')
+def api_create_one_param(anything):
+	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
+
+@app.route('/api/create/<title>/<path:url>')
+def api_create(title, url):
+	if not url.startswith("http://") and '.' in url:
+		url = "http://" + url
+
+	if len(urlparse(url).netloc) == 0:
+		return jsonify(success=False, error_code=1, error_msg="Invalid URL")
+	else:
+		item = Link(url, datetime.now(), title)
+		db.session.add(item)
+		db.session.commit()
+		return jsonify(success=True, error_code=0, error_msg="")
 
 
 if (__name__ == "__main__"):
