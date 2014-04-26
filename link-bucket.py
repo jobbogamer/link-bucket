@@ -135,7 +135,7 @@ def api_archive(id):
 
 
 @app.route('/api/destroy/')
-def api_destory_no_params():
+def api_destroy_no_params():
 	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
 
 @app.route('/api/destroy/<int:id>/')
