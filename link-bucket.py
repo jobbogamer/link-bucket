@@ -121,6 +121,19 @@ def api_create(title, url):
 		return jsonify(success=True, error_code=0, error_msg="")
 
 
+@app.route('/api/archive/')
+def api_archive_no_params():
+	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
+
+@app.route('/api/archive/<int:id>/')
+def api_archive(id):
+	item = Link.query.filter_by(id=id).first()
+	item.archived = True
+	db.session.commit()
+	return jsonify(success=True, error_code=0, error_msg="")
+
+
+
 @app.route('/api/destroy/')
 def api_destory_no_params():
 	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
