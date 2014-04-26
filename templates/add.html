@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
 	<form action="{{ url_for('add') }}" method="POST" class="add-item">
-		<input type="text" name="title" value="Title" class="title" onfocus="if(this.value=='Title') this.value='';" onblur="if(this.value=='') this.value='Title';"/><br/>
-		<input type="text" name="url" value="URL" class="url" onfocus="if(this.value=='URL') this.value='';" onblur="if(this.value=='') this.value='URL';"/><br/>
+		<input type="text" name="title" value="Title" class="title" onfocus="if(this.value=='Title'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='Title'; this.style.color='#9F9F9F'; }"/><br/>
+		<input type="text" name="url" value="URL" class="url" onfocus="if(this.value=='URL'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='URL'; this.style.color='#9F9F9F'; }"/><br/>
 		<select name="type" class="type">
 			<option value="0">General</option>
 			<option value="1">Image</option>

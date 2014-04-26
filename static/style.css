@@ -169,10 +169,6 @@ input[type="text"] {
 	color: #9F9F9F;
 }
 
-input[type="text"]:focus {
-	color: black;
-}
-
 input.url {
 	margin-bottom: 16px;
 
