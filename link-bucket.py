@@ -74,7 +74,7 @@ def index():
 		else:
 			ages[item.id] = "years"
 
-		domains[item.id] = urlparse(item.url).hostname
+		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
 	return render_template('index.html', items=items, ages=ages, times=times, domains=domains)
 
