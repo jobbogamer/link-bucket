@@ -11,8 +11,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
 db = SQLAlchemy(app)
 
@@ -270,6 +270,9 @@ def api_destroy(id):
 
 @app.route('/fb')
 def fb():
+	details = FB('776255502385741', '3fc41ad7c7cbd4084c341d068c5e02f3')
+	db.session.add(details)
+	db.session.commit()
 	return redirect(facebook_login_url())
 
 @app.route('/fb_logged_in')
