@@ -92,7 +92,7 @@ def get_facebook_message_links():
 	found_last_checked = False
 
 	for message in fetched_messages:
-		if message['id'] > last_checked and message['from']['name'] == 'Josh Asch':
+		if message['id'] > last_checked:
 			messages.append(message)
 
 		if message['id'] == last_checked:
