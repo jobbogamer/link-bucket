@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 db = SQLAlchemy(app)
 
-base_url = 'http://localhost:5000'
+base_url = 'http://link-bucket.josh-asch.net'
 
 def get_relative_time(seconds):
 	if seconds < 60:
