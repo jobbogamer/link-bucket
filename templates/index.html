@@ -21,7 +21,7 @@
 			var items = document.getElementsByClassName("title");
 			for (var i = 0; i < items.length; i++) {
 				var element = items[i];
-				if (element.innerHTML.indexOf(searchterm) == -1) {
+				if (element.innerHTML.toLowerCase().indexOf(searchterm.toLowerCase()) == -1) {
 					element.parentNode.parentNode.style.visibility = "hidden";
 				} else {
 					element.parentNode.parentNode.style.visibility = "visible";
