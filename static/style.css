@@ -33,7 +33,19 @@ div.header {
 
 
 
+input#search {
+	width: 500px;
+	margin: 16px auto 0 auto;
+	padding: 4px;
+	display: block;
 
+	font-family: "Helvetica Neue", "Arial", sans-serif;
+	font-size: 18px;
+
+	border: 1px solid #9F9F9F;
+
+	color: #9F9F9F;
+}
 
 ul#items {
 	width: 500px;
@@ -171,7 +183,7 @@ select:focus {
 	outline: none;
 }
 
-input[type="text"] {
+form.add-item input[type="text"] {
 	width: 100%;
 	margin-bottom: 8px;
 
@@ -184,18 +196,18 @@ input[type="text"] {
 	color: #9F9F9F;
 }
 
-input.url {
+form.add-item input.url {
 	margin-bottom: 16px;
 
 	font-size: 14px;
 }
 
-select.type {
+form.add-item select.type {
 	width: 100%;
 	margin-bottom: 16px;
 }
 
-input.submit {
+form.add-item input.submit {
 	display: block;
 	margin: 0 auto;
 }
