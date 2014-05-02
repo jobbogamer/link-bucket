@@ -217,6 +217,10 @@ form.add-item input.submit {
 
 
 @media (max-width: 500px) {
+	input#search {
+		width: 320px;
+	}
+	
 	ul#items {
 		width: 320px;
 	}
