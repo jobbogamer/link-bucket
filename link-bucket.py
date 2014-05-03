@@ -175,7 +175,7 @@ def index():
 	items = sorted(items, key=lambda link: link.id, reverse=True)
 	now = datetime.now()
 
-	ages = {}
+	opacities = {}
 	times = {}
 	domains = {}
 	for item in items:
@@ -186,19 +186,25 @@ def index():
 
 		days = delta.days
 		if days < 1:
-			ages[item.id] = "today"
+			opacities[item.id] = "100"
+		elif days < 3:
+			opacities[item.id] = "90"
+		elif days < 5:
+			opacities[item.id] = "80"
 		elif days < 7:
-			ages[item.id] = "days"
+			opacities[item.id] = "70"
+		elif days < 14:
+			opacities[item.id] = "60"
+		elif days < 21:
+			opacities[item.id] = "50"
 		elif days < 28:
-			ages[item.id] = "weeks"
-		elif days < 365:
-			ages[item.id] = "months"
+			opacities[item.id] = "40"
 		else:
-			ages[item.id] = "years"
+			opacities[item.id] = "30"
 
 		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
-	return render_template('index.html', items=items, ages=ages, times=times, domains=domains)
+	return render_template('index.html', items=items, opacities=opacities, times=times, domains=domains)
 
 
 @app.route('/add', methods=['GET', 'POST'])

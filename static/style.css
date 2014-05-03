@@ -80,29 +80,44 @@ ul#items li.noitems {
 	border: 1px solid #9F9F9F;
 }
 
-ul#items li.item.today {
-	background: rgba(255, 255, 255, 1);
-	border: 1px solid rgba(162, 162, 162, 1);
+ul#items li.item.opacity100 {
+	opacity: 1.0;
 }
 
-ul#items li.item.days {
-	background: rgba(255, 255, 255, 0.8);
-	border: 1px solid rgba(162, 162, 162, 0.8);
+ul#items li.item.opacity90 {
+	opacity: 0.9;
 }
 
-ul#items li.item.weeks {
-	background: rgba(255, 255, 255, 0.6);
-	border: 1px solid rgba(162, 162, 162, 0.6);
+ul#items li.item.opacity80 {
+	opacity: 0.8;
 }
 
-ul#items li.item.months {
-	background: rgba(255, 255, 255, 0.4);
-	border: 1px solid rgba(162, 162, 162, 0.4);
+ul#items li.item.opacity70 {
+	opacity: 0.7;
 }
 
-ul#items li.item.years {
-	background: rgba(255, 255, 255, 0.2);
-	border: 1px solid rgba(162, 162, 162, 0.2);
+ul#items li.item.opacity60 {
+	opacity: 0.6;
+}
+
+ul#items li.item.opacity50 {
+	opacity: 0.5;
+}
+
+ul#items li.item.opacity40 {
+	opacity: 0.4;
+}
+
+ul#items li.item.opacity30 {
+	opacity: 0.3;
+}
+
+ul#items li.item.opacity20 {
+	opacity: 0.2;
+}
+
+ul#items li.item.opacity10 {
+	opacity: 0.1;
 }
 
 ul#items li.item h2.title {
@@ -116,22 +131,6 @@ ul#items li.item h2.title {
 	color: rgba(0, 0, 0, 1);
 }
 
-ul#items li.item.days h2.title {
-	color: rgba(0, 0, 0, 0.8)
-}
-
-ul#items li.item.weeks h2.title {
-	color: rgba(0, 0, 0, 0.6);
-}
-
-ul#items li.item.months h2.title {
-	color: rgba(0, 0, 0, 0.4);
-}
-
-ul#items li.item.years h2.title {
-	color: rgba(0, 0, 0, 0.2);
-}
-
 ul#items li.item img.icon {
 	float: left;
 	margin-right: 4px;
@@ -143,22 +142,6 @@ ul#items li.item p.info {
 	float: left;
 
 	color: rgba(127, 127, 127, 1);
-}
-
-ul#items li.item.days p.info {
-	color: rgba(127, 127, 127, 0.8);
-}
-
-ul#items li.item.weeks p.info {
-	color: rgba(127, 127, 127, 0.6);
-}
-
-ul#items li.item.months p.info {
-	color: rgba(127, 127, 127, 0.4);
-}
-
-ul#items li.item.years p.info {
-	color: rgba(127, 127, 127, 0.2);
 }
 
 
@@ -220,7 +203,7 @@ form.add-item input.submit {
 	input#search {
 		width: 320px;
 	}
-	
+
 	ul#items {
 		width: 320px;
 	}
