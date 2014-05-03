@@ -22,9 +22,9 @@
 			for (var i = 0; i < items.length; i++) {
 				var element = items[i];
 				if (element.innerHTML.toLowerCase().indexOf(searchterm.toLowerCase()) == -1) {
-					element.parentNode.parentNode.style.visibility = "hidden";
+					element.parentNode.parentNode.style.display = "none";
 				} else {
-					element.parentNode.parentNode.style.visibility = "visible";
+					element.parentNode.parentNode.style.display = "initial";
 				}
 			}
 		}
@@ -33,7 +33,7 @@
 			var items = document.getElementsByClassName("title");
 			for (var i = 0; i < items.length; i++) {
 				var element = items[i];
-				element.parentNode.parentNode.style.visibility = "visible";
+				element.parentNode.parentNode.style.visibility = "initial";
 			}
 		}
 	</script>
