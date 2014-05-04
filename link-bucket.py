@@ -130,7 +130,7 @@ def get_facebook_message_links():
 
 		db.session.commit()
 
-	except RuntimeError as error:
+	except Exception as error:
 		print "Error! Here are the details: "
 		print "Error type: " + str(type(error))
 		print "Error: " + str(error)
