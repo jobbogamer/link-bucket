@@ -124,8 +124,7 @@ def get_facebook_message_links():
 				link_dict = {'url': message_link, 'title': text.replace(message_link, '').strip(), 'date': date}
 				links.append(link_dict)
 		except KeyError as error:
-			print "Couldn't parse message (see below)"
-			print str(message)
+			pass
 
 	for link in links:
 		new_link = Link(link['url'], link['date'], link['title'])
