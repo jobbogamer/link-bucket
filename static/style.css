@@ -218,7 +218,11 @@ form.add-item input.submit {
 		border-right: none;
 	}
 
-	form {
+	form.add-item {
 		width: 500px;
+	}
+
+	form.add-item input[type="text"] {
+		width: 484px;
 	}
 }

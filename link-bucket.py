@@ -113,21 +113,28 @@ def get_facebook_message_links():
 
 	links = []
 
-	for message in messages:
-		text = message['message']
-		if "http" in text:
-			date = datetime.strptime(message['created_time'][0:19], '%Y-%m-%dT%H:%M:%S')
-			delta = datetime.now() - datetime.utcnow()
-			date = date + delta
-			message_link = re.search("(?P<url>https?://[^\s]+)", text).group("url")
-			link_dict = {'url': message_link, 'title': text.replace(message_link, '').strip(), 'date': date}
-			links.append(link_dict)
+	try:
+		for message in messages:
+			text = message['message']
+			if "http" in text:
+				date = datetime.strptime(message['created_time'][0:19], '%Y-%m-%dT%H:%M:%S')
+				delta = datetime.now() - datetime.utcnow()
+				date = date + delta
+				message_link = re.search("(?P<url>https?://[^\s]+)", text).group("url")
+				link_dict = {'url': message_link, 'title': text.replace(message_link, '').strip(), 'date': date}
+				links.append(link_dict)
 
-	for link in links:
-		new_link = Link(link['url'], link['date'], link['title'])
-		db.session.add(new_link)
+		for link in links:
+			new_link = Link(link['url'], link['date'], link['title'])
+			db.session.add(new_link)
 
-	db.session.commit()
+		db.session.commit()
+
+	except RuntimeError as error:
+		print "Error! Here are the details: "
+		print "Error type: " + str(type(error))
+		print "Error: " + str(error)
+		set_last_checked_id(last_checked)
 
 def find_last_checked(last_checked, previous_messages_url, messages):
 	found_last_checked = False
