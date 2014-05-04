@@ -113,8 +113,8 @@ def get_facebook_message_links():
 
 	links = []
 
-	try:
-		for message in messages:
+	for message in messages:
+		try:
 			text = message['message']
 			if "http" in text:
 				date = datetime.strptime(message['created_time'][0:19], '%Y-%m-%dT%H:%M:%S')
@@ -123,12 +123,15 @@ def get_facebook_message_links():
 				message_link = re.search("(?P<url>https?://[^\s]+)", text).group("url")
 				link_dict = {'url': message_link, 'title': text.replace(message_link, '').strip(), 'date': date}
 				links.append(link_dict)
+		except KeyError as error:
+			print "Couldn't parse message (see below)"
+			print str(message)
 
-		for link in links:
-			new_link = Link(link['url'], link['date'], link['title'])
-			db.session.add(new_link)
+	for link in links:
+		new_link = Link(link['url'], link['date'], link['title'])
+		db.session.add(new_link)
 
-		db.session.commit()
+	db.session.commit()
 
 	except Exception as error:
 		print "Error! Here are the details: "
@@ -224,7 +227,7 @@ def add():
 		item = Link(request.form['url'], datetime.now(), request.form['title'])
 		db.session.add(item)
 		db.session.commit()
-		message = "Link added. (" + str(urlparse(request.form['url']).hostname.replace('www.', '')) + ")" 
+		message = "Link added. (" + str(urlparse(request.form['url']).hostname.replace('www.', '')) + ")"
 
 	if len(message) > 0:
 		if error:
