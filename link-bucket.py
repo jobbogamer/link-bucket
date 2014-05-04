@@ -224,7 +224,7 @@ def add():
 		item = Link(request.form['url'], datetime.now(), request.form['title'])
 		db.session.add(item)
 		db.session.commit()
-		message = "Link added."
+		message = "Link added. (" + str(urlparse(request.form['url']).hostname.replace('www.', '')) + ")" 
 
 	if len(message) > 0:
 		if error:
