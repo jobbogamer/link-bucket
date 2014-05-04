@@ -33,6 +33,40 @@ div.header {
 
 
 
+ul#flashes {
+	width: 500px;
+	margin: 0 auto;
+	padding: 0;
+
+	list-style-type: none;
+}
+
+ul#flashes li.error {
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
+
+	font-size: 16px;
+	line-height: 16px;
+
+	background: #ff9090;
+	border: 1px solid #9F9F9F;
+}
+
+ul#flashes li.success {
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
+
+	font-size: 16px;
+	line-height: 16px;
+
+	background: #90ff90;
+	border: 1px solid #9F9F9F;
+}
+
+
+
 input#search {
 	width: 500px;
 	margin: 16px auto 0 auto;

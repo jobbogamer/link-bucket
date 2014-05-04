@@ -135,6 +135,7 @@ def get_facebook_message_links():
 		print "Error type: " + str(type(error))
 		print "Error: " + str(error)
 		set_last_checked_id(last_checked)
+		flash('An error occurred, check the logs.', 'error')
 
 def find_last_checked(last_checked, previous_messages_url, messages):
 	found_last_checked = False
