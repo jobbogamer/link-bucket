@@ -232,7 +232,7 @@ def add():
 
 @app.route('/archive')
 def view_archive():
-	items = Link.query.filter_by(archived = False).all()
+	items = Link.query.filter_by(archived = True).all()
 	items = sorted(items, key=lambda link: link.id, reverse=True)
 	now = datetime.now()
 
