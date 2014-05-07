@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-	<input type="text" name="search" id="search" value="Search" onfocus="if(this.value=='Search'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='Search'; this.style.color='#9F9F9F'; reset(); }" onkeydown="if (event.keyCode == 13) { search(this.value); } else if (event.keyCode == 27) { this.blur(); }" autocomplete="off" />
+	<input type="text" name="search" id="search" value="Search" onfocus="if(this.value=='Search'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='Search'; this.style.color='#9F9F9F'; reset(); }" onkeydown="if (event.keyCode == 13) { search(this.value); } else if (event.keyCode == 27) { this.blur(); this.value='Search'; this.style.color='#9F9F9F'; reset(); }" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
 		<a href="{{ item.url }}" title="{{ item.url }}" target="_blank">
