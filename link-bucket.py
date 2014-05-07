@@ -265,6 +265,7 @@ def view_archive():
 def archive(id):
 	item = Link.query.filter_by(id=id).first()
 	item.archived = True
+	item.date = datetime.now()
 	db.session.commit()
 	return redirect(url_for('index'))
 
@@ -299,6 +300,7 @@ def api_archive_no_params():
 def api_archive(id):
 	item = Link.query.filter_by(id=id).first()
 	item.archived = True
+	item.date = datetime.now()
 	db.session.commit()
 	return jsonify(success=True, error_code=0, error_msg="")
 
