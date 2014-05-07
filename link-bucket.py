@@ -13,8 +13,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
 db = SQLAlchemy(app)
 
@@ -209,7 +209,7 @@ def index():
 
 		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
-	return render_template('index.html', title='Link Bucket', items=items, opacities=opacities, times=times, domains=domains)
+	return render_template('index.html', title='Link Bucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -241,17 +241,24 @@ def view_archive():
 	opacities = {}
 	times = {}
 	domains = {}
+	data_edited = False;
 	for item in items:
 		delta = now - item.date
 
+		days = delta.days
+		if days > 7:
+			db.session.delete(item)
+			data_edited = True
+
 		seconds = delta.total_seconds()
 		times[item.id] = get_relative_time(seconds)
-
 		opacities[item.id] = 100
-
 		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
-	return render_template('index.html', title='Link Bucket - Archive', items=items, opacities=opacities, times=times, domains=domains)
+	if data_edited:
+		db.session.commit()
+
+	return render_template('index.html', title='Link Bucket - Archive', emptymessage='The archive is empty.', items=items, opacities=opacities, times=times, domains=domains)
 
 
 @app.route('/archive/<int:id>')
