@@ -48,8 +48,9 @@ div.navigation ul {
 }
 
 div.navigation ul li {
-	display: inline;
-	margin: 0 16px 0 16px;
+	display: inline-block;
+	margin: 0 8px;
+	width: 75px;
 }
 
 div.navigation ul li a {
