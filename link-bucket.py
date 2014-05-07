@@ -229,7 +229,7 @@ def add():
 		else:
 			flash(message, 'success')
 
-	return render_template('add.html', title='Link Bucket - Add Link', )
+	return render_template('add.html', title='Link Bucket - Add Link')
 
 
 @app.route('/archive')
