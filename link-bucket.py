@@ -11,8 +11,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
 db = SQLAlchemy(app)
 
@@ -228,6 +228,14 @@ def add():
 			flash(message, 'success')
 
 	return render_template('add.html')
+
+
+@app.route('/archive/<int:id>')
+def archive(id):
+	item = Link.query.filter_by(id=id).first()
+	item.archived = True
+	db.session.commit()
+	return redirect(url_for('index'))
 
 
 @app.route('/api/create/')

@@ -3,7 +3,7 @@
 	<input type="text" name="search" id="search" value="Search" onfocus="if(this.value=='Search'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='Search'; this.style.color='#9F9F9F'; reset(); }" onkeydown="if (event.keyCode == 13) { search(this.value); } else if (event.keyCode == 27) { this.blur(); this.value='Search'; this.style.color='#9F9F9F'; reset(); }" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
-		<a href="{{ item.url }}" title="{{ item.url }}" target="_blank">
+		<a href="{{ item.url }}" title="{{ item.url }}" target="_blank" onmouseover='hoverID = {{ item.id }}; hoverTitle = "{{ item.title }}"' onmouseout='hoverID = -1; hoverTitle = "";'>
 			<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }}">
 				<h2 class="title">{{ item.title }}</h2>
 				<div class="meta">
@@ -34,6 +34,18 @@
 			for (var i = 0; i < items.length; i++) {
 				var element = items[i];
 				element.parentNode.parentNode.style.display = "initial";
+			}
+		}
+
+		var hoverID = -1;
+		var hoverTitle = "";
+
+		function showArchive() {
+			if (hoverID != -1) {
+				var yes = confirm("Would you like to archive this item?\n" + hoverTitle);
+				if (yes) {
+					window.location.href = "/archive/" + hoverID;
+				}
 			}
 		}
 	</script>
