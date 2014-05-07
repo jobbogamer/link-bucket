@@ -33,6 +33,32 @@ div.header {
 
 
 
+
+div.navigation {
+	text-align: center;
+	border-bottom: 1px solid #9F9F9F;
+	margin: 0 auto 24px auto;
+	background: white;
+}
+
+div.navigation ul {
+	margin: 0 auto;
+	list-style-type: none;
+	padding: 4px 0;
+}
+
+div.navigation ul li {
+	display: inline;
+	margin: 0 16px 0 16px;
+}
+
+div.navigation ul li a {
+	color: black;
+}
+
+
+
+
 ul#flashes {
 	width: 500px;
 	margin: 0 auto;

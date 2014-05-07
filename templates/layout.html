@@ -11,6 +11,12 @@
 				<h1>{{ title }}</h1>
 			</a>
 		</div>
+		<div class="navigation">
+				<ul>
+					<li><a href="{{ url_for('view_archive') }}">Archive</a></li>
+					<li><a href="{{ url_for('add') }}">Add Link</a></li>
+				</ul>
+			</div><!-- #navigation -->
 
 		{% with messages = get_flashed_messages(with_categories=true) %}
 			{% if messages %}
