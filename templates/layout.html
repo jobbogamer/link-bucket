@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Link Bucket</title>
+		<title>{{ title }}</title>
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}" />
 		<meta name="viewport" content="width=device-width" />
 	</head>
@@ -8,7 +8,7 @@
 	<body onkeypress="if (event.keyCode == 8) { showArchive(); }">
 		<div class="header">
 			<a href="/">
-				<h1>Link Bucket</h1>
+				<h1>{{ title }}</h1>
 			</a>
 		</div>
 

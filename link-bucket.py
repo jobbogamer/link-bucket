@@ -207,7 +207,7 @@ def index():
 
 		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
-	return render_template('index.html', items=items, opacities=opacities, times=times, domains=domains)
+	return render_template('index.html', title='Link Bucket', items=items, opacities=opacities, times=times, domains=domains)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -227,7 +227,7 @@ def add():
 		else:
 			flash(message, 'success')
 
-	return render_template('add.html')
+	return render_template('add.html', title='Link Bucket – Add Item', )
 
 
 @app.route('/archive')
@@ -249,7 +249,7 @@ def view_archive():
 
 		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
-	return render_template('index.html', items=items, opacities=opacities, times=times, domains=domains)
+	return render_template('index.html', title='Link Bucket – Archive', items=items, opacities=opacities, times=times, domains=domains)
 
 
 @app.route('/archive/<int:id>')
