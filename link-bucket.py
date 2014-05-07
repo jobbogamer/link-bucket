@@ -230,6 +230,28 @@ def add():
 	return render_template('add.html')
 
 
+@app.route('/archive')
+def view_archive():
+	items = Link.query.filter_by(archived = False).all()
+	items = sorted(items, key=lambda link: link.id, reverse=True)
+	now = datetime.now()
+
+	opacities = {}
+	times = {}
+	domains = {}
+	for item in items:
+		delta = now - item.date
+
+		seconds = delta.total_seconds()
+		times[item.id] = get_relative_time(seconds)
+
+		opacities[item.id] = 100
+
+		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
+
+	return render_template('index.html', items=items, opacities=opacities, times=times, domains=domains)
+
+
 @app.route('/archive/<int:id>')
 def archive(id):
 	item = Link.query.filter_by(id=id).first()
