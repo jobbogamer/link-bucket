@@ -13,8 +13,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
 db = SQLAlchemy(app)
 
@@ -217,11 +217,20 @@ def add():
 	message = ''
 	error = False
 
+	previous_title = ''
+	previous_url = ''
+
 	if request.method == 'POST':
-		item = Link(request.form['url'], datetime.now(), request.form['title'])
-		db.session.add(item)
-		db.session.commit()
-		message = "Link added. (" + str(urlparse(request.form['url']).hostname.replace('www.', '')) + ")"
+		if '"' in request.form['title']:
+			message = 'Link titles cannot contain double quote characters.'
+			error = True
+			previous_title = request.form['title']
+			previous_url = request.form['url']
+		else:
+			item = Link(request.form['url'], datetime.now(), request.form['title'])
+			db.session.add(item)
+			db.session.commit()
+			message = "Link added. (" + str(urlparse(request.form['url']).hostname.replace('www.', '')) + ")"
 
 	if len(message) > 0:
 		if error:
@@ -229,7 +238,7 @@ def add():
 		else:
 			flash(message, 'success')
 
-	return render_template('add.html', title='Link Bucket - Add Link')
+	return render_template('add.html', title='Link Bucket - Add Link', previous_title=previous_title, previous_url=previous_url)
 
 
 @app.route('/archive')
