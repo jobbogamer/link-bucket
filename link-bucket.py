@@ -235,7 +235,7 @@ def add():
 @app.route('/archive')
 def view_archive():
 	items = Link.query.filter_by(archived = True).all()
-	items = sorted(items, key=lambda link: link.id, reverse=True)
+	items = sorted(items, key=lambda link: link.date, reverse=True)
 	now = datetime.now()
 
 	opacities = {}
