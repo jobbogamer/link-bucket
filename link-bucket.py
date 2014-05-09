@@ -283,7 +283,9 @@ def view_archive():
 	opacities = {}
 	times = {}
 	domains = {}
-	data_edited = False;
+	positions = {}
+	data_edited = False
+	position = len(items)
 	for item in items:
 		delta = now - item.date
 
@@ -297,10 +299,13 @@ def view_archive():
 		opacities[item.id] = 100
 		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
+		positions[item.id] = position
+		position -= 1
+
 	if data_edited:
 		db.session.commit()
 
-	return render_template('index.html', title='Link Bucket - Archive', emptymessage='The archive is empty.', items=items, opacities=opacities, times=times, domains=domains)
+	return render_template('archive.html', title='Link Bucket - Archive', emptymessage='The archive is empty.', items=items, opacities=opacities, times=times, domains=domains, positions=positions)
 
 
 @app.route('/archive/<int:id>')
