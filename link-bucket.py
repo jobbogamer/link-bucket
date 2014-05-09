@@ -3,6 +3,7 @@
 import os
 import facebook
 import re
+import HTMLParser
 from urllib2 import urlopen
 from pprint import pformat
 from datetime import datetime, timedelta
@@ -36,6 +37,16 @@ def get_relative_time(seconds):
 	else:
 		return str(int(seconds / (365 * 24 * 60 * 60))) + "y"
 
+def get_title(url):
+	try:
+		page = urlopen(url.encode('utf-8')).read()
+		tagstart = page.find('<title') + 6
+		start = page.find('>', tagstart) + 1
+		end = page.find('</title>')
+		parser = HTMLParser.HTMLParser()
+		return parser.unescape(page[start:end]).replace('"', '')
+	except Exception as error:
+		return '!!!null!!!'
 
 class Link(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -48,7 +59,15 @@ class Link(db.Model):
 		self.url = url
 		self.date = date
 		self.archived = False
-		self.title = title
+
+		if (len(title) > 0) and (title != 'Title'):
+			self.title = title
+		else:
+			autotitle = get_title(url)
+			if autotitle != '!!!null!!!':
+				self.title = autotitle
+			else:
+				self.title = '(No title)'
 
 	def __repr__(self):
 		return "[Link(%d) %s]" % (self.id, self.url)
@@ -331,6 +350,11 @@ def edit(id):
 	item.title = request.args.get('title', '(No title)').replace('"', '')
 	db.session.commit()
 	return redirect(url_for('index') + "#" + str(request.args.get('scrollto', '')))
+
+@app.route('/title/<path:url>')
+def title(url):
+	return get_title(url)
+
 
 @app.route('/api/create/')
 def api_create_no_params():

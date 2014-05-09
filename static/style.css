@@ -267,10 +267,13 @@ form.add-item input[type="text"] {
 	color: #9F9F9F;
 }
 
+form.add-item input.title {
+	width: 94%;
+	float: left;
+}
+
 form.add-item input.url {
 	margin-bottom: 16px;
-
-	font-size: 14px;
 }
 
 form.add-item select.type {
@@ -281,6 +284,25 @@ form.add-item select.type {
 form.add-item input.submit {
 	display: block;
 	margin: 0 auto;
+}
+
+form.add-item a#autotitle {
+	float: left;
+	clear: right;
+	display: block;
+
+	margin-top: -12px;
+	padding-left: 12px;
+	padding-bottom: 4px;
+	padding-right: 2px;
+
+	border-bottom: 1px solid #9F9F9F;
+
+	color: #3F3F3F;
+}
+
+form.add-item a#autotitle:hover {
+	cursor: pointer;
 }
 
 
