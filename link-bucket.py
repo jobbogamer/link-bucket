@@ -114,6 +114,8 @@ def get_facebook_message_links():
 		set_last_checked_id(biggest_id)
 
 	links = []
+	message_fail_count = 0
+	link_fail_count = 0
 
 	for message in messages:
 		try:
@@ -123,16 +125,28 @@ def get_facebook_message_links():
 				delta = datetime.now() - datetime.utcnow()
 				date = date + delta
 				message_link = re.search("(?P<url>https?://[^\s]+)", text).group("url")
-				link_dict = {'url': message_link, 'title': text.replace(message_link, '').strip(), 'date': date}
+				link_dict = {'url': message_link, 'title': text.replace(message_link, '').replace('"', '').strip(), 'date': date}
 				links.append(link_dict)
 		except KeyError as error:
 			pass
+		except Exception as error:
+			print "An exception occurred: " + str(type(error)) + " - " + str(error)
+			message_fail_count += 1
 
 	for link in links:
-		new_link = Link(link['url'], link['date'], link['title'])
-		db.session.add(new_link)
+		try:
+			new_link = Link(link['url'], link['date'], link['title'])
+			db.session.add(new_link)
+		except Exception as error:
+			link_fail_count += 1
 
 	db.session.commit()
+
+	if message_fail_count > 0:
+		flash(str(message_fail_count) + " messages failed to parse. Check the logs.", 'error')
+
+	if link_fail_count > 0:
+		flash(str(link_fail_count) + " links failed to parse. Check the logs.", 'error')
 
 def find_last_checked(last_checked, previous_messages_url, messages):
 	found_last_checked = False
@@ -223,6 +237,11 @@ def add():
 	if request.method == 'POST':
 		if '"' in request.form['title']:
 			message = 'Link titles cannot contain double quote characters.'
+			error = True
+			previous_title = request.form['title']
+			previous_url = request.form['url']
+		elif urlparse(request.form['url']).hostname is None:
+			message = 'An invalid URL was given.'
 			error = True
 			previous_title = request.form['title']
 			previous_url = request.form['url']
