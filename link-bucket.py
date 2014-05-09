@@ -145,10 +145,12 @@ def get_facebook_message_links():
 	db.session.commit()
 
 	if message_fail_count > 0:
-		flash(str(message_fail_count) + " messages failed to parse. Check the logs.", 'error')
+		unit = " message" if message_fail_count == 1 else " messages"
+		flash(str(message_fail_count) + unit + " failed to parse. Check the logs.", 'error')
 
 	if link_fail_count > 0:
-		flash(str(link_fail_count) + " links failed to parse. Check the logs.", 'error')
+		unit - " link" if link_fail_count == 1 else " links"
+		flash(str(link_fail_count) + unit + " failed to parse. Check the logs.", 'error')
 
 def find_last_checked(last_checked, previous_messages_url, messages):
 	found_last_checked = False
