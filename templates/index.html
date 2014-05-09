@@ -12,7 +12,7 @@
 			</a>
 			<div class="buttons" id="buttons-{{ item.id }}">
 				<a class="archive-button" id="archive-{{ item.id }}" href="/archive/{{ item.id }}?scrollto={{ positions[item.id] }}"><i class="fa fa-trash-o fa-fw "></i></a>
-				<a class="edit-button" id="edit-{{ item.id }}" href="/edit/{{ item.id }}"><i class="fa fa-pencil fa-fw"></i></a>
+				<a class="edit-button" id="edit-{{ item.id }}" onclick="edit({{ item.id }}, '{{ item.title }}');"><i class="fa fa-pencil fa-fw"></i></a>
 			</div>
 		</li>
 		{% else %}
@@ -47,6 +47,13 @@
 				element.style.display = "block";
 			} else {
 				element.style.display = "none";
+			}
+		}
+
+		function edit(id, currentTitle) {
+			var response = prompt("Enter a new title for this link:", currentTitle);
+			if (response != null && response != '' && response != currentTitle) {
+				window.location.href = "/edit/" + id + "?title=" + response;
 			}
 		}
 	</script>
