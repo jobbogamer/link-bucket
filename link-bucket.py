@@ -197,6 +197,10 @@ def index():
 	opacities = {}
 	times = {}
 	domains = {}
+	positions = {}
+
+	position = len(items);
+
 	for item in items:
 		delta = now - item.date
 
@@ -223,7 +227,10 @@ def index():
 
 		domains[item.id] = urlparse(item.url).hostname.replace('www.', '')
 
-	return render_template('index.html', title='Link Bucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains)
+		positions[item.id] = position
+		position -= 1
+
+	return render_template('index.html', title='Link Bucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -295,7 +302,7 @@ def archive(id):
 	item.archived = True
 	item.date = datetime.now()
 	db.session.commit()
-	return redirect(url_for('index'))
+	return redirect(url_for('index') + "#" + str(request.args.get('scrollto', '')))
 
 
 @app.route('/api/create/')

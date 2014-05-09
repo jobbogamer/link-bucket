@@ -4,14 +4,14 @@
 	<ul id="items">
 		{% for item in items %}
 		<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
-			<a class="link" href="{{ item.url }}" title="{{ item.url }}" target="_blank">
+			<a class="link" href="{{ item.url }}" title="{{ item.url }}" target="_blank" name="{{ positions[item.id] }}">
 				<h2 class="title">{{ item.title }}</h2>
 				<div class="meta">
 					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info">{{ domains[item.id] }} – {{ times[item.id] }}</p>
 				</div>
 			</a>
 			<div class="buttons" id="buttons-{{ item.id }}">
-				<a class="archive-button" id="archive-{{ item.id }}" href="/archive/{{ item.id }}"><i class="fa fa-trash-o fa-fw "></i></a>
+				<a class="archive-button" id="archive-{{ item.id }}" href="/archive/{{ item.id }}?scrollto={{ positions[item.id] }}"><i class="fa fa-trash-o fa-fw "></i></a>
 				<a class="edit-button" id="edit-{{ item.id }}" href="/edit/{{ item.id }}"><i class="fa fa-pencil fa-fw"></i></a>
 			</div>
 		</li>
