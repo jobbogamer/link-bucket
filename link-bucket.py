@@ -317,6 +317,13 @@ def archive(id):
 	db.session.commit()
 	return redirect(url_for('index') + "#" + str(request.args.get('scrollto', '')))
 
+@app.route('/unarchive/<int:id>')
+def unarchive(id):
+	item = Link.query.filter_by(id=id).first()
+	item.archived = False
+	item.date = datetime.now()
+	db.session.commit()
+	return redirect(url_for('view_archive') + "#" + str(request.args.get('scrollto', '')))
 
 @app.route('/api/create/')
 def api_create_no_params():
