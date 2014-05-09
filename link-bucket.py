@@ -330,7 +330,7 @@ def edit(id):
 	item = Link.query.filter_by(id=id).first()
 	item.title = request.args.get('title', '(No title)').replace('"', '')
 	db.session.commit()
-	return redirect(url_for('index'))
+	return redirect(url_for('index') + "#" + str(request.args.get('scrollto', '')))
 
 @app.route('/api/create/')
 def api_create_no_params():
