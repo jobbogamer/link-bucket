@@ -2,10 +2,11 @@
 	<head>
 		<title>{{ title }}</title>
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}" />
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<meta name="viewport" content="width=device-width" />
 	</head>
 
-	<body onkeypress="if (event.keyCode == 97) { showArchive(); }">
+	<body>
 		<div class="header">
 			<a href="/">
 				<h1>{{ title }}</h1>

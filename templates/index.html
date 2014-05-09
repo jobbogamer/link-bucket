@@ -3,14 +3,18 @@
 	<input type="text" name="search" id="search" value="Search" onfocus="if(this.value=='Search'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='Search'; this.style.color='#9F9F9F'; reset(); }" onkeydown="if (event.keyCode == 13) { search(this.value); } else if (event.keyCode == 27) { this.blur(); this.value='Search'; this.style.color='#9F9F9F'; reset(); }" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
-		<a href="{{ item.url }}" title="{{ item.url }}" target="_blank" onmouseover='hoverID = {{ item.id }}; hoverTitle = "{{ item.title }}"' onmouseout='hoverID = -1; hoverTitle = "";'>
-			<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }}">
+		<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
+			<a class="link" href="{{ item.url }}" title="{{ item.url }}" target="_blank">
 				<h2 class="title">{{ item.title }}</h2>
 				<div class="meta">
 					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info">{{ domains[item.id] }} – {{ times[item.id] }}</p>
 				</div>
-			</li>
-		</a>
+			</a>
+			<div class="buttons" id="buttons-{{ item.id }}">
+				<a class="archive-button" id="archive-{{ item.id }}" href="/archive/{{ item.id }}"><i class="fa fa-trash-o fa-fw "></i></a>
+				<a class="edit-button" id="edit-{{ item.id }}" href="/edit/{{ item.id }}"><i class="fa fa-pencil fa-fw"></i></a>
+			</div>
+		</li>
 		{% else %}
 		<li class="noitems">{{ emptymessage }}</li>
 		{% endfor %}
@@ -37,15 +41,12 @@
 			}
 		}
 
-		var hoverID = -1;
-		var hoverTitle = "";
-
-		function showArchive() {
-			if (hoverID != -1) {
-				var yes = confirm("Would you like to archive this item?\n" + hoverTitle);
-				if (yes) {
-					window.location.href = "/archive/" + hoverID;
-				}
+		function showButtons(id, show) {
+			var element = document.getElementById('buttons-' + id);
+			if (show) {
+				element.style.display = "block";
+			} else {
+				element.style.display = "none";
 			}
 		}
 	</script>

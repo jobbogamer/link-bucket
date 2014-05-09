@@ -205,6 +205,27 @@ ul#items li.item p.info {
 	color: rgba(127, 127, 127, 1);
 }
 
+ul#items li.item a.link {
+	width: 465px;
+	float: left;
+}
+
+ul#items li.item div.buttons {
+	width: 16px;
+	padding: 0;
+	margin: 0;
+	float: left;
+	display: none;
+}
+
+ul#items li.item div.buttons a {
+	color: #3F3F3F;
+	display: list-item;
+}
+
+ul#items li.item div.buttons a:not(:last-child) {
+	margin-bottom: 8px;
+}
 
 
 
