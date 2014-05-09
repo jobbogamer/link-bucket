@@ -210,6 +210,10 @@ ul#items li.item a.link {
 	float: left;
 }
 
+ul#items li.item a.link:focus {
+	outline: none;
+}
+
 ul#items li.item div.buttons {
 	width: 16px;
 	padding: 0;
