@@ -263,7 +263,7 @@ def add():
 			item = Link(request.form['url'], datetime.now(), request.form['title'])
 			db.session.add(item)
 			db.session.commit()
-			message = "Link added. (" + str(urlparse(request.form['url']).hostname.replace('www.', '')) + ")"
+			message = "Link added: " + request.form['title'] + " (" + str(urlparse(request.form['url']).hostname.replace('www.', '')) + ")"
 
 	if len(message) > 0:
 		if error:
@@ -286,6 +286,7 @@ def view_archive():
 	positions = {}
 	data_edited = False
 	position = len(items)
+
 	for item in items:
 		delta = now - item.date
 
