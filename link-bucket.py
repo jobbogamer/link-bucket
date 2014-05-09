@@ -198,7 +198,7 @@ def index():
 	db.create_all()
 
 	items = Link.query.filter_by(archived = False).all()
-	items = sorted(items, key=lambda link: link.id, reverse=True)
+	items = sorted(items, key=lambda link: link.date, reverse=True)
 	now = datetime.now()
 
 	opacities = {}
