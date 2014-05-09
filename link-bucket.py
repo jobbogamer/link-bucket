@@ -133,6 +133,7 @@ def get_facebook_message_links():
 			pass
 		except Exception as error:
 			print "An exception occurred: " + str(type(error)) + " - " + str(error)
+			print "The offending message was: \"" + str(text) + "\""
 			message_fail_count += 1
 
 	for link in links:
@@ -140,17 +141,19 @@ def get_facebook_message_links():
 			new_link = Link(link['url'], link['date'], link['title'])
 			db.session.add(new_link)
 		except Exception as error:
+			print "An exception occurred: " + str(type(error)) + " - " + str(error)
+			print "The offending link was: \"" + str(link['url']) + "\" with title \"" + str(link['title']) + "\""
 			link_fail_count += 1
 
 	db.session.commit()
 
 	if message_fail_count > 0:
 		unit = " message" if message_fail_count == 1 else " messages"
-		flash(str(message_fail_count) + unit + " failed to parse. Check the logs.", 'error')
+		flash(str(message_fail_count) + unit + " failed to parse.", 'error')
 
 	if link_fail_count > 0:
 		unit - " link" if link_fail_count == 1 else " links"
-		flash(str(link_fail_count) + unit + " failed to parse. Check the logs.", 'error')
+		flash(str(link_fail_count) + unit + " failed to parse.", 'error')
 
 def find_last_checked(last_checked, previous_messages_url, messages):
 	found_last_checked = False
