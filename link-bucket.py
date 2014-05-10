@@ -147,7 +147,7 @@ def get_facebook_message_links():
 				date = date + delta
 				message_link = re.search("(?P<url>https?://[^\s]+)", text).group("url")
 				link_dict = {'url': message_link, 'title': text.replace(message_link, '').replace('"', '').strip(), 'date': date}
-				if ':at:' link_dict['title']:
+				if ':at:' in link_dict['title']:
 					link_dict['title'] = ''
 				links.append(link_dict)
 		except KeyError as error:
