@@ -18,7 +18,7 @@ function searchBarKeyDown(searchbar, event) {
 		performSearch(searchbar.value);
 	} else if (event.keyCode == 27) {
 		searchbar.blur();
-		searchBarBlur(searchbar)
+		searchBarBlur(searchbar);
 	}
 }
 
