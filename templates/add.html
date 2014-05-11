@@ -7,28 +7,9 @@
 		<input id="titlefield" type="text" name="title" value="Title" class="title" onfocus="if(this.value=='Title'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='Title'; this.style.color='#9F9F9F'; }" autocomplete="off"/><br/>
 		{% endif %}
 
-		<a id="autotitle" onclick="get_title();">
+		<a id="autotitle" onclick="getTitle();">
 			<i class="fa fa-search"></i>
 		</a>
-
-		<script type="text/javascript">
-			function get_title() {
-				document.getElementById('autotitle').innerHTML = '<i class="fa fa-spin fa-cog"></i>';
-				document.getElementById('autotitle').style.color = '#3F3F3F';
-				var url = document.getElementById('urlfield').value;
-				$.get("/title/" + url, function(data) {
-					if (data != '!!!null!!!') {
-						document.getElementById('autotitle').innerHTML = '<i class="fa fa-search"></i>';
-						document.getElementById('titlefield').value = data;
-						document.getElementById('titlefield').style.color = 'black';
-						document.getElementById('autotitle').style.color = '#3F3F3F';
-					} else {
-						document.getElementById('autotitle').innerHTML = '<i class="fa fa-exclamation-circle"></i>';
-						document.getElementById('autotitle').style.color = 'red';
-					}
-				});
-			}
-		</script>
 
 		{% if previous_url %}
 		<input id='urlfield' type="text" name="url" value="{{ previous_url }}" class="url" onfocus="if(this.value=='URL'){ this.value=''; this.style.color='black';}" onblur="if(this.value=='') { this.value='URL'; this.style.color='#9F9F9F'; }" autocomplete="off"/><br/>
