@@ -140,7 +140,7 @@ def get_facebook_message_links():
 
 	for message in messages:
 		try:
-			text = message['message']
+			text = message['message'].replace('\\', '')
 			if "http" in text:
 				date = datetime.strptime(message['created_time'][0:19], '%Y-%m-%dT%H:%M:%S')
 				delta = datetime.now() - datetime.utcnow()
