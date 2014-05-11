@@ -1,11 +1,35 @@
+function searchBarFocus(searchbar) {
+	if (searchbar.value == 'Search') {
+		searchbar.value='';
+		searchbar.style.color='black';
+	}
+}
+
+function searchBarBlur(searchbar) {
+	if (searchbar.value == '') {
+		searchbar.value = 'Search';
+		searchbar.style.color = '#9F9F9F';
+		resetSearch();
+	}
+}
+
+function searchBarKeyDown(searchbar, event) {
+	if (event.keyCode == 13) {
+		performSearch(searchbar.value);
+	} else if (event.keyCode == 27) {
+		searchbar.blur();
+		searchBarBlur(searchbar)
+	}
+}
+
 function performSearch(searchTerm) {
-	if (searchterm == '') {
+	if (searchTerm == '') {
 		resetSearch();
 	} else {
 		var items = document.getElementsByClassName("title");
 		for (var i = 0; i < items.length; i++) {
 			var element = items[i];
-			if (element.innerHTML.toLowerCase().indexOf(searchterm.toLowerCase()) == -1) {
+			if (element.innerHTML.toLowerCase().indexOf(searchTerm.toLowerCase()) == -1) {
 				element.parentNode.parentNode.style.display = "none";
 			} else {
 				element.parentNode.parentNode.style.display = "list-item";
