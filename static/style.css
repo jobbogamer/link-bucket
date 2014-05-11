@@ -310,6 +310,10 @@ form.add-item a#autotitle:hover {
 
 
 @media (max-width: 500px) {
+	ul#flashes {
+		width: 320px;
+	}
+
 	input#search {
 		width: 320px;
 	}
@@ -323,16 +327,20 @@ form.add-item a#autotitle:hover {
 		border-right: none;
 	}
 
+	ul#items li.item a.link {
+		width: 285px;
+	}
+
 	ul#items li.noitems {
 		border-left: none;
 		border-right: none;
 	}
 
 	form.add-item {
-		width: 500px;
+		width: 320px;
 	}
 
 	form.add-item input[type="text"] {
-		width: 484px;
+		width: 304px;
 	}
 }
