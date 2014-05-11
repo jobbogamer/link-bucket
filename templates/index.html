@@ -22,13 +22,17 @@
 
 	<script type="text/javascript">
 		function search(searchterm) {
-			var items = document.getElementsByClassName("title");
-			for (var i = 0; i < items.length; i++) {
-				var element = items[i];
-				if (element.innerHTML.toLowerCase().indexOf(searchterm.toLowerCase()) == -1) {
-					element.parentNode.parentNode.style.display = "none";
-				} else {
-					element.parentNode.parentNode.style.display = "list-item";
+			if (searchterm == '') {
+				reset();
+			} else {
+				var items = document.getElementsByClassName("title");
+				for (var i = 0; i < items.length; i++) {
+					var element = items[i];
+					if (element.innerHTML.toLowerCase().indexOf(searchterm.toLowerCase()) == -1) {
+						element.parentNode.parentNode.style.display = "none";
+					} else {
+						element.parentNode.parentNode.style.display = "list-item";
+					}
 				}
 			}
 		}
