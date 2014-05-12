@@ -359,54 +359,6 @@ def title(url):
 	return get_title(url)
 
 
-@app.route('/api/create/')
-def api_create_no_params():
-	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
-
-@app.route('/api/create/<anything>/')
-def api_create_one_param(anything):
-	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
-
-@app.route('/api/create/<title>/<path:url>')
-def api_create(title, url):
-	if not url.startswith("http://") and '.' in url:
-		url = "http://" + url
-
-	if len(urlparse(url).netloc) == 0:
-		return jsonify(success=False, error_code=1, error_msg="Invalid URL")
-	else:
-		item = Link(url, datetime.now(), title)
-		db.session.add(item)
-		db.session.commit()
-		return jsonify(success=True, error_code=0, error_msg="")
-
-
-@app.route('/api/archive/')
-def api_archive_no_params():
-	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
-
-@app.route('/api/archive/<int:id>/')
-def api_archive(id):
-	item = Link.query.filter_by(id=id).first()
-	item.archived = True
-	item.date = datetime.now()
-	db.session.commit()
-	return jsonify(success=True, error_code=0, error_msg="")
-
-
-
-@app.route('/api/destroy/')
-def api_destroy_no_params():
-	return jsonify(success=False, error_code=2, error_msg="Incorrect number of parameters")
-
-@app.route('/api/destroy/<int:id>/')
-def api_destroy(id):
-	item = Link.query.filter_by(id=id).first()
-	db.session.delete(item)
-	db.session.commit()
-	return jsonify(success=True, error_code=0, error_msg="")
-
-
 @app.route('/fb')
 def fb():
 	details = FB('776255502385741', '3fc41ad7c7cbd4084c341d068c5e02f3')
@@ -423,9 +375,9 @@ def handle_fb():
 		return redirect(facebook.get_access_token_from_code(details.code, base_url + url_for('handle_fb'), details.app_id, details.app_secret))
 
 	return '''  <script type="text/javascript">
-                var token = window.location.href.split("access_token=")[1];
-                window.location = "/fb_token/" + token;
-            </script> '''
+				var token = window.location.href.split("access_token=")[1];
+				window.location = "/fb_token/" + token;
+			</script> '''
 
 @app.route('/fb_token/<token>')
 def fb_token(token):
