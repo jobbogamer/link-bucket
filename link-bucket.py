@@ -5,10 +5,9 @@ import facebook
 import re
 import HTMLParser
 from urllib2 import urlopen
-from pprint import pformat
 from datetime import datetime, timedelta
 from urlparse import urlparse
-from flask import Flask, render_template, flash, url_for, abort, request, jsonify, redirect
+from flask import Flask, render_template, flash, url_for, request, redirect
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
