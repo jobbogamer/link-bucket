@@ -125,7 +125,7 @@ def get_domain(url):
 
 def get_title(url):
 	try:
-		page = urlopen(url.encode('utf-8')).read()
+		page = urlopen(url.encode('utf-8'), timeout=10).read()
 		tagstart = page.find('<title') + 6
 		start = page.find('>', tagstart) + 1
 		end = page.find('</title>')
