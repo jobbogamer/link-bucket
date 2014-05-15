@@ -185,7 +185,8 @@ def delete_if_too_old(item):
 def get_youtube_embed_url(url):
 	if "youtube.com" in url:
 		if "watch?v=" in url:
-			return url.replace("watch?v=", "embed/")
+			next_param_pos = url.find("&")
+			return url[:next_param_pos].replace("watch?v=", "embed/")
 
 	return None
 
