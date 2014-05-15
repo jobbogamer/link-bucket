@@ -347,6 +347,11 @@ form.add-item a#autotitle:hover {
 		width: 285px;
 	}
 
+	ul#items li.item div.embedded iframe {
+		width: 300px !important;
+		height: 169px !important;
+	}
+
 	ul#items li.noitems {
 		border-left: none;
 		border-right: none;
