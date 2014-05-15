@@ -179,7 +179,7 @@ def delete_if_too_old(item):
 	delta = now - item.date
 	days = delta.days
 
-	if days > 7:
+	if days >= 7:
 		delete_item(item.id)
 
 def get_youtube_embed_url(url):
