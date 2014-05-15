@@ -145,12 +145,8 @@ def get_relative_time(date):
 		return str(int(seconds / 60)) + "m"
 	elif seconds < (24 * 60 * 60):
 		return str(int(seconds / (60 * 60))) + "h"
-	elif seconds < (7 * 24 * 60 * 60):
-		return str(int(seconds / (24 * 60 * 60))) + "d"
-	elif seconds < (365 * 24 * 60 * 60):
-		return str(int(seconds / (7 * 24 * 60 * 60))) + "w"
 	else:
-		return str(int(seconds / (365 * 24 * 60 * 60))) + "y"
+		return str(int(seconds / (24 * 60 * 60))) + "d"
 
 def get_opacity_from_age(date):
 	now = datetime.now()
