@@ -79,3 +79,13 @@ function getTitle() {
 		}
 	});
 }
+
+function showEmbed(id) {
+	var html = document.getElementById("show-embedded-" + id).innerHTML;
+	if (html.indexOf("plus") > -1) {
+		document.getElementById("show-embedded-" + id).innerHTML = '<i class="fa fa-minus-square-o"></i>';
+	} else {
+		document.getElementById("show-embedded-" + id).innerHTML = '<i class="fa fa-plus-square-o"></i>';
+	}
+	$("#embedded-" + id).slideToggle();
+}

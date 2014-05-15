@@ -182,6 +182,13 @@ def delete_if_too_old(item):
 	if days > 7:
 		delete_item(item.id)
 
+def get_youtube_embed_url(url):
+	if "youtube.com" in url:
+		if "watch?v=" in url:
+			return url.replace("watch?v=", "embed/")
+
+	return None
+
 ###############################################################################
 # Routing methods                                                             #
 ###############################################################################
@@ -197,6 +204,7 @@ def index():
 	times = {}
 	domains = {}
 	positions = {}
+	youtubes = {}
 
 	position = len(items);
 
@@ -205,10 +213,14 @@ def index():
 		opacities[item.id] = get_opacity_from_age(item.date)
 		domains[item.id] = get_domain(item.url)
 
+		youtube = get_youtube_embed_url(item.url)
+		if youtube is not None:
+			youtubes[item.id] = youtube
+
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('index.html', title='Link Bucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions)
+	return render_template('index.html', title='Link Bucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes)
 
 
 @app.route('/add', methods=['GET', 'POST'])
