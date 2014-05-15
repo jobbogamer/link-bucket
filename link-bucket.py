@@ -190,6 +190,8 @@ def get_youtube_embed_url(url):
 				return url[:next_param_pos].replace("watch?v=", "embed/")
 			else:
 				return url.replace("watch?v=", "embed/")
+	elif "youtu.be" in url:
+		return url.replace("youtu.be", "youtube.com/embed")
 
 	return None
 
