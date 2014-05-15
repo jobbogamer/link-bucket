@@ -227,6 +227,7 @@ ul#items li.item div.buttons {
 ul#items li.item div.buttons a {
 	color: #3F3F3F;
 	display: list-item;
+	cursor: pointer;
 }
 
 ul#items li.item div.buttons a:not(:last-child) {
@@ -237,6 +238,7 @@ ul#items li.item div.show-embedded {
 	clear: both;
 	text-align: center;
 	color: #3F3F3F;
+	cursor: pointer;
 }
 
 ul#items li.item div.embedded {
