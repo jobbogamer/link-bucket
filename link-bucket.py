@@ -131,7 +131,10 @@ def get_title(url):
 		start = lowercase_page.find('>', tagstart) + 1
 		end = lowercase_page.find('</title>')
 		parser = HTMLParser.HTMLParser()
-		return parser.unescape(page[start:end]).replace('"', '')
+		if (tagstart == -1) or (start == -1) or (end == -1):
+			return '(No title)'
+		else:
+			return parser.unescape(page[start:end]).replace('"', '')
 	except Exception as error:
 		return '!!!null!!!'
 
