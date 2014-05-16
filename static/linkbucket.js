@@ -1,3 +1,25 @@
+function archiveItem(id) {
+	$.ajax({
+		url: '/archive/' + id,
+		success: hideArchivedItem(id)
+	});
+}
+
+function hideArchivedItem(id) {
+	$("#item-" + id).fadeOut();
+}
+
+function unarchiveItem(id) {
+	$.ajax({
+		url: '/unarchive/' + id,
+		success: hideUnarchivedItem(id)
+	});
+}
+
+function hideUnarchivedItem(id) {
+	$("#item-" + id).fadeOut();
+}
+
 function searchBarFocus(searchbar) {
 	if (searchbar.value == 'Search') {
 		searchbar.value='';

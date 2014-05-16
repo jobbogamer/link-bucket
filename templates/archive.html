@@ -11,7 +11,9 @@
 				</div>
 			</a>
 			<div class="buttons" id="buttons-{{ item.id }}">
-				<a class="archive-button" id="archive-{{ item.id }}" href="/unarchive/{{ item.id }}?scrollto={{ positions[item.id] }}"><i class="fa fa-undo fa-fw "></i></a>
+				<a class="archive-button" id="archive-{{ item.id }}" onclick="unarchiveItem({{ item.id }});">
+					<i class="fa fa-undo fa-fw "></i>
+				</a>
 			</div>
 		</li>
 		{% else %}
