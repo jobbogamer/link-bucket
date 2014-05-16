@@ -315,7 +315,15 @@ def edit(id):
 
 @app.route('/title/<path:url>')
 def title(url):
-	return get_title(url)
+	args = request.args
+	full_url = url
+	if len(args) > 0:
+		full_url += "?"
+		for key in args:
+			full_url += key + "=" + args[key] + "&"
+		full_url = full_url[:-1]
+
+	return get_title(full_url)
 
 ###############################################################################
 # Facebook routing methods                                                    #
