@@ -3,6 +3,7 @@
 	<input type="text" name="search" id="search" value="Search" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" onkeydown="searchBarKeyDown(this, event);" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
+		{% if times[item.id] != "7d" %}
 		<li id="item-{{ item.id }}" class="item opacity100" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
 			<a class="link" href="{{ item.url }}" title="#{{ item.id }} - {{ item.url }}" target="_blank" name="{{ positions[item.id] }}">
 				<h2 class="title">{{ item.title }}</h2>
@@ -16,6 +17,7 @@
 				</a>
 			</div>
 		</li>
+		{% endif %}
 		{% else %}
 		<li class="noitems">{{ emptymessage }}</li>
 		{% endfor %}
