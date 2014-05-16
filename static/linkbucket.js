@@ -20,6 +20,21 @@ function hideUnarchivedItem(id) {
 	$("#item-" + id).fadeOut();
 }
 
+function editItem(id) {
+	var currentTitle = document.getElementById("title-" + id).innerHTML;
+	var response = prompt("Enter a new title for this link:", currentTitle);
+	if (response != null && response != '' && response != currentTitle) {
+		$.ajax({
+			url: '/edit/' + id + "?title=" + response,
+			success: showNewTitle(id, response)
+		});
+	}
+}
+
+function showNewTitle(id, newTitle) {
+	document.getElementById("title-" + id).innerHTML = newTitle;
+}
+
 function searchBarFocus(searchbar) {
 	if (searchbar.value == 'Search') {
 		searchbar.value='';
@@ -75,13 +90,6 @@ function showButtons(id, show) {
 		element.style.display = "block";
 	} else {
 		element.style.display = "none";
-	}
-}
-
-function editItem(id, currentTitle, scrollPosition) {
-	var response = prompt("Enter a new title for this link:", currentTitle);
-	if (response != null && response != '' && response != currentTitle) {
-		window.location.href = "/edit/" + id + "?title=" + response + "&scrollto=" + scrollPosition;
 	}
 }
 
