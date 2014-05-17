@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-	<input type="text" name="search" id="search" value="Search" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" onkeydown="searchBarKeyDown(this, event);" autocomplete="off" />
+	<input type="text" name="search" id="search" value="Search" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" onkeydown="searchBarKeyDown(this, event, false);" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
-		<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
+		<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }} matched" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
 			<a class="link" href="{{ item.url }}" title="#{{ item.id }} - {{ item.url }}" target="_blank" name="{{ positions[item.id] }}">
 				<h2 class="title" id="title-{{ item.id }}">{{ item.title }}</h2>
 				<div class="meta">

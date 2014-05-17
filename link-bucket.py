@@ -7,7 +7,7 @@ import HTMLParser
 from urllib2 import urlopen
 from datetime import datetime, timedelta
 from urlparse import urlparse
-from flask import Flask, render_template, flash, url_for, request, redirect
+from flask import Flask, render_template, flash, url_for, request, redirect, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -196,6 +196,24 @@ def get_youtube_embed_url(url):
 
 	return None
 
+def perform_search(searchterm, archive=False):
+	if archive:
+		items = get_archive_list()
+	else:
+		items = get_item_list()
+
+	matched = []
+	not_matched = []
+	searchterm = searchterm.lower()
+
+	for item in items:
+		if (searchterm in item.title.lower()) or (searchterm in item.url.lower()):
+			matched.append(item.id)
+		else:
+			not_matched.append(item.id)
+
+	return jsonify(matched=matched, not_matched=not_matched)
+
 ###############################################################################
 # Routing methods                                                             #
 ###############################################################################
@@ -318,6 +336,14 @@ def title(url):
 		full_url = full_url[:-1]
 
 	return get_title(full_url)
+
+@app.route('/search/<path:searchterm>')
+def search(searchterm):
+	return perform_search(searchterm)
+
+@app.route('/searcharchive/<path:searchterm>')
+def search_archive(searchterm):
+	return perform_search(searchterm, True)
 
 ###############################################################################
 # Facebook routing methods                                                    #

@@ -50,9 +50,9 @@ function searchBarBlur(searchbar) {
 	}
 }
 
-function searchBarKeyDown(searchbar, event) {
+function searchBarKeyDown(searchbar, event, archive) {
 	if (event.keyCode == 13) {
-		performSearch(searchbar.value);
+		performSearch(searchbar.value, archive);
 	} else if (event.keyCode == 27) {
 		searchbar.blur();
 		searchbar.value = '';
@@ -60,28 +60,41 @@ function searchBarKeyDown(searchbar, event) {
 	}
 }
 
-function performSearch(searchTerm) {
+function performSearch(searchTerm, archive) {
 	if (searchTerm == '') {
 		resetSearch();
 	} else {
-		var items = document.getElementsByClassName("title");
-		for (var i = 0; i < items.length; i++) {
-			var element = items[i];
-			if (element.innerHTML.toLowerCase().indexOf(searchTerm.toLowerCase()) == -1) {
-				element.parentNode.parentNode.style.display = "none";
-			} else {
-				element.parentNode.parentNode.style.display = "list-item";
+		var url = archive ? '/searcharchive/' + searchTerm : '/search/' + searchTerm;
+		var result = $.ajax({
+			url: url
+		}).done(function(data) {
+			var matched = data.matched;
+			var notMatched = data.not_matched;
+
+			for (var i = 0; i < matched.length; i++) {
+				document.getElementById("item-" + matched[i]).className =
+					document.getElementById("item-" + matched[i]).className.replace('notMatched', 'matched');
 			}
-		}
+
+			for (var i = 0; i < notMatched.length; i++) {
+				document.getElementById("item-" + notMatched[i]).className = 
+					document.getElementById("item-" + notMatched[i]).className.replace('matched', 'notMatched');
+			}
+
+			$('.notMatched').slideUp();
+			$('.matched').slideDown();
+		});
 	}
 }
 
 function resetSearch() {
-	var items = document.getElementsByClassName("title");
+	var items = document.getElementsByClassName("item");
 	for (var i = 0; i < items.length; i++) {
 		var element = items[i];
-		element.parentNode.parentNode.style.display = "list-item";
+		element.className = element.className.replace('notMatched', 'matched');
 	}
+
+	$('.matched').slideDown();
 }
 
 function showButtons(id, show) {
