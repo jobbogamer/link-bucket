@@ -134,7 +134,7 @@ def get_title(url):
 		if (tagstart == -1) or (start == -1) or (end == -1):
 			return '(No title)'
 		else:
-			return parser.unescape(page[start:end]).replace('"', '')
+			return parser.unescape(page[start:end])
 	except Exception as error:
 		return '!!!null!!!'
 
@@ -243,13 +243,7 @@ def add():
 		title = request.form['title']
 		date = datetime.now()
 
-		if '"' in title:
-			message = 'Link titles cannot contain double quote characters.'
-			error = True
-			previous_title = title
-			previous_url = url
-
-		elif not is_valid_url(url):
+		if not is_valid_url(url):
 			message = 'An invalid URL was given.'
 			error = True
 			previous_title = title
@@ -309,7 +303,7 @@ def unarchive(id):
 
 @app.route('/edit/<int:id>')
 def edit(id):
-	title = request.args.get('title', '(No title)').replace('"', '')
+	title = request.args.get('title', '(No title)')
 	edit_item_title(id, title)
 	return redirect(url_for('index') + "#" + str(request.args.get('scrollto', '')))
 
@@ -423,7 +417,7 @@ def get_facebook_message_links():
 				delta = datetime.now() - datetime.utcnow()
 				date = date + delta
 				message_link = re.search("(?P<url>https?://[^\s]+)", text).group("url")
-				link_dict = {'url': message_link, 'title': text.replace(message_link, '').replace('"', '').strip(), 'date': date}
+				link_dict = {'url': message_link, 'title': text.replace(message_link, '').strip(), 'date': date}
 				if ':at:' in link_dict['title']:
 					link_dict['title'] = ''
 				links.append(link_dict)
