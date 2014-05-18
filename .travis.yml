@@ -1,7 +1,12 @@
 language: python
 python:
-  - "2.7"
-# command to install dependencies
-install: "pip install -r requirements.txt"
-# command to run tests
+- '2.7'
+install: pip install -r requirements.txt
 script: nosetests
+deploy:
+  provider: heroku
+  api_key:
+    secure: Ydv2Cp3O0G9M3LUrnCeUflC5gwKYBxU8o7FZEjwN9647Rr6hLk1p00DdFY4/ny0X3DHOG1wiHGXLutNV075yF4Opzx/C39NxD6QWQqfs+tI3MPFQjQ/gPhR+SjQjUQIQC2GkWAws5xvOjkoI5FGxXE0K97k/OVhpNYzUlMb2vYw=
+  app: link-bucket
+  on:
+    repo: jobbogamer/link-bucket
