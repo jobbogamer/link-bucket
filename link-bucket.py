@@ -4,7 +4,7 @@ import os
 import facebook
 import re
 import HTMLParser
-from urllib2 import urlopen
+from urllib2 import urlopen, Request
 from datetime import datetime, timedelta
 from urlparse import urlparse
 from flask import Flask, render_template, flash, url_for, request, redirect, jsonify
@@ -214,6 +214,39 @@ def perform_search(searchterm, archive=False):
 
 	return jsonify(matched=matched, not_matched=not_matched)
 
+def get_travis_info():
+	url = 'https://api.travis-ci.org/repos/jobbogamer/link-bucket'
+	headers = {'User-Agent': 'LinkBucket/1.0.0', 'Accept': 'application/vnd.travis-ci.2+json'}
+	request = Request(url, headers=headers)
+	results = urlopen(request).read().replace('null', 'None').replace('false', 'False').replace('true', 'True')
+	repo_data = eval(results)['repo']
+
+	build_id = repo_data['last_build_id']
+	build_no = int(repo_data['last_build_number']) + 87
+
+	url = 'https://api.travis-ci.org/repos/jobbogamer/link-bucket/builds/' + str(build_id)
+	headers = {'User-Agent': 'LinkBucket/1.0.0', 'Accept': 'application/vnd.travis-ci.2+json'}
+	request = Request(url, headers=headers)
+	results = urlopen(request).read().replace('null', 'None').replace('false', 'False').replace('true', 'True')
+	commit_data = eval(results)['commit']
+
+	sha1 = commit_data['sha'][:10]
+	date = commit_data['committed_at']
+	message = commit_data['message']
+	url = commit_data['compare_url']
+
+	date = get_relative_time(datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S'))
+	if date.endswith('m'):
+		date = date.replace('m', ' minutes ago')
+	elif date.endswith('h'):
+		date = date.replace('h', ' hours ago')
+	else:
+		date = date.replace('d', ' days ago')
+
+	data = {'build_no': build_no, 'date': date, 'message': message, 'sha1': sha1, 'url': url}
+
+	return data
+
 ###############################################################################
 # Routing methods                                                             #
 ###############################################################################
@@ -308,6 +341,14 @@ def view_archive():
 
 	return render_template('archive.html', title='Link Bucket - Archive', emptymessage='The archive is empty.', items=items, opacities=opacities, times=times, domains=domains, positions=positions)
 
+@app.route('/stats')
+def stats():
+	travis = get_travis_info()
+	return render_template('stats.html', title='Link Bucket - Stats', travis=travis)
+
+###############################################################################
+# API methods                                                                 #
+###############################################################################
 
 @app.route('/archive/<int:id>')
 def archive(id):

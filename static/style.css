@@ -324,6 +324,62 @@ form.add-item a#autotitle:hover {
 
 
 
+div#stats div.section {
+	width: 500px;
+	margin: 0 auto;
+	background: white;
+	border: 1px solid #9F9F9F;
+	padding: 8px;
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+div#stats div.section h2.heading {
+	margin: 0 0 12px 0;
+	padding 0;
+	text-align: center;
+	font-size: 18px;
+	line-height: 18px;
+	font-weight: 300;
+	color: black;
+}
+
+div#stats div.section div.column {
+	width: 240px;
+	float: left;
+}
+
+div#stats div.section div.column ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+div#stats div.section div.column li {
+	margin-bottom: 4px;
+}
+
+div#stats div.section div.column.left {
+	text-align: right;
+}
+
+div#stats div.section div.column.left ul {
+	margin-right: 8px;
+}
+
+div#stats div.section div.column.right ul {
+	margin-left: 8px;
+}
+
+div#stats div.section div.column.right ul a {
+	color: black;
+}
+
+
+
+
+
+
 
 @media (max-width: 500px) {
 	ul#flashes {

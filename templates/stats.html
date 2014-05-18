@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div id="stats">
+		<div class="section" id="about">
+			<h2 class="heading">About Link Bucket</h2>
+			<div class="column left">
+				<ul id="stat-names">
+					<li class="name">Current Version</li>
+					<li class="name">Last Update</li>
+					<li class="name">Last Commit</li>
+				</ul>
+			</div>
+
+			<div class="column right">
+			<ul id="stat-details">
+					<li class="detail">v{{ travis['build_no'] }}</li>
+					<li class="detail">{{ travis['date'] }}</li>
+					<li class="detail"><a href="{{ travis['url'] }}" target="_blank">{{ travis['message'] }}</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}
