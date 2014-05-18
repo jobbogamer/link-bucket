@@ -6,7 +6,7 @@ script: nosetests
 deploy:
   provider: heroku
   api_key:
-    secure: Ydv2Cp3O0G9M3LUrnCeUflC5gwKYBxU8o7FZEjwN9647Rr6hLk1p00DdFY4/ny0X3DHOG1wiHGXLutNV075yF4Opzx/C39NxD6QWQqfs+tI3MPFQjQ/gPhR+SjQjUQIQC2GkWAws5xvOjkoI5FGxXE0K97k/OVhpNYzUlMb2vYw=
+    secure: GKMqI9X4NOAN5VXo9BjzmVz7BevHCn/SGqvsGeKimjj4tFI+zeyOxedOILKZRHhuN60MVgLdBHIxA+tegiiEC/4T9rsDCaj4U3KRr2JQXezW2LlSpCc+ga93w8KyWVTEE+VwkUNvVmwn3CIpmdbJDUGWus5MbNLqx74vLlSziLw=
   app: link-bucket
   on:
     repo: jobbogamer/link-bucket
