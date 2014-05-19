@@ -237,11 +237,22 @@ def get_travis_info():
 
 	date = get_relative_time(datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S'))
 	if date.endswith('m'):
-		date = date.replace('m', ' minutes ago')
+		if date == '<1m':
+			date = "Less than 1 minute ago"
+		elif date == '1m':
+			date = "1 minute ago"
+		else:
+			date = date.replace('m', ' minutes ago')
 	elif date.endswith('h'):
-		date = date.replace('h', ' hours ago')
+		if date == '1h':
+			date = '1 hour ago'
+		else:
+			date = date.replace('h', ' hours ago')
 	else:
-		date = date.replace('d', ' days ago')
+		if date == '1d':
+			date = 'Yesterday'
+		else:
+			date = date.replace('d', ' days ago')
 
 	data = {'build_no': build_no, 'date': date, 'message': message, 'url': url}
 
