@@ -85,15 +85,15 @@ class Stats(db.Model):
 	oldest_link = db.Column(db.Integer)
 
 	def __init__(self):
-		links_created = 0
-		links_clicked = 0
-		links_archived = 0
-		links_unarchived = 0
-		links_edited = 0
-		searches_performed = 0
-		one_result = False
-		no_results = False
-		oldest_link = 0
+		self.links_created = 0
+		self.links_clicked = 0
+		self.links_archived = 0
+		self.links_unarchived = 0
+		self.links_edited = 0
+		self.searches_performed = 0
+		self.one_result = False
+		self.no_results = False
+		self.oldest_link = 0
 
 
 ###############################################################################
