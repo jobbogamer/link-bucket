@@ -1,3 +1,9 @@
+function clickItem(id) {
+	$.ajax({
+		url: '/click/' + id,
+	});
+}
+
 function archiveItem(id) {
 	$.ajax({
 		url: '/archive/' + id,

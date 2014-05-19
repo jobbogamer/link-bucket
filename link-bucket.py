@@ -481,6 +481,11 @@ def search(searchterm):
 def search_archive(searchterm):
 	return perform_search(searchterm, True)
 
+@app.route('/click/<int:id>')
+def clicked_item(id):
+	increment_links_clicked()
+	return ''
+
 ###############################################################################
 # Facebook routing methods                                                    #
 ###############################################################################
