@@ -243,7 +243,7 @@ def get_travis_info():
 	else:
 		date = date.replace('d', ' days ago')
 
-	data = {'build_no': build_no, 'date': date, 'message': message, 'sha1': sha1, 'url': url}
+	data = {'build_no': build_no, 'date': date, 'message': message, 'url': url}
 
 	return data
 
