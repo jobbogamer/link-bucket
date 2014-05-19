@@ -118,27 +118,27 @@ def add_item(url, date, title):
 	new_item = Link(url, date, title)
 	db.session.add(new_item)
 	db.session.commit()
-	increment_links_created()
+	# increment_links_created()
 
 def archive_item(id):
 	item = get_item_by_id(id)
 	item.archived = True
 	item.date = datetime.now()
 	db.session.commit()
-	increment_links_archived()
+	# increment_links_archived()
 
 def unarchive_item(id):
 	item = get_item_by_id(id)
 	item.archived = False
 	item.date = datetime.now()
 	db.session.commit()
-	increment_links_unarchived()
+	# increment_links_unarchived()
 
 def edit_item_title(id, new_title):
 	item = get_item_by_id(id)
 	item.title = new_title
 	db.session.commit()
-	increment_links_edited()
+	# increment_links_edited()
 
 def delete_item(id):
 	item = get_item_by_id(id)
@@ -185,7 +185,7 @@ def get_opacity_from_age(date):
 	delta = now - date
 	days = delta.days
 
-	set_oldest_link(days)
+	# set_oldest_link(days)
 
 	if days < 1:
 		return "100"
@@ -242,7 +242,7 @@ def perform_search(searchterm, archive=False):
 		else:
 			not_matched.append(item.id)
 
-	increment_searches_performed()
+	# increment_searches_performed()
 
 	return jsonify(matched=matched, not_matched=not_matched)
 
@@ -483,7 +483,7 @@ def search_archive(searchterm):
 
 @app.route('/click/<int:id>')
 def clicked_item(id):
-	increment_links_clicked()
+	# increment_links_clicked()
 	return ''
 
 ###############################################################################
