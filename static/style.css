@@ -326,7 +326,7 @@ form.add-item a#autotitle:hover {
 
 div#stats div.section {
 	width: 500px;
-	margin: 0 auto;
+	margin: 0 auto 16px auto;
 	background: white;
 	border: 1px solid #9F9F9F;
 	padding: 8px;

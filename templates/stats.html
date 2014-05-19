@@ -19,5 +19,30 @@
 				</ul>
 			</div>
 		</div>
+
+		<div class="section" id="statistics">
+			<h2 class="heading">Statistics</h2>
+			<div class="column left">
+				<ul id="stat-names">
+					<li class="name">Links Added</li>
+					<li class="name">Links Clicked</li>
+					<li class="name">Links Archived</li>
+					<li class="name">Links Unarchived</li>
+					<li class="name">Titles Edited</li>
+					<li class="name">Searches Performed</li>
+				</ul>
+			</div>
+
+			<div class="column right">
+			<ul id="stat-details">
+					<li class="detail">{{ stats.links_created }}</li>
+					<li class="detail">{{ stats.links_clicked }}</li>
+					<li class="detail">{{ stats.links_archived }}</li>
+					<li class="detail">{{ stats.links_unarchived }}</li>
+					<li class="detail">{{ stats.links_edited }}</li>
+					<li class="detail">{{ stats.searches_performed }}</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 {% endblock %}
