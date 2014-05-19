@@ -72,6 +72,30 @@ class Message(db.Model):
 	def __init__(self, last_checked):
 		self.last_checked = last_checked
 
+class Stats(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	links_created = db.Column(db.Integer)
+	links_clicked = db.Column(db.Integer)
+	links_archived = db.Column(db.Integer)
+	links_unarchived = db.Column(db.Integer)
+	links_edited = db.Column(db.Integer)
+	searches_performed = db.Column(db.Integer)
+	one_result = db.Column(db.Boolean)
+	no_results = db.Column(db.Boolean)
+	oldest_link = db.Column(db.Integer)
+
+	def __init__(self):
+		links_created = 0
+		links_clicked = 0
+		links_archived = 0
+		links_unarchived = 0
+		links_edited = 0
+		searches_performed = 0
+		one_result = False
+		no_results = False
+		oldest_link = 0
+
+
 ###############################################################################
 # Interaction methods                                                         #
 ###############################################################################
@@ -257,6 +281,54 @@ def get_travis_info():
 	data = {'build_no': build_no, 'date': date, 'message': message, 'url': url}
 
 	return data
+
+def get_stats():
+	stats = Stats.query.filter_by(id = 1).first()
+	return stats
+
+def increment_links_created():
+	stats = get_stats()
+	stats.links_created = stats.links_created + 1
+	db.session.commit()
+	return stats.links_created
+
+def increment_links_clicked():
+	stats = get_stats()
+	stats.links_clicked = stats.links_clicked + 1
+	db.session.commit()
+	return stats.links_clicked
+
+def increment_links_archived():
+	stats = get_stats()
+	stats.links_archived = stats.links_archived + 1
+	db.session.commit()
+	return stats.links_archived
+
+def increment_links_unarchived():
+	stats = get_stats()
+	stats.links_unarchived = stats.links_unarchived + 1
+	db.session.commit()
+	return stats.links_unarchived
+
+def increment_links_edited():
+	stats = get_stats()
+	stats.links_edited = stats.links_edited + 1
+	db.session.commit()
+	return stats.links_edited
+
+def increment_searches_performed():
+	stats = get_stats()
+	stats.searches_performed = stats.searches_performed + 1
+	db.session.commit()
+	return stats.searches_performed
+
+def set_oldest_link(age):
+	stats = get_stats()
+	if age > stats.oldest_link:
+		stats.oldest_link = age
+		db.session.commit()
+	return stats.oldest_link
+
 
 ###############################################################################
 # Routing methods                                                             #
