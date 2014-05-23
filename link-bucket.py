@@ -269,19 +269,19 @@ def get_travis_info():
 
 	date = get_relative_time(datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S'))
 	if date.endswith('m'):
-		if '<' in date:
+		if date.startswith('<'):
 			date = "Less than a minute ago"
-		elif '1' in date:
+		elif date == "1m":
 			date = "A minute ago"
 		else:
 			date = date.replace('m', ' minutes ago')
 	elif date.endswith('h'):
-		if '1' in date:
+		if date == "1h":
 			date = 'An hour ago'
 		else:
 			date = date.replace('h', ' hours ago')
 	else:
-		if '1' in date:
+		if date == "1d":
 			date = 'Yesterday'
 		else:
 			date = date.replace('d', ' days ago')
