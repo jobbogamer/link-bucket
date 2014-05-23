@@ -267,26 +267,29 @@ def get_travis_info():
 	message = commit_data['message']
 	url = commit_data['compare_url']
 
-	date = get_relative_time(datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S'))
-	if date.endswith('m'):
-		if date.startswith('<'):
-			date = "Less than a minute ago"
-		elif date == "1m":
-			date = "A minute ago"
+	timeago = get_relative_time(datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S'))
+	if timeago.endswith('m'):
+		if timeago.startswith('<'):
+			timeago = "Less than a minute ago"
+		elif timeago == "1m":
+			timeago = "A minute ago"
 		else:
-			date = date.replace('m', ' minutes ago')
-	elif date.endswith('h'):
-		if date == "1h":
-			date = 'An hour ago'
+			timeago = timeago.replace('m', ' minutes ago')
+	elif timeago.endswith('h'):
+		if timeago == "1h":
+			timeago = 'An hour ago'
 		else:
-			date = date.replace('h', ' hours ago')
+			timeago = timeago.replace('h', ' hours ago')
 	else:
-		if date == "1d":
-			date = 'Yesterday'
+		if timeago == "1d":
+			timeago = 'Yesterday'
 		else:
-			date = date.replace('d', ' days ago')
+			timeago = timeago.replace('d', ' days ago')
 
-	data = {'build_no': build_no, 'date': date, 'message': message, 'url': url}
+	date = datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S')
+	date = date.strftime('%d %B %Y, %H:%M:%S')
+
+	data = {'build_no': build_no, 'date': date, 'timeago': timeago, 'message': message, 'url': url}
 
 	return data
 

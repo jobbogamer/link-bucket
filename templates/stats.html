@@ -14,7 +14,7 @@
 			<div class="column right">
 			<ul id="stat-details">
 					<li class="detail">{{ travis['build_no'] }}</li>
-					<li class="detail">{{ travis['date'] }}</li>
+					<li class="detail" title="{{ travis['date'] }}">{{ travis['timeago'] }}</li>
 					<li class="detail"><a href="{{ travis['url'] }}" target="_blank">{{ travis['message'] }}</a></li>
 				</ul>
 			</div>
