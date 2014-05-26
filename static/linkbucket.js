@@ -1,6 +1,27 @@
+function showAchievements(achievements) {
+	var html = "";
+	for (var i = 0; i < achievements.length; i++) {
+		var achievement = achievements[i];
+		html += '<li class="notification ' + achievement.difficulty + '">' +
+					'<i class="fa-li fa fa-trophy"></i>' +
+					'Achievement Unlocked: ' + achievement.name +
+					'</li>\n';
+	}
+	var ul = document.getElementById('unlocked-achievements');
+	ul.innerHTML = html;
+
+	if (achievements.length > 0) {
+		ul.style.border = "1px solid #9F9F9F";
+	} else {
+		ul.style.border = "none";
+	}
+}
+
 function clickItem(id) {
 	$.ajax({
 		url: '/click/' + id,
+	}).done(function(data) {
+		showAchievements(data.achievements);
 	});
 }
 
@@ -8,6 +29,8 @@ function archiveItem(id) {
 	$.ajax({
 		url: '/archive/' + id,
 		success: hideArchivedItem(id)
+	}).done(function(data) {
+		showAchievements(data.achievements);
 	});
 }
 
@@ -19,6 +42,8 @@ function unarchiveItem(id) {
 	$.ajax({
 		url: '/unarchive/' + id,
 		success: hideUnarchivedItem(id)
+	}).done(function(data) {
+		showAchievements(data.achievements);
 	});
 }
 
@@ -33,6 +58,8 @@ function editItem(id) {
 		$.ajax({
 			url: '/edit/' + id + "?title=" + response,
 			success: showNewTitle(id, response)
+		}).done(function(data) {
+			showAchievements(data.achievements);
 		});
 	}
 }
@@ -89,6 +116,8 @@ function performSearch(searchTerm, archive) {
 
 			$('.notMatched').slideUp();
 			$('.matched').slideDown();
+
+			showAchievements(data.achievements);
 		});
 	}
 }

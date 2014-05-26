@@ -96,6 +96,40 @@ ul#flashes li.success {
 
 
 
+
+
+ul#unlocked-achievements {
+	width: 500px;
+	background: #FFFFFF;
+	font-size: 16px;
+	line-height: 16px;
+	margin: 0 auto;
+}
+
+ul#unlocked-achievements li.notification {
+	margin-left: 36px;
+	padding: 8px 0;
+}
+
+ul#unlocked-achievements li.notification i {
+	margin-top: 6px;
+}
+
+ul#unlocked-achievements li.notification.bronze i {
+	color: #C78537;
+}
+
+ul#unlocked-achievements li.notification.silver i {
+	color: #999999;
+}
+
+ul#unlocked-achievements li.notification.gold i {
+	color: #DFBD5E;
+}
+
+
+
+
 input#search {
 	width: 500px;
 	margin: 16px auto 0 auto;
@@ -336,7 +370,7 @@ div#stats div.section {
 
 div#stats div.section h2.heading {
 	margin: 0 0 12px 0;
-	padding 0;
+	padding: 0;
 	text-align: center;
 	font-size: 18px;
 	line-height: 18px;
@@ -373,6 +407,28 @@ div#stats div.section div.column.right ul {
 
 div#stats div.section div.column.right ul a {
 	color: black;
+}
+
+
+
+div#stats div#achievements ul#achievements li.achievement.bronze i {
+	color: #C78537;
+}
+
+div#stats div#achievements ul#achievements li.achievement.silver i {
+	color: #999999;
+}
+
+div#stats div#achievements ul#achievements li.achievement.gold i {
+	color: #DFBD5E;
+}
+
+div#stats div#achievements ul#achievements li.achievement.locked i {
+	color: #BBBBBB;
+}
+
+div#stats div#achievements ul#achievements li.achievement p.text span.name {
+	font-weight: 500;
 }
 
 

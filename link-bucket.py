@@ -82,7 +82,6 @@ class Stats(db.Model):
 	searches_performed = db.Column(db.Integer)
 	one_result = db.Column(db.Boolean)
 	no_results = db.Column(db.Boolean)
-	oldest_link = db.Column(db.Integer)
 
 	def __init__(self):
 		self.links_created = 0
@@ -93,7 +92,6 @@ class Stats(db.Model):
 		self.searches_performed = 0
 		self.one_result = False
 		self.no_results = False
-		self.oldest_link = 0
 
 
 ###############################################################################
@@ -118,27 +116,27 @@ def add_item(url, date, title):
 	new_item = Link(url, date, title)
 	db.session.add(new_item)
 	db.session.commit()
-	# increment_links_created()
+	increment_links_created()
 
 def archive_item(id):
 	item = get_item_by_id(id)
 	item.archived = True
 	item.date = datetime.now()
 	db.session.commit()
-	# increment_links_archived()
+	increment_links_archived()
 
 def unarchive_item(id):
 	item = get_item_by_id(id)
 	item.archived = False
 	item.date = datetime.now()
 	db.session.commit()
-	# increment_links_unarchived()
+	increment_links_unarchived()
 
 def edit_item_title(id, new_title):
 	item = get_item_by_id(id)
 	item.title = new_title
 	db.session.commit()
-	# increment_links_edited()
+	increment_links_edited()
 
 def delete_item(id):
 	item = get_item_by_id(id)
@@ -184,8 +182,6 @@ def get_opacity_from_age(date):
 	now = datetime.now()
 	delta = now - date
 	days = delta.days
-
-	# set_oldest_link(days)
 
 	if days < 1:
 		return "100"
@@ -242,9 +238,24 @@ def perform_search(searchterm, archive=False):
 		else:
 			not_matched.append(item.id)
 
-	# increment_searches_performed()
+	increment_searches_performed()
+	
+	searches = get_searches_performed()
+	if searches == 1:
+		achievements = [{'name': "It's Here Somewhere", 'difficulty': 'bronze'}]
+	elif searches == 10:
+		achievements = [{'name': "Hunter", 'difficulty': 'bronze'}]
+	else:
+		achievements = []
 
-	return jsonify(matched=matched, not_matched=not_matched)
+	if (not have_one_result()) and (len(matched) == 1):
+		got_one_result()
+		achievements.append({'name': "Spot On", 'difficulty': 'bronze'})
+	elif (not have_no_results()) and (len(matched) == 0):
+		got_no_results()
+		achievements.append({'name': "404", 'difficulty': 'bronze'})
+
+	return jsonify(matched=matched, not_matched=not_matched, achievements=achievements)
 
 def get_travis_info():
 	url = 'https://api.travis-ci.org/repos/jobbogamer/link-bucket'
@@ -301,6 +312,54 @@ def get_stats():
 		db.session.commit()
 	return stats
 
+def get_links_created():
+	stats = get_stats()
+	return stats.links_created
+
+def get_links_clicked():
+	stats = get_stats()
+	return stats.links_clicked
+
+def get_links_archived():
+	stats = get_stats()
+	return stats.links_archived
+
+def get_links_unarchived():
+	stats = get_stats()
+	return stats.links_unarchived
+
+def get_links_edited():
+	stats = get_stats()
+	return stats.links_edited
+
+def get_searches_performed():
+	stats = get_stats()
+	return stats.searches_performed
+
+def have_no_results():
+	stats = get_stats()
+	return stats.no_results
+
+def have_one_result():
+	stats = get_stats()
+	return stats.one_result
+
+def have_no_results():
+	stats = get_stats()
+	return stats.no_results
+
+def reset_stats():
+	stats = get_stats()
+	stats.links_created = 0
+	stats.links_clicked = 0
+	stats.links_archived = 0
+	stats.links_unarchived = 0
+	stats.links_edited = 0
+	stats.searches_performed = 0
+	stats.one_result = False
+	stats.no_results = False
+	db.session.commit()
+
 def increment_links_created():
 	stats = get_stats()
 	stats.links_created = stats.links_created + 1
@@ -337,13 +396,140 @@ def increment_searches_performed():
 	db.session.commit()
 	return stats.searches_performed
 
-def set_oldest_link(age):
+def got_one_result():
 	stats = get_stats()
-	if age > stats.oldest_link:
-		stats.oldest_link = age
-		db.session.commit()
-	return stats.oldest_link
+	stats.one_result = True
+	db.session.commit()
 
+def got_no_results():
+	stats = get_stats()
+	stats.no_results = True
+	db.session.commit()
+
+def get_achivements_list(stats):
+	achivements = [
+		{'name': "Getting Started",
+		 'description': "Add a link",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_created >= 1},
+		
+		{'name': "Gatherer",
+		 'description': "Add 10 links",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_created >= 10},
+		
+		{'name': "Collector",
+		 'description': "Add 25 links",
+		 'difficulty': 'silver',
+		 'unlocked': stats.links_created >= 25},
+		
+		{'name': "Hoarder",
+		 'description': "Add 50 links",
+		 'difficulty': 'gold',
+		 'unlocked': stats.links_created >= 50},
+		
+		{'name': "That's Why We're Here",
+		 'description': "Click a link",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_clicked >= 1},
+		
+		{'name': "Eager Reader",
+		 'description': "Click 25 links",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_clicked >= 25},
+		
+		{'name': "Dedicated Reader",
+		 'description': "Click 50 links",
+		 'difficulty': 'silver',
+		 'unlocked': stats.links_clicked >= 50},
+		
+		{'name': "Passionate Reader",
+		 'description': "Click 100 links",
+		 'difficulty': 'gold',
+		 'unlocked': stats.links_clicked >= 100},
+		
+		{'name': "I'm Finished With You",
+		 'description': "Archive a link",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_archived >= 1},
+		
+		{'name': "Janitor",
+		 'description': "Archive 25 links",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_archived >= 25},
+		
+		{'name': "Clean Freak",
+		 'description': "Archive 50 links",
+		 'difficulty': 'silver',
+		 'unlocked': stats.links_archived >= 50},
+		
+		{'name': "OCD",
+		 'description': "Archive 100 links",
+		 'difficulty': 'gold',
+		 'unlocked': stats.links_archived >= 100},
+		
+		{'name': "Change Of Heart",
+		 'description': "Unarchive a link",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_unarchived >= 1},
+		
+		{'name': "Say No To Landfill",
+		 'description': "Unarchive 5 links",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_unarchived >= 5},
+		
+		{'name': "Keep The Planet Safe",
+		 'description': "Unarchive 10 links",
+		 'difficulty': 'silver',
+		 'unlocked': stats.links_unarchived >= 10},
+		
+		{'name': "Vote Green",
+		 'description': "Unarchive 20 links",
+		 'difficulty': 'gold',
+		 'unlocked': stats.links_unarchived >= 20},
+		
+		{'name': "Correction",
+		 'description': "Edit a title",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_edited >= 1},
+		
+		{'name': "Oops",
+		 'description': "Edit 5 titles",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.links_edited >= 5},
+		
+		{'name': "Only Human",
+		 'description': "Edit 10 titles",
+		 'difficulty': 'silver',
+		 'unlocked': stats.links_edited >= 10},
+		
+		{'name': "Everyone's A Critic",
+		 'description': "Edit 20 titles",
+		 'difficulty': 'gold',
+		 'unlocked': stats.links_edited >= 20},
+		
+		{'name': "It's Here Somewhere",
+		 'description': "Perform a search",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.searches_performed >= 1},
+		
+		{'name': "Hunter",
+		 'description': "Perform 10 searches",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.searches_performed >= 10},
+		
+		{'name': "Spot On",
+		 'description': "Perform a search that returns a single result",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.one_result},
+
+		{'name': "404",
+		 'description': "Perform a search that returns no results",
+		 'difficulty': 'bronze',
+		 'unlocked': stats.no_results}
+	]
+
+	return achivements
 
 ###############################################################################
 # Routing methods                                                             #
@@ -442,7 +628,8 @@ def view_archive():
 @app.route('/stats')
 def stats():
 	travis = get_travis_info()
-	return render_template('stats.html', title='Link Bucket - Stats', travis=travis, stats=get_stats())
+	stats = get_stats()
+	return render_template('stats.html', title='Link Bucket - Stats', travis=travis, stats=stats, achievements=get_achivements_list(stats))
 
 ###############################################################################
 # API methods                                                                 #
@@ -451,18 +638,63 @@ def stats():
 @app.route('/archive/<int:id>')
 def archive(id):
 	archive_item(id)
-	return redirect(url_for('index') + "#" + str(request.args.get('scrollto', '')))
+
+	archived = get_links_archived()
+	if archived == 1:
+		achievements = [{'name': "I'm Finished With You", 'difficulty': 'bronze'}]
+	elif archived == 25:
+		achievements = [{'name': "Janitor", 'difficulty': 'bronze'}]
+	elif archived == 50:
+		achievements = [{'name': "Clean Freak", 'difficulty': 'silver'}]
+	elif archived == 100:
+		achievements = [{'name': "OCD", 'difficulty': 'gold'}]
+	else:
+		achievements = []
+
+	data = {'achievements': achievements}
+
+	return jsonify(data)
 
 @app.route('/unarchive/<int:id>')
 def unarchive(id):
 	unarchive_item(id)
-	return redirect(url_for('view_archive') + "#" + str(request.args.get('scrollto', '')))
+	
+	unarchived = get_links_unarchived()
+	if unarchived == 1:
+		achievements = [{'name': "Change Of Heart", 'difficulty': 'bronze'}]
+	elif unarchived == 5:
+		achievements = [{'name': "Say No To Landfill", 'difficulty': 'bronze'}]
+	elif unarchived == 10:
+		achievements = [{'name': "Keep The Planet Safe", 'difficulty': 'silver'}]
+	elif unarchived == 20:
+		achievements = [{'name': "Vote Green", 'difficulty': 'gold'}]
+	else:
+		achievements = []
+
+	data = {'achievements': achievements}
+
+	return jsonify(data)
 
 @app.route('/edit/<int:id>')
 def edit(id):
 	title = request.args.get('title', '(No title)')
 	edit_item_title(id, title)
-	return redirect(url_for('index') + "#" + str(request.args.get('scrollto', '')))
+
+	edited = get_links_edited()
+	if edited == 1:
+		achievements = [{'name': "Correction", 'difficulty': 'bronze'}]
+	elif edited == 5:
+		achievements = [{'name': "Oops", 'difficulty': 'bronze'}]
+	elif edited == 10:
+		achievements = [{'name': "Only Human", 'difficulty': 'silver'}]
+	elif edited == 20:
+		achievements = [{'name': "Everyone's A Critic", 'difficulty': 'gold'}]
+	else:
+		achievements = []
+
+	data = {'achievements': achievements}
+
+	return jsonify(data)
 
 @app.route('/title/<path:url>')
 def title(url):
@@ -486,8 +718,23 @@ def search_archive(searchterm):
 
 @app.route('/click/<int:id>')
 def clicked_item(id):
-	# increment_links_clicked()
-	return ''
+	increment_links_clicked()
+
+	clicked = get_links_clicked()
+	if clicked == 1:
+		achievements = [{'name': "That's Why We're Here", 'difficulty': 'bronze'}]
+	elif clicked == 25:
+		achievements = [{'name': "Eager Reader", 'difficulty': 'bronze'}]
+	elif clicked == 50:
+		achievements = [{'name': "Dedicated Reader", 'difficulty': 'silver'}]
+	elif clicked == 100:
+		achievements = [{'name': "Passionate Reader", 'difficulty': 'gold'}]
+	else:
+		achievements = []
+
+	data = {'achievements': achievements}
+
+	return jsonify(data)
 
 ###############################################################################
 # Facebook routing methods                                                    #
