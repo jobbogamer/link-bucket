@@ -562,7 +562,7 @@ def index():
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('index.html', title='Link Bucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes)
+	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -597,7 +597,7 @@ def add():
 		else:
 			flash(message, 'success')
 
-	return render_template('add.html', title='Link Bucket - Add Link', previous_title=previous_title, previous_url=previous_url)
+	return render_template('add.html', title='Linkbucket - Add Link', previous_title=previous_title, previous_url=previous_url)
 
 
 @app.route('/archive')
@@ -623,13 +623,13 @@ def view_archive():
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('archive.html', title='Link Bucket - Archive', emptymessage='The archive is empty.', items=items, opacities=opacities, times=times, domains=domains, positions=positions)
+	return render_template('archive.html', title='Linkbucket - Archive', emptymessage='The archive is empty.', items=items, opacities=opacities, times=times, domains=domains, positions=positions)
 
 @app.route('/stats')
 def stats():
 	travis = get_travis_info()
 	stats = get_stats()
-	return render_template('stats.html', title='Link Bucket - Stats', travis=travis, stats=stats, achievements=get_achivements_list(stats))
+	return render_template('stats.html', title='Linkbucket - Stats', travis=travis, stats=stats, achievements=get_achivements_list(stats))
 
 ###############################################################################
 # API methods                                                                 #
