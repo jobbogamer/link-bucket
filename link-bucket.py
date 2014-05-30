@@ -869,7 +869,7 @@ def find_last_checked(last_checked, previous_messages_url, messages):
 		fetched_messages = data['data']
 
 		for message in fetched_messages:
-			if message['id'] >= last_checked:
+			if message['id'] > last_checked:
 				messages.append(message)
 
 			if message['id'] == last_checked:
