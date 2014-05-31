@@ -547,6 +547,7 @@ def index():
 	domains = {}
 	positions = {}
 	youtubes = {}
+	images = {}
 
 	position = len(items);
 
@@ -559,10 +560,16 @@ def index():
 		if youtube is not None:
 			youtubes[item.id] = youtube
 
+		lowercase_url = item.url.lower()
+		if lowercase_url.endswith('.jpg') or lowercase_url.endswith('jpeg') or lowercase_url.endswith('.png') or lowercase_url.endswith('.gif'):
+			images[item.id] = True
+		else:
+			images[item.id] = False
+
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes)
+	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -900,4 +907,4 @@ def set_last_checked_id(id):
 	db.session.commit()
 
 if (__name__ == "__main__"):
-	app.run(debug = True)
+	app.run(debug = True) 

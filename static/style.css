@@ -273,14 +273,22 @@ ul#items li.item div.show-embedded {
 	text-align: center;
 	color: #3F3F3F;
 	cursor: pointer;
+	position: relative;
+	top: 4px;
 }
 
 ul#items li.item div.embedded {
 	display: none;
+	text-align: center;
 }
 
 ul#items li.item div.embedded iframe {
 	margin-top: 8px;
+}
+
+ul#items li.item div.embedded img {
+	margin-top: 8px;
+	max-width: 480px;
 }
 
 

@@ -25,6 +25,17 @@
 			<div class="embedded" id="embedded-{{ item.id }}">
 				<iframe width="480" height="270" src="{{ youtubes[item.id] }}?rel=0" frameborder="0" allowfullscreen="true"></iframe>
 			</div>
+			{% else %}
+				{% if images[item.id] %}
+			<div class="show-embedded" id="show-embedded-{{ item.id }}" onclick="showEmbed({{ item.id }});">
+				<i class="fa fa-plus-square-o"></i>
+			</div>
+			<div class="embedded" id="embedded-{{ item.id }}">
+				<a href="{{ item.url }}">
+					<img src="{{ item.url }}" />
+				</a>
+			</div>
+				{% endif %}
 			{% endif %}
 		</li>
 		{% else %}
