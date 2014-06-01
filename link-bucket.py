@@ -6,6 +6,7 @@ import re
 import HTMLParser
 from urllib2 import urlopen, Request
 from datetime import datetime, timedelta
+from time import sleep
 from urlparse import urlparse
 from flask import Flask, render_template, flash, url_for, request, redirect, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -637,6 +638,11 @@ def stats():
 	travis = get_travis_info()
 	stats = get_stats()
 	return render_template('stats.html', title='Linkbucket - Stats', travis=travis, stats=stats, achievements=get_achivements_list(stats))
+
+@app.route('/fail')
+def fail():
+	sleep(35)
+	return 'Fail :('
 
 ###############################################################################
 # API methods                                                                 #
