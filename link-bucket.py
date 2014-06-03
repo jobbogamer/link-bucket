@@ -856,8 +856,8 @@ def get_facebook_message_links():
 
 					title = text
 					for url in urls:
-						title.replace(url, '')
-					title.strip()
+						title = title.replace(url, '')
+					title = title.strip()
 
 					for i in range(len(urls)):
 						if ':at:' in title:
