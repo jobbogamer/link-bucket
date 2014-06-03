@@ -842,15 +842,33 @@ def get_facebook_message_links():
 	for message in messages:
 		try:
 			text = message['message'].replace('\\', '')
-			if "http" in text:
-				date = datetime.strptime(message['created_time'][0:19], '%Y-%m-%dT%H:%M:%S')
-				delta = datetime.now() - datetime.utcnow()
-				date = date + delta
-				message_link = re.search("(?P<url>https?://[^\s]+)", text).group("url")
-				link_dict = {'url': message_link, 'title': text.replace(message_link, '').strip(), 'date': date}
-				if ':at:' in link_dict['title']:
-					link_dict['title'] = ''
-				links.append(link_dict)
+			date = datetime.strptime(message['created_time'][0:19], '%Y-%m-%dT%H:%M:%S')
+			delta = datetime.now() - datetime.utcnow()
+			date = date + delta
+
+			regexp = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019]))')
+			matches = regexp.findall(text)
+			if len(matches) > 0:
+				urls = []
+				for match in matches:
+					urls.append(match[0])
+
+				title = text
+				for url in urls:
+					title.replace(url, '')
+				title.strip()
+
+				for i in range(len(urls)):
+					if ':at:' in title:
+						link_dict = {'url': urls[i], 'title': '', 'date': date}
+					else:
+						if len(urls) > 1:
+							link_dict = {'url': urls[i], 'title': title + " (" + str(i+1) + ")", 'date': date}
+						else:
+							link_dict = {'url': urls[i], 'title': title, 'date': date}
+
+					links.append(link_dict)
+
 		except KeyError as error:
 			pass
 		except Exception as error:
