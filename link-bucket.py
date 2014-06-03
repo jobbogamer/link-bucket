@@ -864,7 +864,9 @@ def get_facebook_message_links():
 							link_dict = {'url': urls[i], 'title': '', 'date': date}
 						else:
 							if len(urls) > 1:
-								link_dict = {'url': urls[i], 'title': title + " (" + str(i+1) + ")", 'date': date}
+								date_delta = datetime.timedelta(seconds=i)
+								new_date = date + date_delta
+								link_dict = {'url': urls[i], 'title': title + " (" + str(i+1) + ")", 'date': new_date}
 							else:
 								link_dict = {'url': urls[i], 'title': title, 'date': date}
 
