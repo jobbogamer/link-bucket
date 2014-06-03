@@ -148,7 +148,11 @@ def is_valid_url(url):
 	return urlparse(request.form['url']).hostname is not None
 
 def get_domain(url):
-	return urlparse(url).hostname.replace('www.', '')
+	parsed_url = urlparse(url)
+	if len(parsed_url.scheme) > 0:
+		return parsed_url.hostname.replace('www.', '')
+	else:
+		return urlparse('//' + url).hostname.replace('www.', '')
 
 def get_title(url):
 	try:
