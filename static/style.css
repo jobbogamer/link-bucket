@@ -473,7 +473,11 @@ div#stats div#achievements ul#achievements li.achievement p.text span.name {
 		width: 290px;
 	}
 
-	div#stats {
+	div#stats div.section {
 		width: 310px;
+	}
+
+	div#stats div.section div.column {
+		width: 145px;
 	}
 }
