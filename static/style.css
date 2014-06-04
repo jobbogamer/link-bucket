@@ -469,8 +469,12 @@ div#stats div#achievements ul#achievements li.achievement p.text span.name {
 		width: 310px;
 	}
 
-	form.add-item input[type="text"] {
+	form.add-item input.title {
 		width: 260px;
+	}
+
+	form.add-item a#autotitle {
+		margin-top: -8px;
 	}
 
 	div#stats div.section {
