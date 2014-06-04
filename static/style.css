@@ -438,3 +438,42 @@ div#stats div#achievements ul#achievements li.achievement.locked i {
 div#stats div#achievements ul#achievements li.achievement p.text span.name {
 	font-weight: 500;
 }
+
+
+
+
+
+@media (max-width: 500px) {
+	ul#flashes {
+		width: 310px;
+	}
+
+	input#search {
+		width: 310px;
+	}
+
+	ul#items {
+		width: 310px;
+	}
+
+	ul#items li.item a.link {
+		width: 275px;
+	}
+
+	ul#items li.item div.embedded iframe {
+		width: 300px !important;
+		height: 164px !important;
+	}
+
+	form.add-item {
+		width: 310px;
+	}
+
+	form.add-item input[type="text"] {
+		width: 290px;
+	}
+
+	div#stats {
+		width: 310px;
+	}
+}
