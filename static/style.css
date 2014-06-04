@@ -318,6 +318,7 @@ form.add-item input[type="text"] {
 
 	border: none;
 	border-bottom: 1px solid #9F9F9F;
+	border-radius: 0;
 
 	font-family: "Helvetica Neue", "Arial", sans-serif;
 	font-size: 18px;
