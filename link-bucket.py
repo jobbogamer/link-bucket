@@ -766,8 +766,62 @@ def clicked_item(id):
 @app.route('/slack', methods=['POST'])
 def slack():
 	message = request.form['text']
-	print message
-	return jsonify({})
+	
+	links = []
+	link_fail_count = 0
+
+	try:
+		message = message.replace('\\', '')
+		date = datetime.now()
+
+		if not ':ig:' in text:
+			regexp = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019]))')
+			matches = regexp.findall(text)
+			if len(matches) > 0:
+				urls = []
+				for match in matches:
+					urls.append(match[0])
+
+				title = text
+				for url in urls:
+					title = title.replace(url, '')
+				title = title.strip()
+
+				for i in range(len(urls)):
+					if ':at:' in title:
+						link_dict = {'url': urls[i], 'title': '', 'date': date}
+					else:
+						if len(urls) > 1:
+							date_delta = timedelta(seconds=i)
+							new_date = date + date_delta
+							link_dict = {'url': urls[i], 'title': title + " (" + str(i+1) + ")", 'date': new_date}
+						else:
+							link_dict = {'url': urls[i], 'title': title, 'date': date}
+
+					links.append(link_dict)
+
+	except Exception as error:
+		print "An exception occurred: " + str(type(error)) + " - " + str(error)
+		print "The offending message was: \"" + str(text) + "\""
+
+	for link in links:
+		try:
+			add_item(link['url'], link['date'], link['title'])
+		except Exception as error:
+			print "An exception occurred: " + str(type(error)) + " - " + str(error)
+			print "The offending link was: \"" + str(link['url']) + "\" with title \"" + str(link['title']) + "\""
+			link_fail_count += 1
+
+	success_count = len(links) - link_fail_count
+	unit = " link" if success_count == 1 else " links"
+	message = str(link_fail_count) + " " + unit + " added successfully"
+
+	json_dict = {"text": message}
+
+	if (success_count > 0):
+		return jsonify(json_dict)
+	else:
+		return jsonify({})
 
 ###############################################################################
 # Facebook routing methods                                                    #
