@@ -774,15 +774,15 @@ def slack():
 		message = message.replace('\\', '')
 		date = datetime.now()
 
-		if not ':ig:' in text:
+		if not ':ig:' in message:
 			regexp = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019]))')
-			matches = regexp.findall(text)
+			matches = regexp.findall(message)
 			if len(matches) > 0:
 				urls = []
 				for match in matches:
 					urls.append(match[0])
 
-				title = text
+				title = message
 				for url in urls:
 					title = title.replace(url, '')
 				title = title.strip()
@@ -802,7 +802,7 @@ def slack():
 
 	except Exception as error:
 		print "An exception occurred: " + str(type(error)) + " - " + str(error)
-		print "The offending message was: \"" + str(text) + "\""
+		print "The offending message was: \"" + str(message) + "\""
 
 	for link in links:
 		try:
