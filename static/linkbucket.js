@@ -22,6 +22,7 @@ function clickItem(id) {
 		url: '/click/' + id,
 	}).done(function(data) {
 		showAchievements(data.achievements);
+		document.getElementById('unread-dot-' + id).style.background = "white";
 	});
 }
 

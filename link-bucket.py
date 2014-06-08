@@ -33,11 +33,13 @@ class Link(db.Model):
 	date = db.Column(db.DateTime)
 	archived = db.Column(db.Boolean)
 	title = db.Column(db.String)
+	unread = db.Column(db.Boolean)
 
 	def __init__(self, url, date, title):
 		self.url = url
 		self.date = date
 		self.archived = False
+		self.unread = True
 
 		if (len(title) > 0) and (title != 'Title'):
 			self.title = title
@@ -553,6 +555,7 @@ def index():
 	positions = {}
 	youtubes = {}
 	images = {}
+	unread = {}
 
 	position = len(items);
 
@@ -560,6 +563,9 @@ def index():
 		times[item.id] = get_relative_time(item.date)
 		opacities[item.id] = get_opacity_from_age(item.date)
 		domains[item.id] = get_domain(item.url)
+		
+		if item.unread:
+			unread[item.id] = "unread"
 
 		youtube = get_youtube_embed_url(item.url)
 		if youtube is not None:
@@ -574,7 +580,7 @@ def index():
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images)
+	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images, unread=unread)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -736,6 +742,10 @@ def search_archive(searchterm):
 @app.route('/click/<int:id>')
 def clicked_item(id):
 	increment_links_clicked()
+
+	item = get_item_by_id(id)
+	item.unread = False
+	db.session.commit()
 
 	clicked = get_links_clicked()
 	if clicked == 1:
