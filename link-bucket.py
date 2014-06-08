@@ -814,7 +814,7 @@ def slack():
 
 	success_count = len(links) - link_fail_count
 	unit = " link" if success_count == 1 else " links"
-	message = str(link_fail_count) + " " + unit + " added successfully"
+	message = str(success_count) + unit + " added successfully"
 
 	json_dict = {"text": message}
 
