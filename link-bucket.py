@@ -784,7 +784,7 @@ def slack():
 
 				title = message
 				for url in urls:
-					title = title.replace(url, '')
+					title = title.replace('<' + url + '>', '')
 				title = title.strip()
 
 				for i in range(len(urls)):
