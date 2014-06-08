@@ -763,6 +763,12 @@ def clicked_item(id):
 
 	return jsonify(data)
 
+@app.route('/slack', methods=['POST'])
+def slack():
+	message = request.form['text']
+	print message
+	return jsonify({})
+
 ###############################################################################
 # Facebook routing methods                                                    #
 ###############################################################################
