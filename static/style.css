@@ -483,8 +483,12 @@ div#stats div#achievements ul#achievements li.achievement p.text span.name {
 	}
 
 	ul#items li.item div.embedded iframe {
-		width: 300px !important;
-		height: 164px !important;
+		width: 290px !important;
+		height: 163px !important;
+	}
+
+	ul#items li.item div.embedded img {
+		max-width: 290px;
 	}
 
 	form.add-item {
