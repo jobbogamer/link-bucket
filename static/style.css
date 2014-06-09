@@ -274,7 +274,7 @@ ul#items li.item a.link:focus {
 ul#items li.item div.buttons {
 	width: 16px;
 	padding: 0;
-	margin: 0;
+	margin: 0 0 0 2px;
 	float: left;
 	display: none;
 }
