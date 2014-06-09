@@ -5,11 +5,9 @@
 		{% for item in items %}
 		<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }} matched {{ unread[item.id] }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
 			<a class="link" href="{{ item.url }}" title="#{{ item.id }} - {{ item.url }}" target="_blank" name="{{ positions[item.id] }}" onclick="clickItem({{ item.id }});">
-				{% if unread[item.id] %}
 				<div class="unread-marker">
 					<div id="unread-dot-{{ item.id }}" class="unread-dot"></div>
 				</div>
-				{% endif %}
 				<h2 class="title" id="title-{{ item.id }}">{{ item.title }}</h2>
 				<div class="meta">
 					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info"><span class="domain">{{ domains[item.id] }}</span><span class="time"> – {{ times[item.id] }}</span></p>

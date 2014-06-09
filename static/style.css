@@ -229,10 +229,14 @@ ul#items li.item div.unread-marker {
 }
 
 ul#items li.item div.unread-dot {
-	background: #107BF7;
+	background: #FFFFFF;
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
+}
+
+ul#items li.item.unread div.unread-dot {
+	background: #107BF7;
 }
 
 ul#items li.item h2.title {
