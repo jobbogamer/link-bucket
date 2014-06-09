@@ -232,6 +232,7 @@ ul#items li.item div.unread-dot {
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
+	display: none;
 }
 
 ul#items li.item.unread div.unread-dot {
