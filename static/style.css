@@ -162,6 +162,9 @@ ul#items li.item {
 
 	background: white;
 	border: 1px solid #9F9F9F;
+
+	position: relative;
+
 }
 
 ul#items li.noitems {
@@ -215,10 +218,6 @@ ul#items li.item.opacity20 {
 
 ul#items li.item.opacity10 {
 	opacity: 0.1;
-}
-
-ul#items li.item.unread {
-	position: relative;
 }
 
 ul#items li.item div.unread-marker {
@@ -293,7 +292,8 @@ ul#items li.item div.buttons {
 	width: 16px;
 	padding: 0;
 	margin: 0 0 0 2px;
-	float: left;
+	position: absolute;
+	right: 8px;
 	display: none;
 }
 
