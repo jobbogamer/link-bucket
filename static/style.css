@@ -250,6 +250,8 @@ ul#items li.item img.icon {
 	float: left;
 	margin-right: 4px;
 	margin-left: 18px;
+	width: 16px;
+	height: 16px;
 }
 
 ul#items li.item p.info {
