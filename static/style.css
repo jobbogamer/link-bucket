@@ -262,6 +262,20 @@ ul#items li.item p.info {
 	color: rgba(127, 127, 127, 1);
 }
 
+ul#items li.item p.info span.domain {
+	max-width: 395px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 18px;
+	float: left;
+}
+
+ul#items li.item p.info span.time {
+	display: block;
+	float: left;
+}
+
 ul#items li.item a.link {
 	width: 465px;
 	float: left;
@@ -489,6 +503,20 @@ div#stats div#achievements ul#achievements li.achievement p.text span.name {
 
 	ul#items li.item div.embedded img {
 		max-width: 290px;
+	}
+
+	ul#items li.item p.info span.domain {
+		max-width: 200px;
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 18px;
+		float: left;
+	}
+
+	ul#items li.item p.info span.time {
+		display: block;
+		float: left;
 	}
 
 	form.add-item {

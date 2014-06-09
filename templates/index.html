@@ -12,7 +12,7 @@
 				{% endif %}
 				<h2 class="title" id="title-{{ item.id }}">{{ item.title }}</h2>
 				<div class="meta">
-					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info">{{ domains[item.id] }} – {{ times[item.id] }}</p>
+					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info"><span class="domain">{{ domains[item.id] }}</span><span class="time"> – {{ times[item.id] }}</span></p>
 				</div>
 			</a>
 			<div class="buttons" id="buttons-{{ item.id }}">
