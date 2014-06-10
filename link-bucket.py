@@ -21,7 +21,7 @@ except KeyError as error:
 
 db = SQLAlchemy(app)
 
-base_url = 'http://linkbucket.josh-asch.net'
+base_url = 'http://linkbucket.joshasch.com'
 
 ###############################################################################
 # Database model objects                                                      #
