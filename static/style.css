@@ -237,6 +237,7 @@ ul#items li.item div.unread-dot {
 
 ul#items li.item.unread div.unread-dot {
 	background: #107BF7;
+	display: block;
 }
 
 ul#items li.item h2.title {
