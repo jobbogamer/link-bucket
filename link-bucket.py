@@ -568,6 +568,7 @@ def index():
 	youtubes = {}
 	images = {}
 	unread = {}
+	starred = {}
 
 	position = len(items);
 
@@ -575,7 +576,7 @@ def index():
 		times[item.id] = get_relative_time(item.date)
 		opacities[item.id] = get_opacity_from_age(item.date)
 		domains[item.id] = get_domain(item.url)
-		
+		starred[item.id] = item.starred
 		if item.unread:
 			unread[item.id] = "unread"
 
@@ -592,7 +593,7 @@ def index():
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images, unread=unread)
+	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images, unread=unread, starred=starred)
 
 
 @app.route('/add', methods=['GET', 'POST'])
