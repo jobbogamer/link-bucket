@@ -261,6 +261,10 @@ ul#items li.item.starred div.starred-dot {
 	display: block;
 }
 
+ul#items li.item.expanded div.starred-dot {
+	display: none;
+}
+
 ul#items li.item:not(.unread) div.marker:hover div.starred-dot {
 	opacity: 0.5;
 	display: block;

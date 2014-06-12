@@ -201,8 +201,12 @@ function showEmbed(id) {
 	if (html.indexOf("plus") > -1) {
 		document.getElementById("show-embedded-" + id).innerHTML = '<i class="fa fa-minus-square-o"></i>';
 		clickItem(id);
+		$("#item-" + id).toggleClass("expanded");
+		$("#embedded-" + id).slideToggle();
 	} else {
 		document.getElementById("show-embedded-" + id).innerHTML = '<i class="fa fa-plus-square-o"></i>';
+		$("#embedded-" + id).slideToggle(complete = function() {
+			$("#item-" + id).toggleClass("expanded");
+		});
 	}
-	$("#embedded-" + id).slideToggle();
 }
