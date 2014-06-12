@@ -126,6 +126,7 @@ def add_item(url, date, title):
 def archive_item(id):
 	item = get_item_by_id(id)
 	item.archived = True
+	item.starred = False
 	item.date = datetime.now()
 	db.session.commit()
 	increment_links_archived()
@@ -133,6 +134,7 @@ def archive_item(id):
 def unarchive_item(id):
 	item = get_item_by_id(id)
 	item.archived = False
+	item.starred = True
 	item.date = datetime.now()
 	db.session.commit()
 	increment_links_unarchived()
@@ -151,6 +153,7 @@ def delete_item(id):
 def star_item(id):
 	item = get_item_by_id(id)
 	item.starred = True
+	item.unread = False
 	db.session.commit()
 
 def unstar_item(id):
@@ -576,7 +579,10 @@ def index():
 		times[item.id] = get_relative_time(item.date)
 		opacities[item.id] = get_opacity_from_age(item.date)
 		domains[item.id] = get_domain(item.url)
-		starred[item.id] = item.starred
+		
+		if item.starred
+			starred[item.id] = "starred"
+		
 		if item.unread:
 			unread[item.id] = "unread"
 
