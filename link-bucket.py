@@ -34,12 +34,14 @@ class Link(db.Model):
 	archived = db.Column(db.Boolean)
 	title = db.Column(db.String)
 	unread = db.Column(db.Boolean)
+	starred = db.Column(db.Boolean)
 
 	def __init__(self, url, date, title):
 		self.url = url
 		self.date = date
 		self.archived = False
 		self.unread = True
+		self.starred = False
 
 		if (len(title) > 0) and (title != 'Title'):
 			self.title = title
@@ -144,6 +146,16 @@ def edit_item_title(id, new_title):
 def delete_item(id):
 	item = get_item_by_id(id)
 	db.session.delete(item)
+	db.session.commit()
+
+def star_item(id):
+	item = get_item_by_id(id)
+	item.starred = True
+	db.session.commit()
+
+def unstar_item(id):
+	item = get_item_by_id(id)
+	item.starred = False
 	db.session.commit()
 
 def is_valid_url(url):
