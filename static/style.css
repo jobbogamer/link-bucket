@@ -220,7 +220,7 @@ ul#items li.item.opacity10 {
 	opacity: 0.1;
 }
 
-ul#items li.item div.unread-marker {
+ul#items li.item div.marker {
 	float: left;
 	position: absolute;
 	top: 50%;
@@ -237,6 +237,19 @@ ul#items li.item div.unread-dot {
 
 ul#items li.item.unread div.unread-dot {
 	background: #107BF7;
+	display: block;
+}
+
+ul#items li.item div.starred-dot {
+	background: #FFFFFF;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	display: none;
+}
+
+ul#items li.item.starred div.starred-dot {
+	background: #FD9945;
 	display: block;
 }
 
