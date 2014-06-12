@@ -580,9 +580,9 @@ def index():
 		opacities[item.id] = get_opacity_from_age(item.date)
 		domains[item.id] = get_domain(item.url)
 		
-		if item.starred
+		if item.starred:
 			starred[item.id] = "starred"
-		
+
 		if item.unread:
 			unread[item.id] = "unread"
 

@@ -22,7 +22,7 @@ function clickItem(id) {
 		url: '/click/' + id,
 	}).done(function(data) {
 		showAchievements(data.achievements);
-		document.getElementById('unread-dot-' + id).style.background = "white";
+		hideUnreadIndicator(id);
 	});
 }
 
@@ -89,6 +89,10 @@ function showStarIndicator(id) {
 
 function hideStarIndicator(id) {
 	$('#item-' + id).removeClass("starred");
+}
+
+function hideUnreadIndicator(id) {
+	$('#item-' + id).removeClass("unread");
 }
 
 function searchBarFocus(searchbar) {
