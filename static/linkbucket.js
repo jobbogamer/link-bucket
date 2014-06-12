@@ -69,6 +69,28 @@ function showNewTitle(id, newTitle) {
 	document.getElementById("title-" + id).innerHTML = newTitle;
 }
 
+function starItem(id) {
+	$.ajax({
+		url: '/star/' + id,
+		success: showStarIndicator(id)
+	});
+}
+
+function unstarItem(id) {
+	$.ajax({
+		url: '/unstar/' + id,
+		success: hideStarIndicator(id)
+	});
+}
+
+function showStarIndicator(id) {
+	$('#item-' + id).addClass("starred");
+}
+
+function hideStarIndicator(id) {
+	$('#item-' + id).removeClass("starred");
+}
+
 function searchBarFocus(searchbar) {
 	if (searchbar.value == 'Search') {
 		searchbar.value='';
