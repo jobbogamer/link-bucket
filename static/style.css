@@ -223,33 +223,46 @@ ul#items li.item.opacity10 {
 ul#items li.item div.marker {
 	float: left;
 	position: absolute;
+	height: 100%;
+	width: 20px;
+	top: 0px;
+	left: 0px;
+	padding-left: 8px;
+	box-sizing: border-box;
+}
+
+ul#items li.item div.unread-dot {
+	background: #107BF7;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	display: none;
+	position: absolute;
 	top: 50%;
 	margin-top: -5px;
 }
 
-ul#items li.item div.unread-dot {
-	background: #FFFFFF;
-	border-radius: 50%;
-	width: 10px;
-	height: 10px;
-	display: none;
-}
-
 ul#items li.item.unread div.unread-dot {
-	background: #107BF7;
 	display: block;
 }
 
 ul#items li.item div.starred-dot {
-	background: #FFFFFF;
+	background: #FD9945;
 	border-radius: 50%;
 	width: 10px;
 	height: 10px;
 	display: none;
+	position: absolute;
+	top: 50%;
+	margin-top: -5px;
 }
 
 ul#items li.item.starred div.starred-dot {
-	background: #FD9945;
+	display: block;
+}
+
+ul#items li.item div.marker:hover div.starred-dot {
+	opacity: 0.5;
 	display: block;
 }
 
