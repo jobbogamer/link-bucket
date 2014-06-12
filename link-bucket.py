@@ -710,6 +710,16 @@ def unarchive(id):
 
 	return jsonify(data)
 
+@app.route('/star/<int:id>')
+def star(id):
+	star_item(id)
+	return jsonify({})
+
+@app.route('/unstar/<int:id>')
+def unstar(id):
+	unstar_item(id)
+	return jsonify({})
+
 @app.route('/edit/<int:id>')
 def edit(id):
 	title = request.args.get('title', '(No title)')
