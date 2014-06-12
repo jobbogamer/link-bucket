@@ -69,6 +69,17 @@ function showNewTitle(id, newTitle) {
 	document.getElementById("title-" + id).innerHTML = newTitle;
 }
 
+function toggleStar(id) {
+	if (! $('#item-' + id).hasClass("unread")) {
+		if ($('#item-' + id).hasClass("starred")) {
+			console.log("about to call unstarItem()");
+			unstarItem(id);
+		} else {
+			starItem(id);
+		}
+	}
+}
+
 function starItem(id) {
 	$.ajax({
 		url: '/star/' + id,

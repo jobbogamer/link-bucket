@@ -261,7 +261,7 @@ ul#items li.item.starred div.starred-dot {
 	display: block;
 }
 
-ul#items li.item div.marker:hover div.starred-dot {
+ul#items li.item:not(.unread) div.marker:hover div.starred-dot {
 	opacity: 0.5;
 	display: block;
 }
