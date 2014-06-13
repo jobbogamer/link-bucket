@@ -3,6 +3,7 @@
 	<input type="text" name="search" id="search" value="Search" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" onkeydown="searchBarKeyDown(this, event, false);" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
+		{% if item.days < 14 or item.unread or item.starred %}
 		<li id="item-{{ item.id }}" class="item matched {{ item.unread }} {{ item.starred }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
 			<div class="marker" onclick="toggleStar({{ item.id }});">
 				<div id="unread-dot-{{ item.id }}" class="unread-dot"></div>
@@ -42,6 +43,7 @@
 				{% endif %}
 			{% endif %}
 		</li>
+		{% endif %}
 		{% else %}
 		<li class="noitems">{{ options['emptymessage'] }}</li>
 		{% endfor %}

@@ -3,7 +3,7 @@
 	<input type="text" name="search" id="search" value="Search" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" onkeydown="searchBarKeyDown(this, event, true);" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
-		{% if item.time != "7d" %}
+		{% if item.days < 7 %}
 		<li id="item-{{ item.id }}" class="item opacity100 matched" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
 			<a class="link" href="{{ item.url }}" title="#{{ item.id }} - {{ item.url }}" target="_blank" name="{{ item.position }}" onclick="clickItem({{ item.id }});">
 				<h2 class="title">{{ item.title }}</h2>

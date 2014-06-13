@@ -72,6 +72,7 @@ class DisplayItem():
 		self.position = -1
 		self.youtube = None
 		self.image = False
+		self.days = get_days_since(item.date)
 
 
 
@@ -241,12 +242,18 @@ def get_opacity_from_age(date):
 	else:
 		return "30"
 
-def delete_if_too_old(item):
+def get_days_since(date):
 	now = datetime.now()
-	delta = now - item.date
+	delta = now - date
 	days = delta.days
+	return days
 
-	if days >= 7:
+def archive_if_too_old(item):
+	if get_days_since(item.date) >= 14 and not(item.unread) and not(item.starred):
+		archive_item(item.id)
+
+def delete_if_too_old(item):
+	if get_days_since(item.date) >= 7:
 		delete_item(item.id)
 
 def get_youtube_embed_url(url):
@@ -585,6 +592,8 @@ def index():
 	position = len(items)
 
 	for item in items:
+		archive_if_too_old(item)
+
 		displayitem = DisplayItem(item)
 		displayitem.position = position
 		displayitem.youtube = get_youtube_embed_url(item.url)
