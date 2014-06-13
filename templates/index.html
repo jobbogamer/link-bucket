@@ -3,7 +3,7 @@
 	<input type="text" name="search" id="search" value="Search" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" onkeydown="searchBarKeyDown(this, event, false);" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
-		<li id="item-{{ item.id }}" class="item opacity{{ opacities[item.id] }} matched {{ unread[item.id] }} {{ starred[item.id] }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
+		<li id="item-{{ item.id }}" class="item matched {{ unread[item.id] }} {{ starred[item.id] }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
 			<div class="marker" onclick="toggleStar({{ item.id }});">
 				<div id="unread-dot-{{ item.id }}" class="unread-dot"></div>
 				<div id="starred-dot-{{ item.id }}" class="starred-dot"></div>
