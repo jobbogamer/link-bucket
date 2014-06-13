@@ -594,16 +594,17 @@ def index():
 	for item in items:
 		archive_if_too_old(item)
 
-		displayitem = DisplayItem(item)
-		displayitem.position = position
-		displayitem.youtube = get_youtube_embed_url(item.url)
+		if not(item.archived):
+			displayitem = DisplayItem(item)
+			displayitem.position = position
+			displayitem.youtube = get_youtube_embed_url(item.url)
 
-		lowercase_url = item.url.lower()
-		if lowercase_url.endswith('.jpg') or lowercase_url.endswith('jpeg') or lowercase_url.endswith('.png') or lowercase_url.endswith('.gif'):
-			displayitem.image = True
-		
-		displayitems.append(displayitem)
-		position -= 1
+			lowercase_url = item.url.lower()
+			if lowercase_url.endswith('.jpg') or lowercase_url.endswith('jpeg') or lowercase_url.endswith('.png') or lowercase_url.endswith('.gif'):
+				displayitem.image = True
+			
+			displayitems.append(displayitem)
+			position -= 1
 
 	options = {
 		'browsertitle': 'Linkbucket',
