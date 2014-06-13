@@ -3,15 +3,15 @@
 	<input type="text" name="search" id="search" value="Search" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" onkeydown="searchBarKeyDown(this, event, false);" autocomplete="off" />
 	<ul id="items">
 		{% for item in items %}
-		<li id="item-{{ item.id }}" class="item matched {{ unread[item.id] }} {{ starred[item.id] }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
+		<li id="item-{{ item.id }}" class="item matched {{ item.unread }} {{ item.starred }}" onmouseover='showButtons({{ item.id }}, true);' onmouseout='showButtons({{ item.id }}, false);'>
 			<div class="marker" onclick="toggleStar({{ item.id }});">
 				<div id="unread-dot-{{ item.id }}" class="unread-dot"></div>
 				<div id="starred-dot-{{ item.id }}" class="starred-dot"></div>
 			</div>
-			<a class="link" href="{{ item.url }}" title="#{{ item.id }} - {{ item.url }}" target="_blank" name="{{ positions[item.id] }}" onclick="clickItem({{ item.id }});">
+			<a class="link" href="{{ item.url }}" title="#{{ item.id }} - {{ item.url }}" target="_blank" name="{{ item.position }}" onclick="clickItem({{ item.id }});">
 				<h2 class="title" id="title-{{ item.id }}">{{ item.title }}</h2>
 				<div class="meta">
-					<img class="icon" src="http://google.com/s2/favicons?domain={{ domains[item.id] }}" /><p class="info"><span class="domain">{{ domains[item.id] }}</span><span class="time">&nbsp;– {{ times[item.id] }}</span></p>
+					<img class="icon" src="http://google.com/s2/favicons?domain={{ item.domain }}" /><p class="info"><span class="domain">{{ item.domain }}</span><span class="time">&nbsp;– {{ item.time }}</span></p>
 				</div>
 			</a>
 			<div class="buttons" id="buttons-{{ item.id }}">
@@ -22,15 +22,15 @@
 					<i class="fa fa-pencil fa-fw"></i>
 				</a>
 			</div>
-			{% if youtubes[item.id] %}
+			{% if item.youtube %}
 			<div class="show-embedded" id="show-embedded-{{ item.id }}" onclick="showEmbed({{ item.id }});">
 				<i class="fa fa-plus-square-o"></i>
 			</div>
 			<div class="embedded" id="embedded-{{ item.id }}">
-				<iframe width="480" height="270" src="{{ youtubes[item.id] }}?rel=0" frameborder="0" allowfullscreen="true"></iframe>
+				<iframe width="480" height="270" src="{{ item.youtube }}?rel=0" frameborder="0" allowfullscreen="true"></iframe>
 			</div>
 			{% else %}
-				{% if images[item.id] %}
+				{% if item.image %}
 			<div class="show-embedded" id="show-embedded-{{ item.id }}" onclick="showEmbed({{ item.id }});">
 				<i class="fa fa-plus-square-o"></i>
 			</div>

@@ -56,6 +56,25 @@ class Link(db.Model):
 		return "[Link(%d) %s]" % (self.id, self.url)
 
 
+
+class DisplayItem():
+	def __init__(self, item):
+		self.id = item.id
+		self.url = item.url
+		self.date = item.date
+		self.archived = item.archived
+		self.title = item.title
+		self.unread = "unread" if item.unread else ""
+		self.starred = "starred" if item.starred else ""
+		self.opacity = get_opacity_from_age(item.date)
+		self.time = get_relative_time(item.date)
+		self.domain = get_domain(item.url)
+		self.position = -1
+		self.youtube = None
+		self.image = False
+
+
+
 class FB(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	app_id = db.Column(db.String(50))
@@ -562,41 +581,19 @@ def index():
 	db.create_all()
 
 	items = get_item_list()
-	now = datetime.now()
-
-	opacities = {}
-	times = {}
-	domains = {}
-	positions = {}
-	youtubes = {}
-	images = {}
-	unread = {}
-	starred = {}
-
-	position = len(items);
+	displayitems = []
+	position = len(items)
 
 	for item in items:
-		times[item.id] = get_relative_time(item.date)
-		opacities[item.id] = get_opacity_from_age(item.date)
-		domains[item.id] = get_domain(item.url)
-		
-		if item.starred:
-			starred[item.id] = "starred"
-
-		if item.unread:
-			unread[item.id] = "unread"
-
-		youtube = get_youtube_embed_url(item.url)
-		if youtube is not None:
-			youtubes[item.id] = youtube
+		displayitem = DisplayItem(item)
+		displayitem.position = position
+		displayitem.youtube = get_youtube_embed_url(item.url)
 
 		lowercase_url = item.url.lower()
 		if lowercase_url.endswith('.jpg') or lowercase_url.endswith('jpeg') or lowercase_url.endswith('.png') or lowercase_url.endswith('.gif'):
-			images[item.id] = True
-		else:
-			images[item.id] = False
-
-		positions[item.id] = position
+			displayitem.image = True
+		
+		displayitems.append(displayitem)
 		position -= 1
 
 	options = {
@@ -605,7 +602,7 @@ def index():
 		'emptymessage': 'No links yet.'
 	}
 
-	return render_template('index.html', options=options, items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images, unread=unread, starred=starred)
+	return render_template('index.html', options=options, items=displayitems)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -654,23 +651,22 @@ def add():
 def view_archive():
 	items = get_archive_list()
 	items = sorted(items, key=lambda link: link.date, reverse=True)
-	now = datetime.now()
 
-	opacities = {}
-	times = {}
-	domains = {}
-	positions = {}
-	data_edited = False
+	displayitems = []
 	position = len(items)
 
 	for item in items:
 		delete_if_too_old(item)
 
-		times[item.id] = get_relative_time(item.date)
-		opacities[item.id] = 100
-		domains[item.id] = get_domain(item.url)
+		displayitem = DisplayItem(item)
+		displayitem.position = position
+		displayitem.youtube = get_youtube_embed_url(item.url)
 
-		positions[item.id] = position
+		lowercase_url = item.url.lower()
+		if lowercase_url.endswith('.jpg') or lowercase_url.endswith('jpeg') or lowercase_url.endswith('.png') or lowercase_url.endswith('.gif'):
+			displayitem.image = True
+		
+		displayitems.append(displayitem)
 		position -= 1
 
 	options = {
@@ -679,7 +675,7 @@ def view_archive():
 		'emptymessage': 'The archive is empty.'
 	}
 
-	return render_template('archive.html', options=options, items=items, opacities=opacities, times=times, domains=domains, positions=positions)
+	return render_template('archive.html', options=options, items=displayitems)
 
 @app.route('/stats')
 def stats():
