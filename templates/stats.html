@@ -13,9 +13,9 @@
 
 			<div class="column right">
 			<ul id="stat-details">
-					<li class="detail">{{ travis['build_no'] }}</li>
-					<li class="detail" title="{{ travis['date'] }}">{{ travis['timeago'] }}</li>
-					<li class="detail"><a href="{{ travis['url'] }}" target="_blank">{{ travis['message'] }}</a></li>
+					<li class="detail">{{ options['travis']['build_no'] }}</li>
+					<li class="detail" title="{{ options['travis']['date'] }}">{{ options['travis']['timeago'] }}</li>
+					<li class="detail"><a href="{{ options['travis']['url'] }}" target="_blank">{{ options['travis']['message'] }}</a></li>
 				</ul>
 			</div>
 		</div>
@@ -35,12 +35,12 @@
 
 			<div class="column right">
 			<ul id="stat-details">
-					<li class="detail">{{ stats.links_created }}</li>
-					<li class="detail">{{ stats.links_clicked }}</li>
-					<li class="detail">{{ stats.links_archived }}</li>
-					<li class="detail">{{ stats.links_unarchived }}</li>
-					<li class="detail">{{ stats.links_edited }}</li>
-					<li class="detail">{{ stats.searches_performed }}</li>
+					<li class="detail">{{ options['stats'].links_created }}</li>
+					<li class="detail">{{ options['stats'].links_clicked }}</li>
+					<li class="detail">{{ options['stats'].links_archived }}</li>
+					<li class="detail">{{ options['stats'].links_unarchived }}</li>
+					<li class="detail">{{ options['stats'].links_edited }}</li>
+					<li class="detail">{{ options['stats'].searches_performed }}</li>
 				</ul>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 		<div class="section" id="achievements">
 			<h2 class="heading">Achievements</h2>
 			<ul id="achievements" class="fa-ul">
-			{% for achievement in achievements %}
+			{% for achievement in options['achievements'] %}
 				{% if achievement['unlocked'] %}
 				<li class="achievement {{ achievement['difficulty'] }}">
 					<i class="fa-li fa fa-trophy"></i>

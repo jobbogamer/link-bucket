@@ -599,7 +599,13 @@ def index():
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('index.html', title='Linkbucket', emptymessage='No links yet.', items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images, unread=unread, starred=starred)
+	options = {
+		'browsertitle': 'Linkbucket',
+		'title': 'Linkbucket',
+		'emptymessage': 'No links yet.'
+	}
+
+	return render_template('index.html', options=options, items=items, opacities=opacities, times=times, domains=domains, positions=positions, youtubes=youtubes, images=images, unread=unread, starred=starred)
 
 
 @app.route('/add', methods=['GET', 'POST'])
@@ -634,7 +640,14 @@ def add():
 		else:
 			flash(message, 'success')
 
-	return render_template('add.html', title='Linkbucket - Add Link', previous_title=previous_title, previous_url=previous_url)
+	options = {
+		'browsertitle': 'Add Link - Linkbucket',
+		'title': 'Add Link',
+		'previous_title': previous_title,
+		'previous_url': previous_url
+	}
+
+	return render_template('add.html', options=options)
 
 
 @app.route('/archive')
@@ -660,13 +673,29 @@ def view_archive():
 		positions[item.id] = position
 		position -= 1
 
-	return render_template('archive.html', title='Linkbucket - Archive', emptymessage='The archive is empty.', items=items, opacities=opacities, times=times, domains=domains, positions=positions)
+	options = {
+		'browsertitle': 'Archive - Linkbucket',
+		'title': 'Archive',
+		'emptymessage': 'The archive is empty.'
+	}
+
+	return render_template('archive.html', options=options, items=items, opacities=opacities, times=times, domains=domains, positions=positions)
 
 @app.route('/stats')
 def stats():
 	travis = get_travis_info()
 	stats = get_stats()
-	return render_template('stats.html', title='Linkbucket - Stats', travis=travis, stats=stats, achievements=get_achivements_list(stats))
+	achievements = get_achivements_list(stats)
+
+	options = {
+		'browsertitle': 'Stats - Linkbucket',
+		'title': 'Stats',
+		'travis': travis,
+		'stats': stats,
+		'achievements': achievements
+	}
+
+	return render_template('stats.html', options=options)
 
 @app.route('/fail')
 def fail():
