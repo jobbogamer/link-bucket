@@ -154,7 +154,8 @@ def archive_item(id):
 def unarchive_item(id):
 	item = get_item_by_id(id)
 	item.archived = False
-	item.starred = True
+	if not(item.unread):
+		item.starred = True
 	item.date = datetime.now()
 	db.session.commit()
 	increment_links_unarchived()
