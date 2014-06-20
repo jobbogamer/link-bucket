@@ -307,53 +307,6 @@ def perform_search(searchterm, archive=False):
 
 	return jsonify(matched=matched, not_matched=not_matched, achievements=achievements)
 
-def get_travis_info():
-	url = 'https://api.travis-ci.org/repos/jobbogamer/link-bucket'
-	headers = {'User-Agent': 'LinkBucket/1.0.0', 'Accept': 'application/vnd.travis-ci.2+json'}
-	request = Request(url, headers=headers)
-	results = urlopen(request).read().replace('null', 'None').replace('false', 'False').replace('true', 'True')
-	repo_data = eval(results)['repo']
-
-	build_id = repo_data['last_build_id']
-	build_no = int(repo_data['last_build_number']) + 87
-
-	url = 'https://api.travis-ci.org/repos/jobbogamer/link-bucket/builds/' + str(build_id)
-	headers = {'User-Agent': 'LinkBucket/1.0.0', 'Accept': 'application/vnd.travis-ci.2+json'}
-	request = Request(url, headers=headers)
-	results = urlopen(request).read().replace('null', 'None').replace('false', 'False').replace('true', 'True')
-	commit_data = eval(results)['commit']
-
-	sha1 = commit_data['sha'][:10]
-	date = commit_data['committed_at']
-	message = commit_data['message']
-	url = commit_data['compare_url']
-
-	timeago = get_relative_time(datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S'))
-	if timeago.endswith('m'):
-		if timeago.startswith('<'):
-			timeago = "Less than a minute ago"
-		elif timeago == "1m":
-			timeago = "A minute ago"
-		else:
-			timeago = timeago.replace('m', ' minutes ago')
-	elif timeago.endswith('h'):
-		if timeago == "1h":
-			timeago = 'An hour ago'
-		else:
-			timeago = timeago.replace('h', ' hours ago')
-	else:
-		if timeago == "1d":
-			timeago = 'Yesterday'
-		else:
-			timeago = timeago.replace('d', ' days ago')
-
-	date = datetime.strptime(date[0:19], '%Y-%m-%dT%H:%M:%S')
-	date = date.strftime('%d %B %Y, %H:%M:%S')
-
-	data = {'build_no': build_no, 'date': date, 'timeago': timeago, 'message': message, 'url': url}
-
-	return data
-
 def get_stats():
 	stats = Stats.query.filter_by(id = 1).first()
 	if stats is None:
