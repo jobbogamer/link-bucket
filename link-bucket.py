@@ -107,8 +107,6 @@ class Stats(db.Model):
 	links_unarchived = db.Column(db.Integer)
 	links_edited = db.Column(db.Integer)
 	searches_performed = db.Column(db.Integer)
-	one_result = db.Column(db.Boolean)
-	no_results = db.Column(db.Boolean)
 
 	def __init__(self):
 		self.links_created = 0
@@ -117,8 +115,6 @@ class Stats(db.Model):
 		self.links_unarchived = 0
 		self.links_edited = 0
 		self.searches_performed = 0
-		self.one_result = False
-		self.no_results = False
 
 
 ###############################################################################
@@ -390,18 +386,6 @@ def get_searches_performed():
 	stats = get_stats()
 	return stats.searches_performed
 
-def have_no_results():
-	stats = get_stats()
-	return stats.no_results
-
-def have_one_result():
-	stats = get_stats()
-	return stats.one_result
-
-def have_no_results():
-	stats = get_stats()
-	return stats.no_results
-
 def reset_stats():
 	stats = get_stats()
 	stats.links_created = 0
@@ -410,8 +394,6 @@ def reset_stats():
 	stats.links_unarchived = 0
 	stats.links_edited = 0
 	stats.searches_performed = 0
-	stats.one_result = False
-	stats.no_results = False
 	db.session.commit()
 
 def increment_links_created():
@@ -449,141 +431,6 @@ def increment_searches_performed():
 	stats.searches_performed = stats.searches_performed + 1
 	db.session.commit()
 	return stats.searches_performed
-
-def got_one_result():
-	stats = get_stats()
-	stats.one_result = True
-	db.session.commit()
-
-def got_no_results():
-	stats = get_stats()
-	stats.no_results = True
-	db.session.commit()
-
-def get_achivements_list(stats):
-	achivements = [
-		{'name': "Getting Started",
-		 'description': "Add a link",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_created >= 1},
-		
-		{'name': "Gatherer",
-		 'description': "Add 10 links",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_created >= 10},
-		
-		{'name': "Collector",
-		 'description': "Add 25 links",
-		 'difficulty': 'silver',
-		 'unlocked': stats.links_created >= 25},
-		
-		{'name': "Hoarder",
-		 'description': "Add 50 links",
-		 'difficulty': 'gold',
-		 'unlocked': stats.links_created >= 50},
-		
-		{'name': "That's Why We're Here",
-		 'description': "Click a link",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_clicked >= 1},
-		
-		{'name': "Eager Reader",
-		 'description': "Click 25 links",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_clicked >= 25},
-		
-		{'name': "Dedicated Reader",
-		 'description': "Click 50 links",
-		 'difficulty': 'silver',
-		 'unlocked': stats.links_clicked >= 50},
-		
-		{'name': "Passionate Reader",
-		 'description': "Click 100 links",
-		 'difficulty': 'gold',
-		 'unlocked': stats.links_clicked >= 100},
-		
-		{'name': "I'm Finished With You",
-		 'description': "Archive a link",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_archived >= 1},
-		
-		{'name': "Janitor",
-		 'description': "Archive 25 links",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_archived >= 25},
-		
-		{'name': "Clean Freak",
-		 'description': "Archive 50 links",
-		 'difficulty': 'silver',
-		 'unlocked': stats.links_archived >= 50},
-		
-		{'name': "OCD",
-		 'description': "Archive 100 links",
-		 'difficulty': 'gold',
-		 'unlocked': stats.links_archived >= 100},
-		
-		{'name': "Change Of Heart",
-		 'description': "Unarchive a link",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_unarchived >= 1},
-		
-		{'name': "Say No To Landfill",
-		 'description': "Unarchive 5 links",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_unarchived >= 5},
-		
-		{'name': "Keep The Planet Safe",
-		 'description': "Unarchive 10 links",
-		 'difficulty': 'silver',
-		 'unlocked': stats.links_unarchived >= 10},
-		
-		{'name': "Vote Green",
-		 'description': "Unarchive 20 links",
-		 'difficulty': 'gold',
-		 'unlocked': stats.links_unarchived >= 20},
-		
-		{'name': "Correction",
-		 'description': "Edit a title",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_edited >= 1},
-		
-		{'name': "Oops",
-		 'description': "Edit 5 titles",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.links_edited >= 5},
-		
-		{'name': "Only Human",
-		 'description': "Edit 10 titles",
-		 'difficulty': 'silver',
-		 'unlocked': stats.links_edited >= 10},
-		
-		{'name': "Everyone's A Critic",
-		 'description': "Edit 20 titles",
-		 'difficulty': 'gold',
-		 'unlocked': stats.links_edited >= 20},
-		
-		{'name': "It's Here Somewhere",
-		 'description': "Perform a search",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.searches_performed >= 1},
-		
-		{'name': "Hunter",
-		 'description': "Perform 10 searches",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.searches_performed >= 10},
-		
-		{'name': "Spot On",
-		 'description': "Perform a search that returns a single result",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.one_result},
-
-		{'name': "404",
-		 'description': "Perform a search that returns no results",
-		 'difficulty': 'bronze',
-		 'unlocked': stats.no_results}
-	]
-
-	return achivements
 
 ###############################################################################
 # Routing methods                                                             #
@@ -696,9 +543,7 @@ def view_archive():
 
 @app.route('/stats')
 def stats():
-	travis = get_travis_info()
 	stats = get_stats()
-	achievements = get_achivements_list(stats)
 
 	commit = github.get_latest_commit('jobbogamer', 'linkbucket')
 	version = github.get_last_tag('jobbogamer', 'linkbucket').name
@@ -710,8 +555,7 @@ def stats():
 		'commit': commit,
 		'version': version,
 		'date': date,
-		'stats': stats,
-		'achievements': achievements
+		'stats': stats
 	}
 
 	return render_template('stats.html', options=options)

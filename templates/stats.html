@@ -45,24 +45,5 @@
 			</div>
 		</div>
 
-		<div class="section" id="achievements">
-			<h2 class="heading">Achievements</h2>
-			<ul id="achievements" class="fa-ul">
-			{% for achievement in options['achievements'] %}
-				{% if achievement['unlocked'] %}
-				<li class="achievement {{ achievement['difficulty'] }}">
-					<i class="fa-li fa fa-trophy"></i>
-					<p class="text"><span class="name">{{ achievement['name'] }}</span>: {{ achievement['description'] }}</p>
-				</li>
-				{% else %}
-				<li class="achievement locked">
-					<i class="fa-li fa fa-lock"></i>
-					<p class="text">???</p>
-				</li>
-				{% endif %}
-			{% endfor %}
-			</ul>
-		</div>
-
 	</div>
 {% endblock %}
