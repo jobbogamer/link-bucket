@@ -13,9 +13,9 @@
 
 			<div class="column right">
 			<ul id="stat-details">
-					<li class="detail">{{ options['travis']['build_no'] }}</li>
-					<li class="detail" title="{{ options['travis']['date'] }}">{{ options['travis']['timeago'] }}</li>
-					<li class="detail"><a href="{{ options['travis']['url'] }}" target="_blank">{{ options['travis']['message'] }}</a></li>
+					<li class="detail">{{ options['version'] }}</li>
+					<li class="detail" title="">{{ options['date'] }}</li>
+					<li class="detail"><a href="{{ options['commit'].url }}" target="_blank">{{ options['commit'].message }}</a></li>
 				</ul>
 			</div>
 		</div>

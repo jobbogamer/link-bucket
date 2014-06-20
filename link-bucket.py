@@ -11,6 +11,8 @@ from urlparse import urlparse
 from flask import Flask, render_template, flash, url_for, request, redirect, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 
+import github
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
@@ -698,10 +700,16 @@ def stats():
 	stats = get_stats()
 	achievements = get_achivements_list(stats)
 
+	commit = github.get_latest_commit('jobbogamer', 'linkbucket')
+	version = github.get_last_tag('jobbogamer', 'linkbucket').name
+	date = commit.date.strftime('%d %B %Y, %H:%M:%S')
+
 	options = {
 		'browsertitle': 'Stats - Linkbucket',
 		'title': 'Stats',
-		'travis': travis,
+		'commit': commit,
+		'version': version,
+		'date': date,
 		'stats': stats,
 		'achievements': achievements
 	}
