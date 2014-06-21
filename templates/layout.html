@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>Linkbucket 2.0</title><!-- CHANGE ME! -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" />
+		<meta name="viewport" content="width=device-width" />
+	</head>
+
+	<body>
+		<div class="header">
+			<a href="/">
+				<h1>Linkbucket 2.0</h1><!-- CHANGE ME! -->
+			</a>
+		</div>
+		<div class="navigation">
+			<ul>
+				<li><a href="{{ url_for('index') }}">Home</a></li>
+			</ul>
+		</div>
+
+		{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				<ul id="flashes">
+				{% for category, message in messages %}
+					<li class="{{ category }}">{{ message }}</li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+
+		<div class="content">
+			{% block content %}{% endblock %}
+		</div>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="{{ url_for('static', filename='linkbucket.js') }}"></script>
+	</body>
+</html>
