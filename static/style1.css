@@ -1,0 +1,581 @@
+body {
+	padding: 0;
+	margin: 0;
+
+	background: #e4e4e4;
+
+	font-family: "Helvetica Neue", "Arial", sans-serif;
+	font-weight: 300;
+}
+
+h1 {
+	padding: 0;
+	margin: 0;
+
+	text-align: center;
+	font-size: 21px;
+	line-height: 21px;
+	font-weight: 300;
+
+	color: black;
+}
+
+a {
+	text-decoration: none;
+}
+
+div.header {
+	padding: 12px 0;
+
+	background: white;
+	border-bottom: 1px solid #9F9F9F;
+}
+
+
+
+
+div.navigation {
+	text-align: center;
+	border-bottom: 1px solid #9F9F9F;
+	margin: 0 auto 24px auto;
+	background: white;
+}
+
+div.navigation ul {
+	margin: 0 auto;
+	list-style-type: none;
+	padding: 4px 0;
+}
+
+div.navigation ul li {
+	display: inline-block;
+	margin: 0 8px;
+	width: 75px;
+}
+
+div.navigation ul li a {
+	color: black;
+}
+
+
+
+
+ul#flashes {
+	width: 500px;
+	margin: 0 auto;
+	padding: 0;
+
+	text-align: center;
+
+	list-style-type: none;
+}
+
+ul#flashes li.error {
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
+
+	font-size: 16px;
+	line-height: 16px;
+
+	background: #ff9090;
+	border: 1px solid #9F9F9F;
+}
+
+ul#flashes li.success {
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
+
+	font-size: 16px;
+	line-height: 16px;
+
+	background: #90ff90;
+	border: 1px solid #9F9F9F;
+}
+
+
+
+
+
+ul#unlocked-achievements {
+	width: 500px;
+	background: #FFFFFF;
+	font-size: 16px;
+	line-height: 16px;
+	margin: 0 auto;
+}
+
+ul#unlocked-achievements li.notification {
+	margin-left: 36px;
+	padding: 8px 0;
+}
+
+ul#unlocked-achievements li.notification i {
+	margin-top: 6px;
+}
+
+ul#unlocked-achievements li.notification.bronze i {
+	color: #C78537;
+}
+
+ul#unlocked-achievements li.notification.silver i {
+	color: #999999;
+}
+
+ul#unlocked-achievements li.notification.gold i {
+	color: #DFBD5E;
+}
+
+
+
+
+input#search {
+	width: 500px;
+	margin: 16px auto 0 auto;
+	padding: 4px;
+	display: block;
+
+	font-family: "Helvetica Neue", "Arial", sans-serif;
+	font-size: 18px;
+
+	border: 1px solid #9F9F9F;
+
+	color: #9F9F9F;
+}
+
+ul#items {
+	width: 500px;
+	margin: 0 auto;
+	padding: 0;
+
+	list-style-type: none;
+}
+
+ul#items li.item {
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
+
+	font-size: 16px;
+	line-height: 16px;
+
+	background: white;
+	border: 1px solid #9F9F9F;
+
+	position: relative;
+
+}
+
+ul#items li.noitems {
+	margin: 16px 0;
+	padding: 8px;
+	overflow: auto;
+
+	font-size: 18px;
+	line-height: 18px;
+	text-align: center;
+
+	background: white;
+	border: 1px solid #9F9F9F;
+}
+
+ul#items li.item.opacity100 {
+	opacity: 1.0;
+}
+
+ul#items li.item.opacity90 {
+	opacity: 0.9;
+}
+
+ul#items li.item.opacity80 {
+	opacity: 0.8;
+}
+
+ul#items li.item.opacity70 {
+	opacity: 0.7;
+}
+
+ul#items li.item.opacity60 {
+	opacity: 0.6;
+}
+
+ul#items li.item.opacity50 {
+	opacity: 0.5;
+}
+
+ul#items li.item.opacity40 {
+	opacity: 0.4;
+}
+
+ul#items li.item.opacity30 {
+	opacity: 0.3;
+}
+
+ul#items li.item.opacity20 {
+	opacity: 0.2;
+}
+
+ul#items li.item.opacity10 {
+	opacity: 0.1;
+}
+
+ul#items li.item div.marker {
+	float: left;
+	position: absolute;
+	height: 100%;
+	width: 20px;
+	top: 0px;
+	left: 0px;
+	padding-left: 8px;
+	box-sizing: border-box;
+}
+
+ul#items li.item div.unread-dot {
+	background: #107BF7;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	display: none;
+	position: absolute;
+	top: 50%;
+	margin-top: -5px;
+}
+
+ul#items li.item.unread div.unread-dot {
+	display: block;
+}
+
+ul#items li.item div.starred-dot {
+	background: #FD9945;
+	border-radius: 50%;
+	width: 10px;
+	height: 10px;
+	display: none;
+	position: absolute;
+	top: 50%;
+	margin-top: -5px;
+}
+
+ul#items li.item.starred div.starred-dot {
+	display: block;
+}
+
+ul#items li.item.expanded div.starred-dot {
+	display: none;
+}
+
+ul#items li.item:not(.unread) div.marker:hover div.starred-dot {
+	opacity: 0.5;
+	display: block;
+}
+
+ul#items li.item h2.title {
+	margin: 0 0 8px 18px;
+	padding: 0;
+
+	font-size: 18px;
+	line-height: 18px;
+	font-weight: 400;
+
+	color: rgba(0, 0, 0, 1);
+}
+
+ul#items li.item img.icon {
+	float: left;
+	margin-right: 4px;
+	margin-left: 18px;
+	width: 16px;
+	height: 16px;
+}
+
+ul#items li.item p.info {
+	margin: 0;
+	padding: 0;
+	float: left;
+
+	color: rgba(127, 127, 127, 1);
+}
+
+ul#items li.item p.info span.domain {
+	max-width: 395px;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 18px;
+	float: left;
+}
+
+ul#items li.item p.info span.time {
+	display: block;
+	float: left;
+}
+
+ul#items li.item a.link {
+	width: 465px;
+	float: left;
+}
+
+ul#items li.item a.link:focus {
+	outline: none;
+}
+
+ul#items li.item div.buttons {
+	width: 16px;
+	padding: 0;
+	margin: 0 0 0 2px;
+	position: absolute;
+	right: 8px;
+	display: none;
+}
+
+ul#items li.item div.buttons a {
+	color: #3F3F3F;
+	display: list-item;
+	cursor: pointer;
+}
+
+ul#items li.item div.buttons a:not(:last-child) {
+	margin-bottom: 8px;
+}
+
+ul#items li.item div.show-embedded {
+	clear: both;
+	text-align: center;
+	color: #3F3F3F;
+	cursor: pointer;
+	position: relative;
+	top: 4px;
+}
+
+ul#items li.item div.embedded {
+	display: none;
+	text-align: center;
+}
+
+ul#items li.item div.embedded iframe {
+	margin-top: 8px;
+}
+
+ul#items li.item div.embedded img {
+	margin-top: 8px;
+	max-width: 480px;
+}
+
+
+
+
+form.add-item {
+	box-sizing: border-box;
+	width: 500px;
+	margin: 16px auto 0 auto;
+	padding: 8px;
+
+	background: white;
+	border: 1px solid #9F9F9F;
+}
+
+input:focus {
+	outline: none;
+}
+
+select:focus {
+	outline: none;
+}
+
+form.add-item input[type="text"] {
+	width: 100%;
+	margin-bottom: 8px;
+
+	border: none;
+	border-bottom: 1px solid #9F9F9F;
+	border-radius: 0;
+
+	font-family: "Helvetica Neue", "Arial", sans-serif;
+	font-size: 18px;
+
+	color: #9F9F9F;
+}
+
+form.add-item input.title {
+	width: 94%;
+	float: left;
+}
+
+form.add-item input.url {
+	margin-bottom: 16px;
+}
+
+form.add-item select.type {
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+form.add-item input.submit {
+	display: block;
+	margin: 0 auto;
+}
+
+form.add-item a#autotitle {
+	float: left;
+	clear: right;
+	display: block;
+
+	margin-top: -12px;
+	padding-left: 12px;
+	padding-bottom: 4px;
+	padding-right: 2px;
+
+	border-bottom: 1px solid #9F9F9F;
+
+	color: #3F3F3F;
+}
+
+form.add-item a#autotitle:hover {
+	cursor: pointer;
+}
+
+
+
+
+div#stats div.section {
+	width: 500px;
+	margin: 0 auto 16px auto;
+	background: white;
+	border: 1px solid #9F9F9F;
+	padding: 8px;
+	overflow: auto;
+	box-sizing: border-box;
+}
+
+div#stats div.section h2.heading {
+	margin: 0 0 12px 0;
+	padding: 0;
+	text-align: center;
+	font-size: 18px;
+	line-height: 18px;
+	font-weight: 300;
+	color: black;
+}
+
+div#stats div.section div.column {
+	width: 240px;
+	float: left;
+}
+
+div#stats div.section div.column ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+div#stats div.section div.column li {
+	margin-bottom: 4px;
+}
+
+div#stats div.section div.column.left {
+	text-align: right;
+}
+
+div#stats div.section div.column.left ul {
+	margin-right: 8px;
+}
+
+div#stats div.section div.column.right ul {
+	margin-left: 8px;
+}
+
+div#stats div.section div.column.right ul a {
+	color: black;
+}
+
+
+
+div#stats div#achievements ul#achievements li.achievement.bronze i {
+	color: #C78537;
+}
+
+div#stats div#achievements ul#achievements li.achievement.silver i {
+	color: #999999;
+}
+
+div#stats div#achievements ul#achievements li.achievement.gold i {
+	color: #DFBD5E;
+}
+
+div#stats div#achievements ul#achievements li.achievement.locked i {
+	color: #BBBBBB;
+}
+
+div#stats div#achievements ul#achievements li.achievement p.text span.name {
+	font-weight: 500;
+}
+
+
+
+
+
+@media (max-width: 500px) {
+	ul#flashes {
+		width: 310px;
+	}
+
+	input#search {
+		width: 310px;
+	}
+
+	ul#items {
+		width: 310px;
+	}
+
+	ul#items li.item a.link {
+		width: 275px;
+	}
+
+	ul#items li.item div.embedded iframe {
+		width: 290px !important;
+		height: 163px !important;
+	}
+
+	ul#items li.item div.embedded img {
+		max-width: 290px;
+	}
+
+	ul#items li.item p.info span.domain {
+		max-width: 200px;
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 18px;
+		float: left;
+	}
+
+	ul#items li.item p.info span.time {
+		display: block;
+		float: left;
+	}
+
+	form.add-item {
+		width: 310px;
+	}
+
+	form.add-item input[type="text"] {
+		border-radius: 0;
+	}
+
+	form.add-item input.title {
+		width: 262px;
+	}
+
+	form.add-item a#autotitle {
+		margin-top: -8px;
+	}
+
+	div#stats div.section {
+		width: 310px;
+	}
+
+	div#stats div.section div.column {
+		width: 145px;
+	}
+}
