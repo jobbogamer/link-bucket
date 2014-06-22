@@ -1,6 +1,5 @@
 import os
 from flask import Flask, render_template, url_for
-from flask.ext.sqlalchemy import SQLAlchemy
 
 ##### Config #####
 
@@ -11,8 +10,6 @@ try:
 	app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 except KeyError as error:
 	app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
-
-db = SQLAlchemy(app)
 
 ##### Routes #####
 
