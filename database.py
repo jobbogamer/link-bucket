@@ -72,5 +72,59 @@ def add_link(url, date):
 	db.session.commit()
 	return new_link
 
+def archive_link(id):
+	link = get_link_by_id(id)
+	link.archived = True
+	db.session.commit()
+
 def create_tables():
 	db.create_all()
+
+def delete_link(id):
+	link = get_link_by_id(id)
+	db.session.delete(link)
+	db.session.commit()
+
+def edit_title(id, new_title):
+	link = get_link_by_id(id)
+	link.title = new_title
+	db.session.commit()
+
+def get_all_links():
+	links = Link.query.filter_by(archived = False).all()
+	links = sorted(links, key=lambda link: link.date, reverse=True)
+	return links
+
+def get_archived_links():
+	links = Link.query.filter_by(archived = True).all()
+	links = sorted(links, key=lambda link: link.date, reverse=True)
+	return links
+
+def get_link_by_id(id):
+	link = Link.query.filter_by(id = id).first()
+	return link
+
+def mark_link_as_read(id):
+	link = get_link_by_id(id)
+	link.unread = False
+	db.session.commit()
+
+def mark_link_as_starred(id):
+	link = get_link_by_id(id)
+	link.starred = True
+	db.session.commit()
+
+def mark_link_as_unread(id):
+	link = get_link_by_id(id)
+	link.unread = True
+	db.session.commit()
+
+def mark_link_as_unstarred(id):
+	link = get_link_by_id(id)
+	link.starred = False
+	db.session.commit()
+
+def unarchive_link(id):
+	link = get_link_by_id(id)
+	link.archived = False
+	db.session.commit()
