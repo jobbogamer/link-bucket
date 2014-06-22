@@ -1,5 +1,8 @@
 import os
-from flask import Flask, render_template, url_for
+from flask import Flask, url_for, render_template
+from flask.ext.sqlalchemy import SQLAlchemy
+
+import database
 
 ##### Config #####
 
@@ -11,10 +14,16 @@ try:
 except KeyError as error:
 	app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
+db = SQLAlchemy(app)
+
 ##### Routes #####
 
 @app.route('/')
 def index():
+	db.create_all()
+	
+	database.interaction.add_link_now('http://ebay.co.uk')
+
 	return render_template('index.html')
 
 ##### Main #####
