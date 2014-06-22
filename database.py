@@ -66,5 +66,11 @@ def __find_embed(url):
 
 ##### Public API #####
 
+def add_link(url, date):
+	new_link = Link(url, date)
+	db.session.add(new_link)
+	db.session.commit()
+	return new_link
+
 def create_tables():
 	db.create_all()
