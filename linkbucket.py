@@ -20,10 +20,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-	db.create_all()
-	
-	database.interaction.add_link_now('http://ebay.co.uk')
-
+	database.create_tables()
 	return render_template('index.html')
 
 ##### Main #####

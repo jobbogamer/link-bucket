@@ -3,6 +3,8 @@ from external_apis import readability
 
 db = linkbucket.db
 
+##### Model classes #####
+
 class Link(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 
@@ -38,6 +40,7 @@ class Link(db.Model):
 
 		self.embed_url, self.embed_type = _find_embed(url)
 
+##### Private API #####
 
 def __find_embed(url):
 	url = url.lower()
@@ -60,3 +63,8 @@ def __find_embed(url):
 			return (url, 2)
 
 	return ('', 0)
+
+##### Public API #####
+
+def create_tables():
+	db.create_all()
