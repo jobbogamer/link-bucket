@@ -90,11 +90,6 @@ def edit_title(id, new_title):
 	link.title = new_title
 	db.session.commit()
 
-def get_all_links():
-	links = Link.query.filter_by(archived = False).all()
-	links = sorted(links, key=lambda link: link.date, reverse=True)
-	return links
-
 def get_archived_links():
 	links = Link.query.filter_by(archived = True).all()
 	links = sorted(links, key=lambda link: link.date, reverse=True)
@@ -103,6 +98,11 @@ def get_archived_links():
 def get_link_by_id(id):
 	link = Link.query.filter_by(id = id).first()
 	return link
+
+def get_links():
+	links = Link.query.filter_by(archived = False).all()
+	links = sorted(links, key=lambda link: link.date, reverse=True)
+	return links
 
 def mark_link_as_read(id):
 	link = get_link_by_id(id)
