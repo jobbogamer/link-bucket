@@ -42,7 +42,7 @@ class Link(db.Model):
 
 ##### Private API #####
 
-def __find_embed(url):
+def _find_embed(url):
 	url = url.lower()
 
 	if 'youtube.com/watch?v' in url:
