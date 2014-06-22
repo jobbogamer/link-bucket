@@ -13,12 +13,12 @@ class Page():
 
 	def __init__(self, json_page):
 		self.url = json_page['url']
-		self.domain = json_page['domain'].replace('www.', '').replace('null', '')
-		self.title = json_page['title'].replace('null', '')
-		self.author = json_page['author'].replace('null', '')
-		self.excerpt = json_page['excerpt'].replace('null', '')
+		self.domain = json_page['domain'].replace('www.', '')
+		self.title = json_page['title']
+		self.author = json_page['author']
+		self.excerpt = json_page['excerpt']
 		self.word_count = json_page['word_count']
-		self.image_url = json_page['lead_image_url'].replace('null', '')
+		self.image_url = json_page['lead_image_url']
 
 def _make_request(url):
 	api_url = 'http://readability.com/api/content/v1/parser?url={0}&token={1}'.format(url, __token)
