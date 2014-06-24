@@ -3,21 +3,25 @@
 		<title>Linkbucket 2.0</title><!-- CHANGE ME! -->
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" />
 		<meta name="viewport" content="width=device-width" />
 	</head>
 
 	<body>
-		<div class="header">
-			<a href="/">
-				<h1>Linkbucket 2.0</h1><!-- CHANGE ME! -->
-			</a>
-		</div>
-		<div class="navigation">
-			<ul>
-				<li><a href="{{ url_for('index') }}">Home</a></li>
-			</ul>
+		<div id="header">
+			<div id="top-bar">
+				<h1><a href="/">Linkbucket</a></h1>
+				<input type="text" id="search" name="search" />
+				<a href="#"><i class="fa fa-search"></i></a>
+				<a href="#"><i class="fa fa-plus"></i></a>
+				<a href="#"><i class="fa fa-bars"></i></a>
+			</div>
+			<div id="bottom-bar">
+				<a href="/">Archive</a>
+				<a href="/">Stats</a>
+			</div>
 		</div>
 
 		{% with messages = get_flashed_messages(with_categories=true) %}
@@ -35,6 +39,7 @@
 		</div>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="{{ url_for('static', filename='linkbucket.js') }}"></script>
 	</body>
 </html>
