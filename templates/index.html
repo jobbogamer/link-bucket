@@ -1,4 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
 
+<ul id="links">
+{% for link in links %}
+	<li id="link-{{ link.id }}" class="link">
+		<a href="{{ link.url }}">
+			{{ link.title }} - {{ link.url }}
+		</a>
+	</li>
+{% endfor %}
+</ul>
+
 {% endblock %}
