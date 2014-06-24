@@ -1,6 +1,7 @@
 import os
 from flask import Flask, url_for, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 import database
 
@@ -21,7 +22,11 @@ db = SQLAlchemy(app)
 @app.route('/')
 def index():
 	database.create_tables()
-	return render_template('index.html')
+
+	options = { }
+	links = database.get_links()
+
+	return render_template('index.html', options=options, links=links)
 
 ##### Main #####
 
