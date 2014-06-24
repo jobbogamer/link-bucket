@@ -1,1 +1,1 @@
-web: gunicorn link-bucket:app
+web: gunicorn linkbucket:app
