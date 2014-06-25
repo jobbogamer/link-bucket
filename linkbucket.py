@@ -4,6 +4,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 import database
+from external_apis import screenshots
 
 ##### Config #####
 
@@ -29,6 +30,10 @@ def index():
 	return render_template('index.html', options=options, links=links)
 
 ##### Template Filters #####
+
+@app.template_filter('screenshot_url')
+def screenshot_url(url):
+	return screenshots.get_screenshot(url)
 
 @app.template_filter('timesince')
 def timesince(date):

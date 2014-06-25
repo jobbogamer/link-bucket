@@ -38,10 +38,8 @@ div#header h1 {
 }
 
 div.link {
-	background-color: #ffffff;
-	height: 250px;
-	margin-bottom: 20px;
 	position: relative;
+	margin-bottom: 20px;
 }
 
 div.link * {
@@ -49,31 +47,50 @@ div.link * {
 	margin: 0;
 }
 
+div.link a {
+	display: block;
+	overflow: auto;
+	background: #ffffff;
+	height: 240px;
+}
+
 div.link p.title {
 	font-size: 16px;
+	overflow: hidden;
+	height: 48px;
+	padding: 4px 6px;
 }
 
 div.link span.thumbnail {
-	height: 100%;
 	width: 100%;
-	max-height: 155px;
+	height: 160px;
 	background-size: 100% auto;
 	background-position: 50% 50%;
+	background-repeat: no-repeat;
 	display: block;
-	position: absolute;
-	bottom: 28px;
 	border-radius: 0;
-	border: none;
+	border-left: none;
+	border-right: none;
+	float: left;
+	clear: both;
+	margin: 4px 0;
+}
+
+div.link span.thumbnail.screenshot {
+	background-position: 0 0;
+}
+
+div.link p.excerpt {
+	padding: 4px 6px;
+	max-height: 160px;
 }
 
 div.link p.domain {
-	position: absolute;
-	bottom: 4px;
-	left: 6px;
+	float: left;
+	padding: 0 0 4px 6px;
 }
 
 div.link time {
-	position: absolute;
-	bottom: 4px;
-	right: 6px;
+	float: right;
+	padding: 0 6px 4px 0;
 }

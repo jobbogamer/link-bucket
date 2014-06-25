@@ -5,20 +5,18 @@
 	<div class="row">
 		{% for link in links %}
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-			<a href="{{ link.url }}">
 			<div class="link">
-				<p class="title">{{ link.title }}</p>
-				{% if link.image_url %}
-				<span class="thumbnail" style="background-image: url('{{ link.image_url }}');"></span>
-				{% else %}
-				{% if link.excerpt %}
-				<p class="excerpt">{{ link.excerpt.replace('&hellip;', '') }}</p>
-				{% endif %}
-				{% endif %}
-				<p class="domain">{{ link.domain }}</p>
-				<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
+				<a href="{{ link.url }}">
+					<p class="title">{{ link.title }}</p>
+					{% if link.image_url %}
+					<span class="thumbnail" style="background-image: url('{{ link.image_url }}');"></span>
+					{% else %}
+					<span class="thumbnail screenshot" style="background-image: url('{{ link.url | screenshot_url }}');"></span>
+					{% endif %}
+					<p class="domain">{{ link.domain }}</p>
+					<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
+				</a>
 			</div>
-			</a>
 		</div>
 		{% endfor %}
 	</div>
