@@ -1,4 +1,5 @@
 import linkbucket
+import utils
 from external_apis import readability
 
 db = linkbucket.db
@@ -31,7 +32,10 @@ class Link(db.Model):
 		self.starred = False
 
 		parsed = readability.parse(url)
-		if not (parsed is None):
+		if parsed is None:
+			self.title = "(No title)"
+			self.domain = utils.find_domain(url)
+		else:
 			self.title = parsed.title
 			self.domain = parsed.domain
 			self.excerpt = parsed.excerpt
