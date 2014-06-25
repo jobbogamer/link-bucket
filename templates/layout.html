@@ -40,10 +40,10 @@
 						<li><a href="#">Archive</a></li>
 						<li><a href="#">Stats</a></li>
 					</ul>
-					<ul class="nav navbar-nav navbar-right">
+					<ul class="nav navbar-nav navbar-right hidden-xs">
 						<li><button type="button" class="btn btn-default navbar-btn" href="#"><span class="glyphicon glyphicon-plus"></span></button></li>
 					</ul>
-					<form class="navbar-form navbar-right" role="search">
+					<form class="navbar-form navbar-right hidden-xs" role="search">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Search">
 						</div>
@@ -64,6 +64,13 @@
 		{% endwith %}
 
 		<div class="content">
+			<form class="visible-xs inline-form" role="search">
+				<div id="search-mobile" class="form-group">
+					<input id="search-bar-mobile" type="text" class="form-control" placeholder="Search">
+					<button id="search-button-mobile" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</form>
+
 			{% block content %}{% endblock %}
 		</div>
 

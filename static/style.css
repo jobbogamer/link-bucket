@@ -94,3 +94,18 @@ div.link time {
 	float: right;
 	padding: 0 6px 4px 0;
 }
+
+div#search-mobile {
+	overflow: auto;
+	margin: 0 15px 20px;
+}
+
+input#search-bar-mobile {
+	float: left;
+	width: 90%;
+}
+
+button#search-button-mobile {
+	float: right;
+	width: 10%;
+}
