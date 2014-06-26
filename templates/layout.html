@@ -39,6 +39,7 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#">Archive</a></li>
 						<li><a href="#">Stats</a></li>
+						<li class="visible-xs"><a href="#">Add Link</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right hidden-xs">
 						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" href="#"><span class="glyphicon glyphicon-plus"></span></button></li>
@@ -53,12 +54,12 @@
 							</div>
   						</li>
 					</ul>
-					<form class="navbar-form navbar-right hidden-xs" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Search">
-						</div>
-						<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-					</form>
+					<div id="search" class="navbar-right navbar-form input-group">
+      					<input type="text" class="form-control" placeholder="Search">
+      					<span class="input-group-btn">
+        					<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+     					</span>
+    				</div>
 				</div>
 			</div>
 		</nav>

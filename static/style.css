@@ -38,9 +38,18 @@ div#header h1 {
 	margin: 0;
 }
 
+div#search {
+	width: 225px;
+}
+
+button#add-link {
+	margin-left: 8px;
+}
+
 div#viewmode {
 	margin-left: 8px;
 }
+
 div.link {
 	position: relative;
 	margin-bottom: 20px;
