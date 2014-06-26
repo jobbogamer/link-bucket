@@ -38,6 +38,9 @@ div#header h1 {
 	margin: 0;
 }
 
+div#viewmode {
+	margin-left: 8px;
+}
 div.link {
 	position: relative;
 	margin-bottom: 20px;
@@ -54,6 +57,10 @@ div.link a {
 	background: #ffffff;
 	height: 242px;
 	border: 1px solid #cccccc;
+}
+
+body.compact div.link a {
+	height: 74px;
 }
 
 div.link p.title {
@@ -78,13 +85,12 @@ div.link span.thumbnail {
 	margin: 4px 0;
 }
 
-div.link span.thumbnail.screenshot {
-	background-position: 0 0;
+body.compact div.link span.thumbnail {
+	display: none;
 }
 
-div.link p.excerpt {
-	padding: 4px 6px;
-	max-height: 160px;
+div.link span.thumbnail.screenshot {
+	background-position: 0 0;
 }
 
 div.link p.domain {
