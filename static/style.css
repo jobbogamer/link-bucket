@@ -40,6 +40,7 @@ div#header h1 {
 
 div#search {
 	width: 225px;
+	margin-right: -12px;
 }
 
 button#add-link {
@@ -48,6 +49,7 @@ button#add-link {
 
 div#viewmode {
 	margin-left: 8px;
+	margin-right: 8px;
 }
 
 div.link {
