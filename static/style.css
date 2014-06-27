@@ -29,6 +29,10 @@ body {
 	background: #e4e4e4;
 }
 
+.modal-footer {
+	margin-top: 0;
+}
+
 div#header {
 	background: #ffffff;
 }
@@ -127,4 +131,8 @@ input#search-bar-mobile {
 button#search-button-mobile {
 	float: right;
 	width: 10%;
+}
+
+input#add-modal-url-field {
+	margin-bottom: 20px;
 }
