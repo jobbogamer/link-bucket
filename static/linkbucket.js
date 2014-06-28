@@ -64,6 +64,17 @@ function setCompactMode(compact) {
 	}
 }
 
+function setUpEmbedPopover(id, embedType, url) {
+	document.getElementById('embed-modal-title').innerHTML = document.getElementById('title-' + id).innerHTML;
+	if (embedType == 1) {
+		var html = '<div class="video-wrapper"><iframe src="' + url + '?rel=0" frameborder="0" allowfullscreen="true"></iframe></div>';
+		document.getElementById('embed-modal-body').innerHTML = html;
+	} else if (embedType == 2) {
+		var html = '<img src="' + url + '" />'
+		document.getElementById('embed-modal-body').innerHTML = html;
+	}
+}
+
 function setUpPopovers() {
 	$('#add-modal-error-popover').popover({
 		placement: "bottom",

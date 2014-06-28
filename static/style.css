@@ -66,6 +66,11 @@ div#viewmode {
 div.link {
 	position: relative;
 	margin-bottom: 20px;
+	display: block;
+	overflow: auto;
+	background: #ffffff;
+	height: 242px;
+	border: 1px solid #cccccc;
 }
 
 div.link * {
@@ -74,14 +79,10 @@ div.link * {
 }
 
 div.link a {
-	display: block;
-	overflow: auto;
-	background: #ffffff;
-	height: 242px;
-	border: 1px solid #cccccc;
+	cursor: pointer;
 }
 
-body.compact div.link a {
+body.compact div.link {
 	height: 74px;
 }
 
@@ -113,6 +114,11 @@ body.compact div.link span.thumbnail {
 
 div.link span.thumbnail.screenshot {
 	background-position: 0 0;
+}
+
+div.link i.embed-indicator {
+	float: left;
+	padding: 3px 0 4px 6px;
 }
 
 div.link p.domain {
@@ -150,4 +156,27 @@ div#add-modal-error-message {
 
 a#add-modal-error-popover {
 	cursor: pointer;
+}
+
+div#embed-modal-body {
+	text-align: center;
+}
+
+div#embed-modal-body img {
+	max-width: 100%;
+}
+
+div#embed-modal-body div.video-wrapper {
+	position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+}
+
+div#embed-modal-body div.video-wrapper iframe {
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
