@@ -52,4 +52,9 @@ function showAddError(error) {
 
 function toggleCompactMode() {
 	$('body').toggleClass('compact');
+	if ($('body').hasClass('compact')) {
+		document.getElementById('viewmode-mobile').innerHTML = 'Expanded View';
+	} else {
+		document.getElementById('viewmode-mobile').innerHTML = 'Compact View';
+	}
 }
