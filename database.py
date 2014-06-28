@@ -47,23 +47,23 @@ class Link(db.Model):
 ##### Private API #####
 
 def _find_embed(url):
-	url = url.lower()
+	url_l = url.lower()
 
-	if 'youtube.com/watch?v' in url:
-		if '&' in url:
-			param_pos = url.find('&')
+	if 'youtube.com/watch?v' in url_l:
+		if '&' in url_l:
+			param_pos = url_l.find('&')
 			return (url[:param_pos].replace('watch?v=', 'embed/'), 1)
 		else:
 			return (url.replace('watch?v=', 'embed/'), 1)
 
-	elif 'youtu.be' in url:
+	elif 'youtu.be' in url_l:
 		return (url.replace('.be', 'be.com/embed'), 1)
 
-	elif 'yourepeat.com/watch?v' in url:
+	elif 'yourepeat.com/watch?v' in url_l:
 		return (url.replace('repeat', tube).replace('watch?v=', '/embed'), 1)
 
-	elif url.endswith('.jpg') or url.endswith('.jpeg') or url.endswith('.png') or url.endswith('.gif'):
-		if not ('dropbox.com' in url):
+	elif url_l.endswith('.jpg') or url_l.endswith('.jpeg') or url_l.endswith('.png') or url_l.endswith('.gif'):
+		if not ('dropbox.com' in url_l):
 			return (url, 2)
 
 	return ('', 0)
