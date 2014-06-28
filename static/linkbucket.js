@@ -52,6 +52,7 @@ function showAddError(error) {
 
 function toggleCompactMode() {
 	$('body').toggleClass('compact');
+	$('.viewmode-button').toggleClass('active');
 	if ($('body').hasClass('compact')) {
 		document.getElementById('viewmode-mobile').innerHTML = 'Expanded View';
 	} else {
