@@ -1,3 +1,5 @@
+from urlparse import urlparse
+
 def find_domain(url):
 	parsed_url = urlparse(url)
 	if len(parsed_url.scheme) > 0:
