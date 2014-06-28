@@ -1,9 +1,10 @@
 import os
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 import database
+import api
 from external_apis import screenshots
 
 ##### Config #####
@@ -28,6 +29,14 @@ def index():
 	links = database.get_links()
 
 	return render_template('index.html', options=options, links=links)
+
+##### API Routes #####
+
+@app.route('/add', methods=['GET'])
+def api_add():
+	url = request.args.get('url', '')
+	title = request.args.get('title', '')
+	return api.add(url, title)
 
 ##### Template Filters #####
 

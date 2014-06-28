@@ -29,6 +29,13 @@ body {
 	background: #e4e4e4;
 }
 
+#navbar-collapse ul li.divider {
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #e5e5e5;
+}
+
 .modal-footer {
 	margin-top: 0;
 }

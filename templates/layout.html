@@ -34,7 +34,7 @@
 				    </div>
 				    <div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary">Add</button>
+						<button type="button" class="btn btn-primary" onclick="addLinkFromModal();">Add</button>
 					</div>
 				</div>
 			</div>
@@ -57,7 +57,8 @@
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#">Archive</a></li>
 						<li><a href="#">Stats</a></li>
-						<li class="visible-xs"><a href="#">Add Link</a></li>
+						<li class="divider visible-xs"></li>
+						<li class="visible-xs"><a data-toggle="modal" data-target="#add-modal" onclick="hideNavbarDropdown();">Add Link</a></li>
 					</ul>
 					
 					<div id="search" class="navbar-right navbar-form input-group hidden-xs">
