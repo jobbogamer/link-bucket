@@ -143,3 +143,11 @@ button#search-button-mobile {
 input#add-modal-url-field {
 	margin-bottom: 20px;
 }
+
+div#add-modal-error-message {
+	display: none;
+}
+
+a#add-modal-error-popover {
+	cursor: pointer;
+}

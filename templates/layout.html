@@ -21,11 +21,15 @@
 				        <h4 class="modal-title">Add Link</h4>
 				    </div>
 				    <div class="modal-body">
+				    	<div id="add-modal-error-message" class="alert alert-danger">
+				    		<h4>Something went wrong.</h4>
+				    		<p>That link couldn't be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="">What was the error?</a></p>
+				    	</div>
 				        <input id="add-modal-url-field" type="text" class="form-control" placeholder="URL" />
 				        <input id="add-modal-title-field" type="text" class="form-control" placeholder="Title (optional)" />
 				    </div>
 				    <div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="hideAddError();">Cancel</button>
 						<button type="button" class="btn btn-primary" onclick="addLinkFromModal();">Add</button>
 					</div>
 				</div>
