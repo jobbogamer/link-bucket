@@ -69,11 +69,11 @@
 						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal"><span class="glyphicon glyphicon-plus"></span></button></li>
 						<li>
 							<div id="viewmode" class="btn-group" data-toggle="buttons">
-		 						<label class="btn btn-default navbar-btn viewmode-button" onclick="toggleCompactMode();">
-		    						<input type="radio" name="viewmode" id="viewmode-compact"><span class="glyphicon glyphicon-th"></span>
+		 						<label id="viewmode-compact" class="btn btn-default navbar-btn viewmode-button" onclick="setCompactMode(true);">
+		    						<input type="radio" name="viewmode"><span class="glyphicon glyphicon-th"></span>
 		  						</label>
-		  						<label class="btn btn-default navbar-btn viewmode-button active" onclick="toggleCompactMode();">
-		    						<input type="radio" name="viewmode" id="viewmode-expanded"><span class="glyphicon glyphicon-th-large"></span>
+		  						<label id="viewmode-expanded" class="btn btn-default navbar-btn viewmode-button active" onclick="setCompactMode(false);">
+		    						<input type="radio" name="viewmode"><span class="glyphicon glyphicon-th-large"></span>
 		  						</label>
 							</div>
   						</li>

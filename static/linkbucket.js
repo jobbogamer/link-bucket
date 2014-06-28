@@ -1,4 +1,5 @@
 $(function() {
+	getViewModeFromCookie();
 	setUpPopovers();
 });
 
@@ -30,6 +31,15 @@ function addLinkFromModal() {
 	});
 }
 
+function getViewModeFromCookie() {
+	var viewMode = $.cookie('viewmode');
+	if (viewMode == "compact") {
+		setCompactMode(true);
+	} else if (viewMode == "expanded") {
+		setCompactMode(false);
+	}
+}
+
 function hideAddError() {
 	$('#add-modal-error-message').slideUp();
 }
@@ -45,17 +55,28 @@ function setUpPopovers() {
 	});
 }
 
+function setViewModeCookie(compact) {
+	var mode = compact ? "compact" : "expanded";
+	$.cookie('viewmode', mode, { expires: 365, path: '/' });
+}
+
 function showAddError(error) {
 	document.getElementById('add-modal-error-popover').dataset.content = error;
 	$('#add-modal-error-message').slideDown();
 }
 
-function toggleCompactMode() {
-	$('body').toggleClass('compact');
-	$('.viewmode-button').toggleClass('active');
-	if ($('body').hasClass('compact')) {
+function setCompactMode(compact) {
+	if (compact) {
+		$('body').addClass('compact');
+		$('#viewmode-expanded').removeClass('active');
+		$('#viewmode-compact').addClass('active');
 		document.getElementById('viewmode-mobile').innerHTML = 'Expanded View';
+		setViewModeCookie(true);
 	} else {
+		$('body').removeClass('compact');
+		$('#viewmode-expanded').addClass('active');
+		$('#viewmode-compact').removeClass('active');
 		document.getElementById('viewmode-mobile').innerHTML = 'Compact View';
+		setViewModeCookie(false);
 	}
 }
