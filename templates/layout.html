@@ -3,7 +3,7 @@
 	<head>
 		<title>Linkbucket 2.0</title><!-- CHANGE ME! -->
 
-		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 
@@ -29,8 +29,8 @@
 				        <input id="add-modal-title-field" type="text" class="form-control" placeholder="Title (optional)" />
 				    </div>
 				    <div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="hideAddError();">Cancel</button>
-						<button type="button" class="btn btn-primary" onclick="addLinkFromModal();">Add</button>
+						<button id="add-modal-cancel-button" type="button" class="btn btn-default" data-dismiss="modal" onclick="hideAddError();">Cancel</button>
+						<button id="add-modal-add-button" type="button" class="btn btn-primary" onclick="addLinkFromModal();">Add</button>
 					</div>
 				</div>
 			</div>
