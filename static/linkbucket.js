@@ -64,8 +64,9 @@ function setCompactMode(compact) {
 	}
 }
 
-function setUpEmbedPopover(id, embedType, url) {
-	document.getElementById('embed-modal-title').innerHTML = document.getElementById('title-' + id).innerHTML;
+function setUpEmbedPopover(id, embedType, url, originalURL) {
+	var titleHTML = document.getElementById('title-' + id).innerHTML + '<br/><small><a href="' + originalURL + '">View original</a></small>';
+	document.getElementById('embed-modal-title').innerHTML = titleHTML;
 	if (embedType == 1) {
 		var html = '<div class="video-wrapper"><iframe src="' + url + '?rel=0" frameborder="0" allowfullscreen="true"></iframe></div>';
 		document.getElementById('embed-modal-body').innerHTML = html;

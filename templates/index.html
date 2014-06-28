@@ -8,7 +8,7 @@
 			<div class="link">
 				{% if link.embed_type > 0 %}
 				<a class="embed-link" data-toggle="modal" data-target="#embed-modal"
-						onclick="setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, '{{ link.embed_url }}');">
+						onclick="setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, '{{ link.embed_url }}', '{{ link.url }}');">
 				{% else %}
 				<a href="{{ link.url }}">
 				{% endif %}
