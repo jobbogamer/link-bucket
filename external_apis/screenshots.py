@@ -1,4 +1,5 @@
 import requests
+from flask import url_for
 
 def _make_request(url):
 	api_url = 'http://s.wordpress.com/mshots/v1/{0}'.format(url)
@@ -13,6 +14,6 @@ def get_screenshot(url):
 	if not (response is None):
 		headers = response.headers
 		if 'image/gif' in headers['content-type']:
-			return 'http://s.wordpress.com/mshots/v1/http://linkbucket.joshasch.com'
+			return url_for('static', filename='placeholder.png')
 		else:
 			return 'http://s.wordpress.com/mshots/v1/{0}'.format(url)
