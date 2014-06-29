@@ -1,6 +1,8 @@
 /*
  *  Active colour: #00BD83 / rgba(0, 189, 131, .6)
- *  Darker colour: #00A975
+ *  Button border colour: #00B076
+ *  Button hover colour: #00A86A
+ *  Buttoon hover border colour: #009047
  */
 
 body {
@@ -33,7 +35,22 @@ a:hover {
 
 .btn-primary {
 	background-color: #00BD83;
-	border-color: #00A975;
+	border-color: #00B076;
+}
+
+.btn-primary:hover {
+	background-color: #00A86A;
+	border-color: #009047;
+}
+
+.btn-primary[disabled] {
+	background-color: #00BD83;
+	border-color: #00B076;
+}
+
+.btn-primary:hover[disabled] {
+	background-color: #00A86A;
+	border-color: #009047;
 }
 
 .form-control:focus {
