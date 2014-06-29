@@ -1,5 +1,6 @@
 /*
  *  Active colour: #00BD83 / rgba(0, 189, 131, .6)
+ *  Darker colour: #00A975
  */
 
 body {
@@ -28,6 +29,11 @@ a:hover {
 .row {
 	margin-left: -10px;
 	margin-right: -10px;
+}
+
+.btn-primary {
+	background-color: #00BD83;
+	border-color: #00A975;
 }
 
 .form-control:focus {
