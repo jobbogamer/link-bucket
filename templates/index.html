@@ -23,14 +23,16 @@
 						{% endif %}
 					{% endif %}
 
-					{% if link.embed_type == 1 %}
-					<i class="embed-indicator fa fa-film"></i>
-					{% endif %}
-					{% if link.embed_type == 2 %}
-					<i class="embed-indicator fa fa-image"></i>
-					{% endif %}
-					<p class="domain">{{ link.domain }}</p>
-					<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
+					<div class="meta">
+						{% if link.embed_type == 1 %}
+						<i class="embed-indicator fa fa-film"></i>
+						{% endif %}
+						{% if link.embed_type == 2 %}
+						<i class="embed-indicator fa fa-image"></i>
+						{% endif %}
+						<p class="domain">{{ link.domain }}</p>
+						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
+					</div>
 				</a>
 			</div>
 		</div>
