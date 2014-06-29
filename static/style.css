@@ -180,10 +180,23 @@ div.link div.meta {
 	padding: 4px 6px;
 }
 
-div.link i.embed-indicator {
+div.link i.indicator {
 	float: left;
 	padding: 3px 4px 4px 0;
 	color: #999999;
+}
+
+div.link i.unread-indicator {
+	font-size: 11px;
+	padding-top: 5px;
+}
+
+div.link.unread i.indicator {
+	color: #107BF7;
+}
+
+div.link.starred i.indicator {
+	color: #FD9945;
 }
 
 div.link p.domain {
