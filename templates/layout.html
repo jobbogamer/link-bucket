@@ -81,6 +81,7 @@
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
 						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal"><span class="glyphicon glyphicon-plus"></span></button></li>
+						{% if options['viewmode-visible'] %}
 						<li>
 							<div id="viewmode" class="btn-group" data-toggle="buttons">
 		 						<label id="viewmode-compact" class="btn btn-default navbar-btn viewmode-button" onclick="setCompactMode(true);">
@@ -91,6 +92,7 @@
 		  						</label>
 							</div>
   						</li>
+  						{% endif %}
 					</ul>
 				</div>
 			</div>

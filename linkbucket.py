@@ -27,7 +27,8 @@ def index():
 
 	options = {
 		'time': datetime.now(),
-		'title': "Linkbucket"
+		'title': "Linkbucket",
+		'viewmode-visible': True
 	}
 	links = database.get_links()
 
