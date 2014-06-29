@@ -25,7 +25,10 @@ db = SQLAlchemy(app)
 def index():
 	database.create_tables()
 
-	options = { 'time': datetime.now() }
+	options = {
+		'time': datetime.now(),
+		'title': "Linkbucket"
+	}
 	links = database.get_links()
 
 	return render_template('index.html', options=options, links=links)
