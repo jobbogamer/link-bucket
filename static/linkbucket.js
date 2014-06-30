@@ -1,5 +1,6 @@
 $(function() {
 	getViewModeFromCookie();
+	setUpModals();
 	setUpPopovers();
 });
 
@@ -81,6 +82,12 @@ function setUpEmbedPopover(id, embedType, url, originalURL) {
 	}
 }
 
+function setUpModals() {
+	$('#add-modal').on('hidden.bs.modal', function (e) {
+  		hideAddError();
+	})
+}
+
 function setUpPopovers() {
 	$('#add-modal-error-popover').popover({
 		placement: "bottom",
@@ -102,8 +109,7 @@ function showAddError(urlGiven, validURL, databaseError) {
 		document.getElementById('add-modal-error-content').innerHTML = "It doesn't look like that URL points to a valid page.";
 	} else {
 		document.getElementById('add-modal-error-title').innerHTML = "Something went wrong.";
-		document.getElementById('add-modal-error-content').innerHTML = 'That link couldn\'t be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="">What was the error?</a>';
-		document.getElementById('add-modal-error-popover').dataset.content = databaseError;
+		document.getElementById('add-modal-error-content').innerHTML = 'That link couldn\'t be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="' + databaseError + '">What was the error?</a>';
 	}
 	$('#add-modal-error-message').slideDown();
 }
