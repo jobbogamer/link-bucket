@@ -42,6 +42,11 @@ def api_add():
 	title = request.args.get('title', '')
 	return api.add(url, title)
 
+@app.route('/check', methods=['GET'])
+def api_check():
+	url = request.args.get('url', '')
+	return api.checl(url)
+
 ##### Template Filters #####
 
 @app.template_filter('screenshot_url')

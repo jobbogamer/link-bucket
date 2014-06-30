@@ -17,12 +17,17 @@ function addLinkFromModal() {
 			'title': title
 		}
 	}).done(function(data) {
-		var success = data['success'];
-		if (success) {
+		if (data['success']) {
 			$('#add-modal').modal('hide');
 		} else {
-			var error = data['message'];
-			showAddError(error);
+			if (data['valid_url']) {
+				var error = data['message'];
+				showAddError(true, true, error);
+			} else if (data['no_url']) {
+				showAddError(false, true, '');
+			} else {
+				showAddError(true, false, '');
+			}
 		}
 	}).always(function(data) {
 		document.getElementById('add-modal-add-button').innerHTML = 'Add';
@@ -88,8 +93,18 @@ function setViewModeCookie(compact) {
 	$.cookie('viewmode', mode, { expires: 365, path: '/' });
 }
 
-function showAddError(error) {
-	document.getElementById('add-modal-error-popover').dataset.content = error;
+function showAddError(urlGiven, validURL, databaseError) {
+	if (!urlGiven) {
+		document.getElementById('add-modal-error-title').innerHTML = "You forgot something.";
+		document.getElementById('add-modal-error-content').innerHTML = "No URL was given.";
+	} else if (!validURL) {
+		document.getElementById('add-modal-error-title').innerHTML = "That's not the link you're looking for.";
+		document.getElementById('add-modal-error-content').innerHTML = "It doesn't look like that URL points to a valid page.";
+	} else {
+		document.getElementById('add-modal-error-title').innerHTML = "Something went wrong.";
+		document.getElementById('add-modal-error-content').innerHTML = 'That link couldn\'t be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="">What was the error?</a>';
+		document.getElementById('add-modal-error-popover').dataset.content = databaseError;
+	}
 	$('#add-modal-error-message').slideDown();
 }
 
