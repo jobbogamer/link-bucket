@@ -29,6 +29,18 @@ def add(url, title=''):
 	return jsonify(result)
 
 
+def archive(id):
+	result = { }
+
+	try:
+		database.archive_link(id)
+		result = { 'success': True }
+	except Exception as error:
+		result = { 'success': False, 'message': error }
+
+	return jsonify(result)
+
+
 def star(id):
 	result = { }
 

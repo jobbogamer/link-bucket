@@ -42,6 +42,11 @@ def api_add():
 	title = request.args.get('title', '')
 	return api.add(url, title)
 
+@app.route('/api/archive', methods=['GET'])
+def api_archive():
+	id = int(request.args.get('id', 0))
+	return api.archive(id)
+
 @app.route('/api/star', methods=['GET'])
 def api_star():
 	id = int(request.args.get('id', 0))

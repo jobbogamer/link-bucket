@@ -38,6 +38,21 @@ function addLinkFromModal() {
 	});
 }
 
+function archiveLink(id) {
+	$.ajax({
+		url: '/api/archive',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			$('#link-' + id).fadeOut(complete = function() {
+				$('#link-' + id).parent().remove();
+			});	
+		}
+	});
+}
+
 function getURLParameters() {
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -164,5 +179,5 @@ function toggleStar(id) {
 			$('#star-button-' + id).toggleClass('fa-star-o');
 			$('#star-button-' + id).toggleClass('fa-star');
 		}
-	})
+	});
 }
