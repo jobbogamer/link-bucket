@@ -36,16 +36,11 @@ def index():
 
 ##### API Routes #####
 
-@app.route('/add', methods=['GET'])
+@app.route('/api/add', methods=['GET'])
 def api_add():
 	url = request.args.get('url', '')
 	title = request.args.get('title', '')
 	return api.add(url, title)
-
-@app.route('/check', methods=['GET'])
-def api_check():
-	url = request.args.get('url', '')
-	return api.checl(url)
 
 ##### Template Filters #####
 
