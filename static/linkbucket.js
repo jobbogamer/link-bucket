@@ -2,6 +2,7 @@ $(function() {
 	getViewModeFromCookie();
 	setUpModals();
 	setUpPopovers();
+	showAddSheetIfNecessary();
 });
 
 function addLinkFromModal() {
@@ -35,6 +36,17 @@ function addLinkFromModal() {
 		document.getElementById('add-modal-add-button').disabled = false;
 		document.getElementById('add-modal-cancel-button').disabled = false;
 	});
+}
+
+function getURLParameters() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = decodeURIComponent(hash[1]);
+    }
+    return vars;
 }
 
 function getViewModeFromCookie() {
@@ -112,6 +124,19 @@ function showAddError(urlGiven, validURL, databaseError) {
 		document.getElementById('add-modal-error-content').innerHTML = 'That link couldn\'t be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="' + databaseError + '">What was the error?</a>';
 	}
 	$('#add-modal-error-message').slideDown();
+}
+
+function showAddSheetIfNecessary() {
+	var params = getURLParameters();
+	if (params['add']) {
+		if (params['url']) {
+			document.getElementById('add-modal-url-field').value = params['url'];
+		}
+		if (params['title']) {
+			document.getElementById('add-modal-title-field').value = params['title'];
+		}
+		$('#add-modal').modal('show');
+	}
 }
 
 function toggleCompactMode() {
