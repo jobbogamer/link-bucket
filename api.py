@@ -68,6 +68,19 @@ def star(id):
 	return jsonify(result)
 
 
+def title(id, new_title):
+	result = { }
+
+	try:
+		database.edit_title(id, new_title)
+		result = { 'success': True, 'title': new_title }
+
+	except Exception as error:
+		result = { 'success': False, 'message': str(error) }
+
+	return jsonify(result)
+
+
 def unstar(id):
 	result = { }
 

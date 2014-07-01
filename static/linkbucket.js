@@ -103,6 +103,22 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 	$('.row').prepend(html);
 }
 
+function editTitleFromModal() {
+	var id = document.getElementById('edit-modal-save-button').dataset.id;
+	$.ajax({
+		url: '/api/title',
+		data: {
+			'id' : id,
+			'title': document.getElementById('edit-modal-title-field').value
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			document.getElementById('title-' + id).innerHTML = data['title'];
+			$('#edit-modal').modal('hide');
+		}
+	});
+}
+
 function getURLParameters() {
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -162,7 +178,15 @@ function setUpEmbedPopover(id, embedType, url, originalURL) {
 function setUpModals() {
 	$('#add-modal').on('hidden.bs.modal', function (e) {
   		hideAddError();
-	})
+	});
+
+	$('#add-modal').on('shown.bs.modal', function (e) {
+  		$('#add-modal-url-field').focus();
+	});
+
+	$('#edit-modal').on('shown.bs.modal', function (e) {
+		$('#edit-modal-title-field').focus();
+	});
 }
 
 function setUpPopovers() {
@@ -202,6 +226,12 @@ function showAddSheetIfNecessary() {
 		}
 		$('#add-modal').modal('show');
 	}
+}
+
+function showEditTitleModal(id) {
+	var title = document.getElementById('title-' + id).innerHTML;
+	document.getElementById('edit-modal-title-field').value = title;
+	document.getElementById('edit-modal-save-button').dataset.id = id;
 }
 
 function toggleCompactMode() {

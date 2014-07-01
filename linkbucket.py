@@ -28,7 +28,8 @@ def index():
 	options = {
 		'time': datetime.now(),
 		'title': "Linkbucket",
-		'viewmode-visible': True
+		'viewmode_visible': True,
+		'active_page': 0
 	}
 	links = database.get_links()
 
@@ -51,6 +52,12 @@ def api_archive():
 def api_star():
 	id = int(request.args.get('id', 0))
 	return api.star(id)
+
+@app.route('/api/title', methods=['GET'])
+def api_title():
+	id = int(request.args.get('id', 0))
+	new_title = request.args.get('title', '')
+	return api.title(id, new_title)
 
 @app.route('/api/unstar', methods=['GET'])
 def api_unstar():

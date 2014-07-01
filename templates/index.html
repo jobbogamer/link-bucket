@@ -40,7 +40,7 @@
 						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
 						<div class="buttons">
 							<a onclick="archiveLink({{ link.id }});"><i class="button fa fa-trash-o"></i></a>
-							<a><i class="button fa fa-pencil"></i></a>
+							<a onclick="showEditTitleModal({{ link.id }});" data-toggle="modal" data-target="#edit-modal"><i class="button fa fa-pencil"></i></a>
 							<a onclick="toggleStar({{ link.id }});"><i id="star-button-{{ link.id }}" class="button star-button fa fa-star"></i></a>
 						</div>
 					</div>
