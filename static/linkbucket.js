@@ -12,7 +12,7 @@ function addLinkFromModal() {
 	var url = document.getElementById('add-modal-url-field').value;
 	var title = document.getElementById('add-modal-title-field').value;
 	$.ajax({
-		url: '/add',
+		url: '/api/add',
 		data: {
 			'url' : url,
 			'title': title
