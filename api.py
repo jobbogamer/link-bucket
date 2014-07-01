@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import jsonify
 import utils
+from external_apis import screenshots
 
 import database
 
@@ -18,7 +19,20 @@ def add(url, title=''):
 				print "(API) Couldn't add link. " + str(type(error)) + " - " + str(error)
 				result = { 'success': False, 'valid_url': True, 'message': str(error) }
 
-			result = { 'success': True, 'valid_url': True, 'link': { 'id': link.id, 'title': link.title, 'url': link.url } }
+			result = {
+				'success': True,
+				'valid_url': True,
+				'link': {
+					'id': link.id,
+					'title': link.title,
+					'url': link.url,
+					'domain': link.domain,
+					'embed_type': link.embed_type,
+					'embed_url': link.embed_url,
+					'image_url': link.image_url,
+					'screenshot_url': screenshots.get_screenshot(link.url)
+				}
+			}
 
 		else:
 			result = { 'success': False, 'valid_url': utils.page_exists(url), 'no_url': False }
