@@ -226,8 +226,6 @@ function toggleStar(id) {
 	}).done(function(data) {
 		if (data['success']) {
 			$('#link-' + id).toggleClass('starred');
-			$('#star-button-' + id).toggleClass('fa-star-o');
-			$('#star-button-' + id).toggleClass('fa-star');
 		}
 	});
 }

@@ -41,11 +41,7 @@
 						<div class="buttons">
 							<a onclick="archiveLink({{ link.id }});"><i class="button fa fa-trash-o"></i></a>
 							<a><i class="button fa fa-pencil"></i></a>
-							{% if link.starred %}
-							<a onclick="toggleStar({{ link.id }});"><i id="star-button-{{ link.id }}" class="button star-button fa fa-star-o"></i></a>
-							{% else %}
 							<a onclick="toggleStar({{ link.id }});"><i id="star-button-{{ link.id }}" class="button star-button fa fa-star"></i></a>
-							{% endif %}
 						</div>
 					</div>
 				</a>
