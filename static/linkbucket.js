@@ -146,3 +146,23 @@ function toggleCompactMode() {
 		setCompactMode(true);
 	}
 }
+
+function toggleStar(id) {
+	if ($('#link-' + id).hasClass('starred')) {
+		var url = '/api/unstar';
+	} else {
+		var url = '/api/star';
+	}
+	$.ajax({
+		url: url,
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			$('#link-' + id).toggleClass('starred');
+			$('#star-button-' + id).toggleClass('fa-star-o');
+			$('#star-button-' + id).toggleClass('fa-star');
+		}
+	})
+}

@@ -184,19 +184,33 @@ div.link i.indicator {
 	float: left;
 	padding: 3px 4px 4px 0;
 	color: #999999;
+	cursor: default;
 }
 
 div.link i.unread-indicator {
 	font-size: 11px;
 	padding-top: 5px;
+	display: none;
+}
+
+div.link i.starred-indicator {
+	display: none;
 }
 
 div.link.unread i.indicator {
 	color: #107BF7;
 }
 
+div.link.unread i.unread-indicator {
+	display: inline;
+}
+
 div.link.starred i.indicator {
 	color: #FD9945;
+}
+
+div.link.starred i.starred-indicator {
+	display: inline;
 }
 
 div.link p.domain {
@@ -207,6 +221,33 @@ div.link p.domain {
 div.link time {
 	float: right;
 	color: #999999;
+}
+
+div.link:hover time {
+	display: none;
+}
+
+div.link div.buttons {
+	float: right;
+	display: none;
+}
+
+div.link:hover div.buttons {
+	display: block;
+}
+
+div.link.unread:hover i.star-button {
+	display: none;
+}
+
+div.link div.buttons i.button {
+	margin-right: 4px;
+	margin-left: 4px;
+	color: #999999;
+}
+
+div.link div.buttons i.button:hover {
+	color: #00BD83;
 }
 
 div#search-mobile {

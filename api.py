@@ -27,3 +27,29 @@ def add(url, title=''):
 		result = { 'success': False, 'valid_url': False, 'no_url': True}
 
 	return jsonify(result)
+
+
+def star(id):
+	result = { }
+
+	try:
+		result = database.mark_link_as_starred(id)
+		result = { 'success': result }
+	
+	except Exception as error:
+		result = { 'success': False, 'message': str(error) }
+
+	return jsonify(result)
+
+
+def unstar(id):
+	result = { }
+
+	try:
+		database.mark_link_as_unstarred(id)
+		result = { 'success': True }
+	
+	except Exception as error:
+		result = { 'success': False, 'message': str(error) }
+
+	return jsonify(result)

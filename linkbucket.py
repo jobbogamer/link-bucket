@@ -42,6 +42,16 @@ def api_add():
 	title = request.args.get('title', '')
 	return api.add(url, title)
 
+@app.route('/api/star', methods=['GET'])
+def api_star():
+	id = int(request.args.get('id', 0))
+	return api.star(id)
+
+@app.route('/api/unstar', methods=['GET'])
+def api_unstar():
+	id = int(request.args.get('id', 0))
+	return api.unstar(id)
+
 ##### Template Filters #####
 
 @app.template_filter('screenshot_url')
