@@ -89,13 +89,18 @@ a:hover {
 	margin-top: 0;
 }
 
-div#header {
-	background: #ffffff;
+.navbar-brand-img {
+	padding: 5px 20px 5px 5px;
+	float: left;
 }
 
-div#header h1 {
-	display: inline-block;
-	margin: 0;
+.navbar-brand-img img {
+	width: 40px;
+	height: 40px;
+}
+
+.navbar-brand span {
+	margin-top: 5px;
 }
 
 div#search {
