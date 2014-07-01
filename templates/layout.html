@@ -25,8 +25,8 @@
 				    		<h4 id="add-modal-error-title">Something went wrong.</h4>
 				    		<p id="add-modal-error-content">That link couldn't be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="">What was the error?</a></p>
 				    	</div>
-				        <input id="add-modal-url-field" type="text" class="form-control" placeholder="URL" />
-				        <input id="add-modal-title-field" type="text" class="form-control" placeholder="Title (optional)" />
+				        <input id="add-modal-url-field" type="text" class="form-control" placeholder="URL" autocomplete="off" />
+				        <input id="add-modal-title-field" type="text" class="form-control" placeholder="Title (optional)" autocomplete="off" />
 				    </div>
 				    <div class="modal-footer">
 						<button id="add-modal-cancel-button" type="button" class="btn btn-default" data-dismiss="modal" onclick="hideAddError();">Cancel</button>
@@ -57,7 +57,7 @@
 				        <h4 id="edit-modal-title" class="modal-title">Edit Title</h4>
 				    </div>
 				    <div id="edit-modal-body" class="modal-body">
-				    	<input id="edit-modal-title-field" type="text" class="form-control" placeholder="Title" />
+				    	<input id="edit-modal-title-field" type="text" class="form-control" placeholder="Title" autocomplete="off" />
 				    </div>
 				     <div class="modal-footer">
 						<button id="edit-modal-cancel-button" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -91,7 +91,7 @@
 					</ul>
 					
 					<div id="search" class="navbar-right navbar-form input-group hidden-xs">
-      					<input type="text" class="form-control" placeholder="Search">
+      					<input type="text" class="form-control" placeholder="Search" autocomplete="off" />
       					<span class="input-group-btn">
         					<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
      					</span>
