@@ -1,6 +1,7 @@
 import linkbucket
 import utils
 from external_apis import readability
+from datetime import datetime
 
 db = linkbucket.db
 
@@ -79,6 +80,7 @@ def add_link(url, date):
 def archive_link(id):
 	link = get_link_by_id(id)
 	link.archived = True
+	link.date = datetime.now()
 	db.session.commit()
 
 def create_tables():
@@ -134,4 +136,5 @@ def mark_link_as_unstarred(id):
 def unarchive_link(id):
 	link = get_link_by_id(id)
 	link.archived = False
+	link.date = datetime.now()
 	db.session.commit()
