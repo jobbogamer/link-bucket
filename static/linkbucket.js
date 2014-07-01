@@ -55,6 +55,19 @@ function archiveLink(id) {
 	});
 }
 
+function clickLink(id) {
+	$.ajax({
+		url: '/api/click',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			$('#link-' + id).removeClass('unread');	
+		}
+	})
+}
+
 function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL) {
 	if (embedType > 0) {
 		var aTag = '<a class="embed-link" data-toggle="modal" data-target="#embed-modal"' +

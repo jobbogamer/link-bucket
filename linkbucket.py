@@ -48,6 +48,11 @@ def api_archive():
 	id = int(request.args.get('id', 0))
 	return api.archive(id)
 
+@app.route('/api/click', methods=['GET'])
+def api_click():
+	id = int(request.args.get('id', 0))
+	return api.click(id)
+
 @app.route('/api/star', methods=['GET'])
 def api_star():
 	id = int(request.args.get('id', 0))

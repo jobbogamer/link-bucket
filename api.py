@@ -55,6 +55,18 @@ def archive(id):
 	return jsonify(result)
 
 
+def click(id):
+	result = { }
+
+	try:
+		database.mark_link_as_read(id)
+		result = { 'success': True }
+	except Exception as error:
+		result = { 'success': False, 'message': error }
+
+	return jsonify(result)
+
+
 def star(id):
 	result = { }
 
