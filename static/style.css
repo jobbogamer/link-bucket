@@ -304,3 +304,36 @@ div#embed-modal-body div.video-wrapper iframe {
     width: 100%;
     height: 100%;
 }
+
+div.stats-item {
+	position: relative;
+	margin-bottom: 20px;
+	display: block;
+	overflow: auto;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	text-align: center;
+	padding: 8px;
+}
+
+div.stats-item p.name {
+	font-size: 18px;
+	margin: 0px;
+}
+
+div.stats-item p.number {
+	font-size: 24px;
+	margin: 0px;
+}
+
+div.stats-chart {
+	position: relative;
+	margin-bottom: 20px;
+	display: block;
+	overflow: auto;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	text-align: center;
+	padding: 8px;
+	height: 174px;
+}
