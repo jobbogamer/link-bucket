@@ -103,6 +103,14 @@ a:hover {
 	margin-top: 5px;
 }
 
+.navbar-nav {
+	border-left: 1px solid #cccccc;
+}
+
+.navbar-form {
+	padding-left: 0;
+}
+
 div#search {
 	width: 225px;
 	margin-left: 4px;
