@@ -220,6 +220,11 @@ def edit_title(id, new_title):
 	db.session.commit()
 	get_stats().increment_edits()
 
+def edit_title_without_counting(id, new_title):
+	link = get_link_by_id(id)
+	link.title = new_title
+	db.session.commit()
+
 def get_archived_links():
 	links = Link.query.filter_by(archived = True).all()
 	links = sorted(links, key=lambda link: link.date, reverse=True)

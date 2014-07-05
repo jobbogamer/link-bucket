@@ -13,7 +13,7 @@ def add(url, title=''):
 			try:
 				link = database.add_link(url, datetime.now())
 				if title and (len(title) > 0):
-					database.edit_title(link.id, title)
+					database.edit_title_without_counting(link.id, title)
 	
 			except Exception as error:
 				print "(API) Couldn't add link. " + str(type(error)) + " - " + str(error)
