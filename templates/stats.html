@@ -15,37 +15,37 @@
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div class="stats-item">
 				<p class="name">Added</p>
-				<p class="number">{{ stats['total_added'] }}</p>
+				<p class="number">{{ stats['total_added'] | thousands_separators }}</p>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div class="stats-item">
 				<p class="name">Clicked</p>
-				<p class="number">{{ stats['total_clicked'] }}</p>
+				<p class="number">{{ stats['total_clicked'] | thousands_separators }}</p>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div class="stats-item">
 				<p class="name">Archived</p>
-				<p class="number">{{ stats['total_archived'] }}</p>
+				<p class="number">{{ stats['total_archived'] | thousands_separators }}</p>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div class="stats-item">
 				<p class="name">Edited</p>
-				<p class="number">{{ stats['total_edited'] }}</p>
+				<p class="number">{{ stats['total_edited'] | thousands_separators }}</p>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div class="stats-item">
 				<p class="name">Deleted</p>
-				<p class="number">{{ stats['total_deleted'] }}</p>
+				<p class="number">{{ stats['total_deleted'] | thousands_separators }}</p>
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 			<div class="stats-item">
 				<p class="name">Searches</p>
-				<p class="number">{{ stats['total_searches'] }}</p>
+				<p class="number">{{ stats['total_searches'] | thousands_separators }}</p>
 			</div>
 		</div>
 	</div>
