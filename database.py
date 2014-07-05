@@ -109,7 +109,7 @@ class Stats(db.Model):
 		click_history_list = self.get_click_history()
 		click_history_list[27] += 1
 		self.set_click_history(click_history_list)
-		self.total_clicks += 1
+		self.total_clicked += 1
 		commit_changes()
 
 	def increment_deletes(self):
