@@ -13,7 +13,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 
-	<body class="page-{{ options['active_page'] }}">
+	<body class="page-{{ options['active_page'] }}" {% if options['active_page'] == 2 %}onload="setUpStatsChart({{ histories['add'] }}, {{ histories['click'] }});"{% endif %}>
 		<div id="add-modal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -141,5 +141,6 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="{{ url_for('static', filename='linkbucket.js') }}"></script>
 		<script src="{{ url_for('static', filename='jquery.cookie.js') }}"></script>
+		<script src="{{ url_for('static', filename='chart.js') }}"></script>
 	</body>
 </html>

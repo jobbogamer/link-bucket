@@ -326,14 +326,36 @@ div.stats-item p.number {
 	margin: 0px;
 }
 
-div.stats-chart {
-	position: relative;
-	margin-bottom: 20px;
-	display: block;
-	overflow: auto;
+div.chart-wrapper {
 	background: #ffffff;
 	border: 1px solid #cccccc;
+	margin-bottom: 20px;
 	text-align: center;
+}
+
+canvas#stats-chart {
+	position: relative;
+	display: block;
+	overflow: auto;
 	padding: 8px;
 	height: 174px;
+	width: 100%;
+}
+
+ul.line-legend {
+	list-style-type: none;
+	margin: -8px 0 8px 0;
+	padding: 0;
+}
+
+ul.line-legend li {
+	display: inline;
+	margin: 0 16px;
+}
+
+ul.line-legend span {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	margin-right: 8px;
 }

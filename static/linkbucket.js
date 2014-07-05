@@ -224,6 +224,70 @@ function setUpPopovers() {
 	});
 }
 
+function setUpStatsChart(addHistory, clickHistory) {
+	var labels = [];
+	for (var i = 0; i < 28; i++) {
+		if (i == 27) {
+			labels[i] = "Today";
+		} else if (i == 26) {
+			labels[i] = "Yesterday";
+		} else {
+			labels[i] = (27-i) + " days";
+		}
+	}
+
+	var max = -1;
+	for (var i = 0; i < 28; i++) {
+		if (addHistory[i] > max) {
+			max = addHistory[i];
+		}
+		if (clickHistory[i] > max) {
+			max = clickHistory[i];
+		}
+	}
+
+	var data = {
+		labels: labels,
+		datasets: [{
+			label: "Links added",
+			fillColor: "rgba(0, 189, 131, .2)",
+			strokeColor: "#00BD83",
+			pointColor: "#00BD83",
+			pointStrokeColor: "#00BD83",
+			pointHighlightFill: "#00BD83",
+			pointHighlightStroke: "#00BD83",
+			data: addHistory
+		},
+		{
+			label: "Links clicked",
+			fillColor: "rgba(151,187,205,0.2)",
+			strokeColor: "#00894F",
+			pointColor: "#00894F",
+			pointStrokeColor: "#00894F",
+			pointHighlightFill: "#00894F",
+			pointHighlightStroke: "#00894F",
+			data: clickHistory
+		}]
+	};
+
+	var context = $("#stats-chart").get(0).getContext("2d");
+	var statsChart = new Chart(context).Line(data, {
+		responsive: true,
+		scaleShowGridLines : false,
+		bezierCurve : false,
+		bezierCurveTension : 0.4,
+		pointDot : false,
+		tooltipTitleFontStyle: "normal",
+		scaleOverride: true,
+		scaleSteps: 1,
+    	scaleStepWidth: max,
+    	scaleStartValue: 0,
+	});
+
+	var legendHTML = statsChart.generateLegend();
+	$('.chart-wrapper').append(legendHTML);
+}
+
 function setViewModeCookie(compact) {
 	var mode = compact ? "compact" : "expanded";
 	$.cookie('viewmode', mode, { expires: 365, path: '/' });

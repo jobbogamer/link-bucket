@@ -1,5 +1,5 @@
 import os
-from flask import Flask, url_for, render_template, request
+from flask import Flask, url_for, render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -58,8 +58,14 @@ def stats():
 	stats = database.get_stats()
 	if stats is None:
 		database.create_stats()
+		stats = database.get_stats()
 
-	return render_template('stats.html', options=options, stats=stats)
+	histories = {
+		'add': stats.get_add_history(),
+		'click': stats.get_click_history()
+	}
+
+	return render_template('stats.html', options=options, stats=stats, histories=histories)
 
 ##### API Routes #####
 
