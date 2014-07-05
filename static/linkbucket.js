@@ -255,7 +255,7 @@ function setUpStatsChart(addHistory, clickHistory) {
 		labels: labels,
 		datasets: [{
 			label: "Links added",
-			fillColor: "RGBA(0, 189, 131, .2)",
+			fillColor: "RGBA(0, 189, 131, 0)",
 			strokeColor: "#00BD83",
 			pointColor: "#00BD83",
 			pointStrokeColor: "#00BD83",
@@ -265,12 +265,12 @@ function setUpStatsChart(addHistory, clickHistory) {
 		},
 		{
 			label: "Links clicked",
-			fillColor: "RGBA(9, 143, 96, .2)",
-			strokeColor: "#00894F",
-			pointColor: "#00894F",
-			pointStrokeColor: "#00894F",
-			pointHighlightFill: "#00894F",
-			pointHighlightStroke: "#00894F",
+			fillColor: "RGBA(9, 143, 96, 0)",
+			strokeColor: "#007A42",
+			pointColor: "#007A42",
+			pointStrokeColor: "#007A42",
+			pointHighlightFill: "#007A42",
+			pointHighlightStroke: "#007A42",
 			data: clickHistory
 		}]
 	};
