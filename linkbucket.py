@@ -65,6 +65,11 @@ def api_click():
 	id = int(request.args.get('id', 0))
 	return api.click(id)
 
+@app.route('/api/delete', methods=['GET'])
+def api_delete():
+	id = int(request.args.get('id', 0))
+	return api.delete(id)
+
 @app.route('/api/star', methods=['GET'])
 def api_star():
 	id = int(request.args.get('id', 0))

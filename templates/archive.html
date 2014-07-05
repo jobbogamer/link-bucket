@@ -24,6 +24,7 @@
 						<p class="domain">{{ link.domain }}</p>
 						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
 						<div class="buttons">
+							<a onclick="deleteLink({{ link.id }});"><i class="button fa fa-trash-o"></i></a>
 							<a onclick="unarchiveLink({{ link.id }});"><i class="button fa fa-undo"></i></a>
 						</div>
 					</div>

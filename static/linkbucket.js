@@ -116,6 +116,21 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 	$('.row').prepend(html);
 }
 
+function deleteLink(id) {
+	$.ajax({
+		url: '/api/delete',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			$('#link-' + id).fadeOut(complete = function() {
+				$('#link-' + id).parent().remove();
+			});	
+		}
+	});
+}
+
 function editTitleFromModal() {
 	var id = document.getElementById('edit-modal-save-button').dataset.id;
 	$.ajax({
