@@ -272,3 +272,18 @@ function toggleStar(id) {
 		}
 	});
 }
+
+function unarchiveLink(id) {
+	$.ajax({
+		url: '/api/unarchive',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			$('#link-' + id).fadeOut(complete = function() {
+				$('#link-' + id).parent().remove();
+			});	
+		}
+	});
+}

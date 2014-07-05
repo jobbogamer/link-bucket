@@ -35,6 +35,18 @@ def index():
 
 	return render_template('index.html', options=options, links=links)
 
+@app.route('/archive')
+def archive():
+	options = {
+		'time': datetime.now(),
+		'title': "Archive - Linkbucket",
+		'viewmode_visible': False,
+		'active_page': 1
+	}
+	links = database.get_archived_links()
+
+	return render_template('archive.html', options=options, links=links)
+
 ##### API Routes #####
 
 @app.route('/api/add', methods=['GET'])
@@ -63,6 +75,11 @@ def api_title():
 	id = int(request.args.get('id', 0))
 	new_title = request.args.get('title', '')
 	return api.title(id, new_title)
+
+@app.route('/api/unarchive', methods=['GET'])
+def api_unarchive():
+	id = int(request.args.get('id', 0))
+	return api.unarchive(id)
 
 @app.route('/api/unstar', methods=['GET'])
 def api_unstar():

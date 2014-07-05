@@ -93,6 +93,18 @@ def title(id, new_title):
 	return jsonify(result)
 
 
+def unarchive(id):
+	result = { }
+
+	try:
+		database.unarchive_link(id)
+		result = { 'success': True }
+	except Exception as error:
+		result = { 'success': False, 'message': error }
+
+	return jsonify(result)
+
+
 def unstar(id):
 	result = { }
 

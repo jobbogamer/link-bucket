@@ -144,7 +144,7 @@ div.link a:hover {
 	text-decoration: none;
 }
 
-body.compact div.link {
+body.compact div.link, body.page-1 div.link {
 	height: 78px;
 }
 
