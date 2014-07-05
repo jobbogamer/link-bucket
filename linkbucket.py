@@ -47,6 +47,20 @@ def archive():
 
 	return render_template('archive.html', options=options, links=links)
 
+@app.route('/stats')
+def stats():
+	options = {
+		'time': datetime.now(),
+		'title': "Stats - Linkbucket",
+		'viewmode_visible': False,
+		'active_page': 2
+	}
+	stats = database.get_stats()
+	if stats is None:
+		database.create_stats()
+
+	return str(stats)
+
 ##### API Routes #####
 
 @app.route('/api/add', methods=['GET'])
