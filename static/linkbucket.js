@@ -226,13 +226,18 @@ function setUpPopovers() {
 
 function setUpStatsChart(addHistory, clickHistory) {
 	var labels = [];
+
 	for (var i = 0; i < 28; i++) {
 		if (i == 27) {
 			labels[i] = "Today";
 		} else if (i == 26) {
 			labels[i] = "Yesterday";
 		} else {
-			labels[i] = (27-i) + " days";
+			var date = new Date();
+			var dayOfMonth = date.getDate();
+			date.setDate(dayOfMonth - (27-i));
+			var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+			labels[i] = date.getDate() + " " + monthNames[date.getMonth()];
 		}
 	}
 
