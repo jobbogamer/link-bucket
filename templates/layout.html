@@ -84,7 +84,7 @@
 					<ul class="nav navbar-nav">
 						<li {% if options['active_page'] == 0 %}class="active"{% endif %}><a href="/">Home</a></li>
 						<li {% if options['active_page'] == 1 %}class="active"{% endif %}><a href="{{ url_for('archive') }}">Archive</a></li>
-						<li {% if options['active_page'] == 2 %}class="active"{% endif %}><a href="#">Stats</a></li>
+						<li {% if options['active_page'] == 2 %}class="active"{% endif %}><a href="{{ url_for('stats') }}">Stats</a></li>
 						<li class="divider visible-xs"></li>
 						<li class="visible-xs"><a data-toggle="modal" data-target="#add-modal" onclick="hideNavbarDropdown();">Add Link</a></li>
 						<li class="visible-xs"><a id="viewmode-mobile" onclick="toggleCompactMode(); hideNavbarDropdown();">Compact View</a></li>

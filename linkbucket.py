@@ -59,7 +59,7 @@ def stats():
 	if stats is None:
 		database.create_stats()
 
-	return str(stats)
+	return render_template('stats.html', options=options, stats=stats)
 
 ##### API Routes #####
 
