@@ -99,16 +99,16 @@
     				</div>
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
-						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal"><span class="fa fa-plus"></span></button></li>
-						<li><button id="facebook-login" type="button" class="btn btn-default navbar-btn" data-toggle="tooltip" data-placement="bottom" title="Not logged in" onclick="facebookLogIn();"><span class="fa fa-facebook"></span></button></li>
+						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal"><span class="fa fa-plus fa-fw"></span></button></li>
+						<li><button id="facebook-login" type="button" class="btn btn-default navbar-btn" data-toggle="tooltip" data-placement="bottom" title="Not logged in" onclick="facebookLogIn();"><span class="fa fa-facebook fa-fw"></span></button></li>
 						{% if options['viewmode_visible'] %}
 						<li>
 							<div id="viewmode" class="btn-group" data-toggle="buttons">
 		 						<label id="viewmode-compact" class="btn btn-default navbar-btn viewmode-button" onclick="setCompactMode(true);">
-		    						<input type="radio" name="viewmode"><span class="fa fa-th"></span>
+		    						<input type="radio" name="viewmode"><span class="fa fa-th fa-fw"></span>
 		  						</label>
 		  						<label id="viewmode-expanded" class="btn btn-default navbar-btn viewmode-button active" onclick="setCompactMode(false);">
-		    						<input type="radio" name="viewmode"><span class="fa fa-th-large"></span>
+		    						<input type="radio" name="viewmode"><span class="fa fa-th-large fa-fw"></span>
 		  						</label>
 							</div>
   						</li>
