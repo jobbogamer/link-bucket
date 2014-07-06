@@ -109,6 +109,12 @@ div#search {
 	margin-right: -12px;
 }
 
+button#facebook-login {
+	display: none;
+	margin-left: 4px;
+	margin-right: 4px; 
+}
+
 button#add-link {
 	margin-left: 4px;
 	margin-right: 4px;

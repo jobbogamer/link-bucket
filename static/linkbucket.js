@@ -1,4 +1,5 @@
 $(function() {
+	facebookLoadSDK();
 	getViewModeFromCookie();
 	setUpModals();
 	setUpPopovers();
@@ -144,6 +145,64 @@ function editTitleFromModal() {
 			document.getElementById('title-' + id).innerHTML = data['title'];
 			$('#edit-modal').modal('hide');
 		}
+	});
+}
+
+function facebookCallbackLoginStatusChanged(response) {
+	if (response['status'] === "connected") {
+		facebookGetInbox();
+	} else {
+		$('#facebook-login').fadeIn();
+	}
+}
+
+function facebookCallbackLogInAttempted(response) {
+	if (response['status'] === "connected") {
+		$('#facebook-login').fadeOut();
+		facebookGetInbox();
+	}
+}
+
+function facebookGetInbox() {
+	FB.api('/me/inbox', function(response) {
+		console.log(response);
+	});
+}
+
+function facebookGetLoginStatus() {
+	FB.getLoginStatus(function(response) {
+		facebookCallbackLoginStatusChanged(response);
+	});
+}
+
+function facebookLoadSDK() {
+	window.fbAsyncInit = function() {
+    	FB.init({
+        	appId	: '815778521766772',
+        	xfbml	: false,
+        	version : 'v2.0',
+        	status	: true,
+		});
+		facebookGetLoginStatus();
+	};
+
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {
+			return;
+		}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	} (document, 'script', 'facebook-jssdk'));
+}
+
+function facebookLogIn() {
+	FB.login(function(response) {
+		facebookCallbackLogInAttempted(response);
+	},
+	{
+		scope: 'read_mailbox'
 	});
 }
 

@@ -14,6 +14,7 @@
 	</head>
 
 	<body class="page-{{ options['active_page'] }}" {% if options['active_page'] == 2 %}onload="setUpStatsChart({{ histories['add'] }}, {{ histories['click'] }});"{% endif %}>
+		<div id="fb-root"></div>
 		<div id="add-modal" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -98,6 +99,7 @@
     				</div>
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
+    					<li><button id="facebook-login" type="button" class="btn btn-default navbar-btn" onclick="facebookLogIn();"><span class="fa fa-facebook"></span></button></li>
 						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal"><span class="fa fa-plus"></span></button></li>
 						{% if options['viewmode_visible'] %}
 						<li>
