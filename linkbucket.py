@@ -134,14 +134,7 @@ def timesince(date):
 
 @app.template_filter('thousands_separators')
 def thousands_separators(num):
-	num_str = str(num)
-	out = ''
-	length = len(num_str)-1
-	for i in range(length, -1, -1):
-		if ((length-i) % 3 == 0) and (i < length):
-			out = ',' + out
-		out = num_str[i] + out
-	return out
+	return "{:,}".format(num)
 
 ##### Main #####
 
