@@ -24,6 +24,17 @@ class Tag():
 		self.name = json_tag['name']
 		self.commit_url = json_tag['commit']['url']
 
+class Release():
+	tag_name = ''
+	body = ''
+	date = None
+
+	def __init__(self, json_release):
+		self.tag_name = json_release['tag_name']
+		self.body = json_release['body']
+		self.date = datetime.strptime(json_release['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+		
+
 def _make_request(endpoint):
 	url = "https://api.github.com/" + endpoint
 	response = requests.get(url)
@@ -31,7 +42,7 @@ def _make_request(endpoint):
 		result = json.loads(response.text or response.content)
 		return result
 	else:
-		return null
+		return None
 
 def get_tags(owner, repo):
 	return _make_request('repos/{0}/{1}/tags'.format(owner, repo))
@@ -59,3 +70,16 @@ def get_latest_commit(owner, repo):
 			latest_date = commit['commit']['author']['date']
 			latest_commit = commit
 	return Commit(latest_commit)
+
+def get_releases(owner, repo):
+	return _make_request('repos/{0}/{1}/releases'.format(owner, repo))
+
+def get_latest_release(owner, repo):
+	releases = get_releases(owner, repo)
+	latest_date = None
+	latest_release = None
+	for release in releases:
+		if release['created_at'] > latest_date:
+			latest_date = release['created_at']
+			latest_release = release
+	return Release(latest_release)

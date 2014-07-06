@@ -358,3 +358,28 @@ ul.line-legend span {
 	display: inline-block;
 	margin-right: 8px;
 }
+
+div.footer {
+	text-align: center;
+	color: #999999;
+}
+
+div.footer a {
+	color: #999999;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+div.footer div.popover {
+	color: #000000;
+}
+
+div.footer div.popover div.popover-content {
+
+}
+
+div.footer div.popover ul {
+	margin-left: 12px;
+	margin-bottom: 0;
+	padding: 0;
+}

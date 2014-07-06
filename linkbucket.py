@@ -1,11 +1,11 @@
 import os
 from flask import Flask, url_for, render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, date
 
 import database
 import api
-from external_apis import screenshots
+from external_apis import screenshots, github
 
 ##### Config #####
 
@@ -29,7 +29,8 @@ def index():
 		'time': datetime.now(),
 		'title': "Linkbucket",
 		'viewmode_visible': True,
-		'active_page': 0
+		'active_page': 0,
+		'version': github.get_latest_release('jobbogamer', 'linkbucket')
 	}
 	links = database.get_links()
 
@@ -41,7 +42,8 @@ def archive():
 		'time': datetime.now(),
 		'title': "Archive - Linkbucket",
 		'viewmode_visible': False,
-		'active_page': 1
+		'active_page': 1,
+		'version': github.get_latest_release('jobbogamer', 'linkbucket')
 	}
 	links = database.get_archived_links()
 
@@ -53,7 +55,8 @@ def stats():
 		'time': datetime.now(),
 		'title': "Stats - Linkbucket",
 		'viewmode_visible': False,
-		'active_page': 2
+		'active_page': 2,
+		'version': github.get_latest_release('jobbogamer', 'linkbucket')
 	}
 	stats = database.get_stats()
 	if stats is None:
@@ -133,6 +136,28 @@ def timesince(date):
 		return str(int(seconds / (60 * 60))) + "h"
 	else:
 		return str(int(seconds / (24 * 60 * 60))) + "d"
+
+@app.template_filter('timesince_long')
+def timesince_long(the_date):
+	now = datetime.now()
+	delta = now - the_date
+	seconds = delta.total_seconds()
+
+	if seconds < 60:
+		return "less than a minute ago"
+	elif seconds < (60 * 60):
+		return str(int(seconds / 60)) + " minutes ago"
+	elif seconds < (24 * 60 * 60):
+		return str(int(seconds / (60 * 60))) + " hours ago"
+	else:
+		today = date.today()
+		date_short = the_date.date()
+		delta = today - date_short
+		days = delta.days
+		if days == 1:
+			return "yesterday"
+		else:
+			return str(days) + " days ago"
 
 @app.template_filter('thousands_separators')
 def thousands_separators(num):

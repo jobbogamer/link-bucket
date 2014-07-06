@@ -137,6 +137,10 @@
 			{% block content %}{% endblock %}
 		</div>
 
+		<div class="footer">
+			<p>Linkbucket <a id="version-popover" data-toggle="popover" data-title="{{ options['version'].tag_name }} ({{ options['version'].date | timesince_long }})" data-html="true" data-content="<ul>{{ options['version'].body.replace('- ', '</li><li>') }}</li></ul>">{{ options['version'].tag_name }}</a></p>
+		</div>
+
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 		<script src="{{ url_for('static', filename='linkbucket.js') }}"></script>

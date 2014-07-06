@@ -222,6 +222,10 @@ function setUpPopovers() {
 		placement: "bottom",
 		template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div></div>',
 	});
+
+	$('#version-popover').popover({
+		placement: "top",
+	})
 }
 
 function setUpStatsChart(addHistory, clickHistory) {
