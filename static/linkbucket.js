@@ -2,6 +2,7 @@ $(function() {
 	facebookLoadSDK();
 	getViewModeFromCookie();
 	setUpModals();
+	setUpTooltips();
 	setUpPopovers();
 	showAddSheetIfNecessary();
 });
@@ -150,16 +151,11 @@ function editTitleFromModal() {
 
 function facebookCallbackLoginStatusChanged(response) {
 	if (response['status'] === "connected") {
+		$('#facebook-login').css('color', "#000000");
+		$('#facebook-login').tooltip('destroy');
 		facebookGetInbox();
 	} else {
-		$('#facebook-login').fadeIn();
-	}
-}
-
-function facebookCallbackLogInAttempted(response) {
-	if (response['status'] === "connected") {
-		$('#facebook-login').fadeOut();
-		facebookGetInbox();
+		$('#facebook-login').css('color', "#cccccc");
 	}
 }
 
@@ -199,7 +195,7 @@ function facebookLoadSDK() {
 
 function facebookLogIn() {
 	FB.login(function(response) {
-		facebookCallbackLogInAttempted(response);
+		facebookCallbackLoginStatusChanged(response);
 	},
 	{
 		scope: 'read_mailbox'
@@ -354,6 +350,10 @@ function setUpStatsChart(addHistory, clickHistory) {
 
 	var legendHTML = statsChart.generateLegend();
 	$('.chart-wrapper').append(legendHTML);
+}
+
+function setUpTooltips() {
+	$('#facebook-login').tooltip();
 }
 
 function setViewModeCookie(compact) {

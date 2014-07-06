@@ -110,7 +110,7 @@ div#search {
 }
 
 button#facebook-login {
-	display: none;
+	color: #cccccc;
 	margin-left: 4px;
 	margin-right: 4px; 
 }
@@ -388,4 +388,8 @@ div.footer div.popover ul {
 	margin-left: 12px;
 	margin-bottom: 0;
 	padding: 0;
+}
+
+div.tooltip {
+	width: 75px;
 }
