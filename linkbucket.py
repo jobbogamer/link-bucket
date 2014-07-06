@@ -60,6 +60,8 @@ def stats():
 		database.create_stats()
 		stats = database.get_stats()
 
+	stats.move_history_if_necessary()
+
 	histories = {
 		'add': stats.get_add_history(),
 		'click': stats.get_click_history()
