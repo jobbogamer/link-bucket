@@ -151,17 +151,41 @@ function editTitleFromModal() {
 
 function facebookCallbackLoginStatusChanged(response) {
 	if (response['status'] === "connected") {
-		$('#facebook-login').css('color', "#000000");
-		$('#facebook-login').tooltip('destroy');
-		facebookGetInbox();
+		var userID = response['authResponse']['userID'];
+		facebookGetInbox(userID);
 	} else {
-		$('#facebook-login').css('color', "#cccccc");
+		$('#facebook-login').prop('disabled', true);
 	}
 }
 
-function facebookGetInbox() {
+function facebookGetInbox(userID) {
 	FB.api('/me/inbox', function(response) {
-		console.log(response);
+		var threads = response['data'];
+		if (threads) {
+			var conversations = [];
+			for (var i = 0; i < threads.length; i++) {
+				var thread = threads[i];
+
+				var people = [];
+				var to = thread['to']['data'];
+				for (var person = 0; person < to.length; person++) {
+					if (to[person]['id'] !== userID) {
+						people.push(to[person]['name']);
+					}
+				}
+
+				conversations.push({
+					people: people
+				});
+			}
+			document.getElementById('facebook-login').onclick = facebookShowConversationList;
+			$('#facebook-login').prop('disabled', false);
+			$('#facebook-login-wrapper').tooltip('destroy');
+		} else if (response['error']) {
+			$('#facebook-login-wrapper').tooltip('destroy');
+			$('#facebook-login-wrapper').prop('title', "Can't contact Facebook");
+			$('#facebook-login-wrapper').tooltip();
+		}
 	});
 }
 
@@ -200,6 +224,10 @@ function facebookLogIn() {
 	{
 		scope: 'read_mailbox'
 	});
+}
+
+function facebookShowConversationList() {
+	console.log("conversations everywhere");
 }
 
 function getURLParameters() {
@@ -353,7 +381,7 @@ function setUpStatsChart(addHistory, clickHistory) {
 }
 
 function setUpTooltips() {
-	$('#facebook-login').tooltip();
+	$('#facebook-login-wrapper').tooltip();
 }
 
 function setViewModeCookie(compact) {

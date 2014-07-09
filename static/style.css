@@ -110,9 +110,9 @@ div#search {
 }
 
 button#facebook-login {
-	color: #cccccc;
 	margin-left: 4px;
 	margin-right: 4px; 
+	margin-top: 4px;
 }
 
 button#add-link {
@@ -391,5 +391,19 @@ div.footer div.popover ul {
 }
 
 div.tooltip {
-	width: 75px;
+	/*margin-top: -8px !important;*/
+	width: 100px;
+}
+
+div.tooltip div.tooltip-arrow {
+	border-bottom-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+div.tooltip div.tooltip-inner {
+	background-color: rgba(0, 0, 0, 0.75);
+}
+
+div#facebook-login-wrapper {
+	height: 34px;
+	margin-top: 4px;
 }

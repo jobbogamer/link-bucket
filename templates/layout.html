@@ -99,7 +99,7 @@
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
 						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal"><span class="fa fa-plus fa-fw"></span></button></li>
-						<li><button id="facebook-login" type="button" class="btn btn-default navbar-btn" data-toggle="tooltip" data-placement="bottom" title="Not logged in" onclick="facebookLogIn();"><span class="fa fa-facebook fa-fw"></span></button></li>
+						<li><div id="facebook-login-wrapper" data-toggle="tooltip" data-placement="bottom" title="Not logged in"><button id="facebook-login" type="button" class="btn btn-default navbar-btn" onclick="facebookLogIn();" disabled="disabled"><span class="fa fa-facebook fa-fw"></span></button></div></li>
 						{% if options['viewmode_visible'] %}
 						<li>
 							<div id="viewmode" class="btn-group" data-toggle="buttons">
