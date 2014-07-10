@@ -95,6 +95,11 @@ def api_delete():
 	id = int(request.args.get('id', 0))
 	return api.delete(id)
 
+@app.route('/api/facebook/lastchecked', methods=['GET'])
+def api_facebook_lastchecked():
+	thread_id = request.args.get('id', '')
+	return api.facebook_last_message_id(thread_id)
+
 @app.route('/api/star', methods=['GET'])
 def api_star():
 	id = int(request.args.get('id', 0))

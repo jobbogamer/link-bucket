@@ -79,6 +79,32 @@ def delete(id):
 	return jsonify(result)
 
 
+def facebook_last_message_id(thread_id):
+	result = { }
+
+	try:
+		conversation = database.get_facebook_conversation(thread_id)
+		if not(conversation is None):
+			result = {
+				'success': True,
+				'thread_id': thread_id,
+				'last_message_id': conversation.last_message_id
+			}
+		else:
+			result = {
+				'success': True,
+				'thread_id': thread_id,
+				'last_message_id': None
+			}
+	except Exception as error:
+		result = {
+			'success': False,
+			'message': error
+		}
+
+	return jsonify(result)
+
+
 def star(id):
 	result = { }
 

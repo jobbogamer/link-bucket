@@ -157,6 +157,20 @@ class Stats(db.Model):
 		commit_changes()
 
 
+class FacebookConversation(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	thread_id = db.Column(db.String)
+	last_message_id = db.Column(db.String)
+
+	def __init__(self, thread_id, last_message_id):
+		self.thread_id= thread_id
+		self.last_message_id = last_message_id
+
+	def set_last_message_id(id):
+		self.last_message_id = id
+		commit_changes()
+
+
 ##### Private API #####
 
 def _find_embed(url):
@@ -224,6 +238,10 @@ def edit_title_without_counting(id, new_title):
 	link = get_link_by_id(id)
 	link.title = new_title
 	db.session.commit()
+
+def get_facebook_conversation(thread_id):
+	conversation = FacebookConversation.query.filter_by(thread_id = thread_id).first()
+	return conversation
 
 def get_archived_links():
 	links = Link.query.filter_by(archived = True).all()
