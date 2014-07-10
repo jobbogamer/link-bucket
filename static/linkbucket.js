@@ -175,9 +175,42 @@ function facebookGetInbox(userID) {
 				}
 
 				conversations.push({
+					id: thread['id'],
 					people: people
 				});
 			}
+
+			if (conversations.length > 0) {
+				var html = '<ul id="conversation-list">';
+				var numConversations = Math.min(conversations.length, 10);
+				for (var i = 0; i < numConversations; i++) {
+					conversation = conversations[i];
+					html += '<li class="conversation" onclick="facebookParseConversation(' +
+						conversation["id"] +
+						');"><div class="profile-picture"><div class="no-picture"></div></div><div class="name">';
+					if (conversation['people'].length == 1) {
+						html += conversation['people'][0];
+					} else if (conversation['people'].length == 2) {
+						html += conversation['people'][0] + " and  " + conversation['people'][1];
+					} else if (conversation['people'].length == 3) {
+						html += conversation['people'][0] + ", " + conversation['people'][1] + ", and " + conversation['people'][2];
+					} else {
+						html += conversation['people'][0] + ", " + conversation['people'][1] + ", and " + (conversation['people'].length - 1) + " others with some words";
+					}
+					html += "</div></li>";
+				}
+				html += "</ul>";
+			} else {
+				var html = '<div id="empty-conversation-list">No Conversations</div>';
+			}
+
+			$('#facebook-login').popover({
+				content: html,
+				html: true,
+				placement: 'bottom',
+				title: "Conversations",
+			});
+
 			document.getElementById('facebook-login').onclick = facebookShowConversationList;
 			$('#facebook-login').prop('disabled', false);
 			$('#facebook-login-wrapper').tooltip('destroy');
@@ -193,6 +226,11 @@ function facebookGetLoginStatus() {
 	FB.getLoginStatus(function(response) {
 		facebookCallbackLoginStatusChanged(response);
 	});
+}
+
+function facebookHideConversationList() {
+	$('#facebook-login').popover('hide');
+	document.getElementById('facebook-login').onclick = facebookShowConversationList;
 }
 
 function facebookLoadSDK() {
@@ -226,8 +264,13 @@ function facebookLogIn() {
 	});
 }
 
+function facebookParseConversation(threadID) {
+
+}
+
 function facebookShowConversationList() {
-	console.log("conversations everywhere");
+	$('#facebook-login').popover('show');
+	document.getElementById('facebook-login').onclick = facebookHideConversationList;
 }
 
 function getURLParameters() {

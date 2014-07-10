@@ -407,3 +407,27 @@ div#facebook-login-wrapper {
 	height: 34px;
 	margin-top: 4px;
 }
+
+div#facebook-login-wrapper div.popover div.popover-content {
+	padding: 0;
+}
+
+ul#conversation-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 200px;
+}
+
+ul#conversation-list li {
+	padding: 10px 8px;
+	cursor: pointer;
+}
+
+ul#conversation-list li:not(:first-child) {
+	border-top: 1px solid #cccccc;
+}
+
+ul#conversation-list li:hover {
+	color: #00BD83;
+}
