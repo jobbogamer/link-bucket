@@ -173,10 +173,6 @@ function hideAddError() {
 	$('#add-modal-error-message').slideUp();
 }
 
-function hideNavbarDropdown() {
-	$('#navbar-collapse').collapse('hide');
-}
-
 function setCompactMode(compact) {
 	if (compact) {
 		$('body').addClass('compact');
