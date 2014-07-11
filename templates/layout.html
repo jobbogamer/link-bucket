@@ -101,6 +101,7 @@
 						<li {% if options['active_page'] == 2 %}class="active"{% endif %}><a href="{{ url_for('stats') }}">Stats</a></li>
 						<li class="divider visible-xs"></li>
 						<li class="visible-xs"><a data-toggle="modal" data-target="#add-modal" onclick="hideNavbarDropdown();">Add Link</a></li>
+						<li class="visible-xs"><a id="facebook-login-mobile" onclick="facebookLogIn(); hideNavbarDropdown();">Login with Facebook</a></li>
 						<li class="visible-xs"><a id="viewmode-mobile" onclick="toggleCompactMode(); hideNavbarDropdown();">Compact View</a></li>
 					</ul>
 					
