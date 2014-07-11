@@ -408,7 +408,7 @@ div#facebook-login-wrapper {
 	margin-top: 4px;
 }
 
-div#facebook-login-wrapper div.popover div.popover-content {
+div#facebook-modal div.modal-body {
 	padding: 0;
 }
 
@@ -416,11 +416,10 @@ ul#conversation-list {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	width: 200px;
 }
 
 ul#conversation-list li {
-	padding: 10px 8px;
+	padding: 10px 16px;
 	cursor: pointer;
 }
 

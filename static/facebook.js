@@ -94,13 +94,7 @@ function facebookGetInbox(userID) {
 				var html = '<div id="empty-conversation-list">No Conversations</div>';
 			}
 
-			$('#facebook-login').popover({
-				content: html,
-				html: true,
-				placement: 'bottom',
-				title: "Conversations",
-			});
-
+			$('#facebook-modal-body').html(html);
 			document.getElementById('facebook-login').onclick = facebookShowConversationList;
 			$('#facebook-login').prop('disabled', false);
 			$('#facebook-login-wrapper').tooltip('destroy');
@@ -116,11 +110,6 @@ function facebookGetLoginStatus() {
 	FB.getLoginStatus(function(response) {
 		facebookCallbackLoginStatusChanged(response);
 	});
-}
-
-function facebookHideConversationList() {
-	$('#facebook-login').popover('hide');
-	document.getElementById('facebook-login').onclick = facebookShowConversationList;
 }
 
 function facebookLoadSDK() {
@@ -247,6 +236,5 @@ function facebookParseConversation(threadID) {
 }
 
 function facebookShowConversationList() {
-	$('#facebook-login').popover('show');
-	document.getElementById('facebook-login').onclick = facebookHideConversationList;
+	$('#facebook-modal').modal('show');
 }
