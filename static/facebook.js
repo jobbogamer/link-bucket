@@ -98,7 +98,7 @@ function facebookGetInbox(userID) {
 			document.getElementById('facebook-login').onclick = facebookShowConversationList;
 			document.getElementById('facebook-login-mobile').onclick = facebookShowConversationList;
 			document.getElementById('facebook-login-mobile').innerHTML = "Parse from Facebook";
-			$('#facebook-login').prop('disabled', false);
+			$('#facebook-login').css('color', '#000000');
 			$('#facebook-login-wrapper').tooltip('destroy');
 		} else if (response['error']) {
 			$('#facebook-login-wrapper').tooltip('destroy');
