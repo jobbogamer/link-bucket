@@ -156,82 +156,8 @@ function facebookParseConversation(threadID) {
 			var lastID = data['last_message_id'];
 			if (lastID) {
 				// Get messages from now back to lastID
-				FB.api('/' + data['thread_id'], function(response) {
-					if (response['comments']) {
-						var comments = response['comments']['data'];
-						var messages = [];
-						var mostRecentID = "";
-						var foundLastID = false;
-						
-						for (var i = 0; i < comments.length; i++) {
-							var comment = comments[i];
-							if (comment['id'] > mostRecentID) {
-								mostRecentID = comment['id'];
-							}
-							if (comment['id'] === lastID) {
-								foundLastID = true;
-							} else if (comment['id'] > lastID) {
-								messages.push({
-									text: comment['message'],
-									date: comment['created_time']
-								});
-							}
-						}
-
-						if (foundLastID) {
-							$.ajax({
-								url: '/api/facebook/parse',
-								data: {
-									'last_id': mostRecentID,
-									'messages': JSON.stringify(messages)
-								}
-							}).done(function(data) {
-								// Add the parsed messages
-							});
-						} else {
-							$.ajax({
-								url: response['comments']['paging']['next']
-							}).done(function(data) {
-								facebookGetOlderMessages(data, lastID, messages);
-							});
-						}
-					} else {
-						// Error: no messages
-					}
-				});
 			} else {
 				// Get messages from a single API call
-				FB.api('/' + data['thread_id'], function(response) {
-					console.log(response);
-					if (response['comments']) {
-						var comments = response['comments']['data'];
-						var messages = [];
-						var mostRecentID = "";
-
-						for (var i = 0; i < comments.length; i++) {
-							var comment = comments[i];
-							if (comment['id'] > mostRecentID) {
-								mostRecentID = comment['id'];
-							}
-							messages.push({
-								text: comment['message'],
-								date: comment['created_time']
-							});
-						}
-						console.log(messages);
-						$.ajax({
-							url: '/api/facebook/parse',
-							data: {
-								'last_id': mostRecentID,
-								'messages': JSON.stringify(messages)
-							}
-						}).done(function(data) {
-							// Add the parsed messages
-						});
-					} else {
-						// Error: no messages
-					}
-				});
 			}
 		}
 	});
