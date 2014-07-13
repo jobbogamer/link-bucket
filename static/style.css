@@ -6,16 +6,17 @@
  */
 
 body {
-	background: #e4e4e4;
 	padding-top: 70px;
+
+	background: #e4e4e4;
 }
 
 a {
-	color: #00BD83;
+	color: #00bd83;
 }
 
 a:hover {
-	color: #00BD83;
+	color: #00bd83;
 }
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2,
@@ -24,64 +25,72 @@ a:hover {
 .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8,
 .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10,
 .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
-	padding-left: 10px;
 	padding-right: 10px;
+	padding-left: 10px;
 }
 
 .row {
-	margin-left: -10px;
 	margin-right: -10px;
+	margin-left: -10px;
 }
 
 .btn-primary {
-	background-color: #00BD83;
-	border-color: #00B076;
+	background-color: #00bd83;
+
+	border-color: #00b076;
 }
 
 .btn-primary:hover {
-	background-color: #00A86A;
+	background-color: #00a86a;
+
 	border-color: #009047;
 }
 
 .btn-primary[disabled] {
-	background-color: #00BD83;
-	border-color: #00B076;
+	background-color: #00bd83;
+
+	border-color: #00b076;
 }
 
 .btn-primary:hover[disabled] {
-	background-color: #00A86A;
+	background-color: #00a86a;
+
 	border-color: #009047;
 }
 
 .form-control:focus {
-	border-color: #00BD83;
-	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 189, 131, .6);
+	border-color: #00bd83;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(0, 189, 131, 0.6);
 }
 
 .navbar-default {
-	border: none;
 	background: #ffffff;
-	box-shadow: 0px 0px 2px 1px #999999;
+
+	border: none;
+	box-shadow: 0 0 2px 1px #999999;
 }
 
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-	color: #00BD83;
+	color: #00bd83;
 }
 
-.navbar-default .navbar-nav>.active>a, .navbar-default
-.navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-	background: #00BD83;
+.navbar-default .navbar-nav > .active > a, .navbar-default
+.navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	background: #00bd83;
+
 	color: #ffffff;
 }
 
-.navbar-default .navbar-nav>li>a:hover {
-	color: #00BD83;
+.navbar-default .navbar-nav > li > a:hover {
+	color: #00bd83;
 }
 
 #navbar-collapse ul li.divider {
 	height: 1px;
-	margin: 9px 0;
 	overflow: hidden;
+
+	margin: 9px 0;
+
 	background-color: #e5e5e5;
 }
 
@@ -91,6 +100,7 @@ a:hover {
 
 .navbar-brand-img {
 	padding: 5px 20px 5px 5px;
+
 	float: left;
 }
 
@@ -105,49 +115,55 @@ a:hover {
 
 div#search {
 	width: 225px;
-	margin-left: 4px;
+
 	margin-right: -12px;
+	margin-left: 4px;
 }
 
 button#facebook-login {
-	margin-left: 4px;
-	margin-right: 4px; 
 	margin-top: 4px;
+	margin-right: 4px;
+	margin-left: 4px;
+
 	color: #999999;
 }
 
 button#add-link {
-	margin-left: 4px;
 	margin-right: 4px;
+	margin-left: 4px;
 }
 
 div#viewmode {
-	margin-left: 4px;
 	margin-right: 4px;
+	margin-left: 4px;
 }
 
 div.link {
-	position: relative;
-	margin-bottom: 20px;
-	display: block;
-	overflow: auto;
-	background: #ffffff;
 	height: 240px;
+	overflow: auto;
+
+	margin-bottom: 20px;
+
+	display: block;
+	position: relative;
+
+	background: #ffffff;
+
 	border: 1px solid #cccccc;
 }
 
 div.link * {
-	padding: 0;
 	margin: 0;
+	padding: 0;
 }
 
 div.link a {
-	cursor: pointer;
 	color: #000000;
+	cursor: pointer;
 }
 
 div.link a:hover {
-	color: #00BD83;
+	color: #00bd83;
 	text-decoration: none;
 }
 
@@ -156,25 +172,31 @@ body.compact div.link, body.page-1 div.link {
 }
 
 div.link p.title {
-	font-size: 16px;
-	overflow: hidden;
 	height: 48px;
+	overflow: hidden;
+
 	padding: 4px 6px;
+
+	font-size: 16px;
 }
 
 div.link span.thumbnail {
 	width: 100%;
 	height: 160px;
-	background-size: 100% auto;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
+
+	margin: 0;
+
 	display: block;
-	border-radius: 0;
-	border-left: none;
-	border-right: none;
 	float: left;
 	clear: both;
-	margin: 0;
+
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: 100% auto;
+
+	border-right: none;
+	border-left: none;
+	border-radius: 0;
 }
 
 body.compact div.link span.thumbnail {
@@ -188,21 +210,27 @@ div.link span.thumbnail.screenshot {
 div.link div.meta {
 	width: 100%;
 	overflow: auto;
-	float: left;
+
 	padding: 4px 6px;
+
+	float: left;
 }
 
 div.link i.indicator {
-	float: left;
 	padding: 3px 4px 4px 0;
+
+	float: left;
+
 	color: #999999;
 	cursor: default;
 }
 
 div.link i.unread-indicator {
-	font-size: 11px;
 	padding-top: 5px;
+
 	display: none;
+
+	font-size: 11px;
 }
 
 div.link i.starred-indicator {
@@ -210,7 +238,7 @@ div.link i.starred-indicator {
 }
 
 div.link.unread i.indicator {
-	color: #107BF7;
+	color: #107bf7;
 }
 
 div.link.unread i.unread-indicator {
@@ -218,7 +246,7 @@ div.link.unread i.unread-indicator {
 }
 
 div.link.starred i.indicator {
-	color: #FD9945;
+	color: #fd9945;
 }
 
 div.link.starred i.starred-indicator {
@@ -227,11 +255,13 @@ div.link.starred i.starred-indicator {
 
 div.link p.domain {
 	float: left;
+
 	color: #999999;
 }
 
 div.link time {
 	float: right;
+
 	color: #999999;
 }
 
@@ -240,8 +270,8 @@ div.link:hover time {
 }
 
 div.link div.buttons {
-	float: right;
 	display: none;
+	float: right;
 }
 
 div.link:hover div.buttons {
@@ -255,26 +285,30 @@ div.link.unread:hover i.star-button {
 div.link div.buttons i.button {
 	margin-right: 4px;
 	margin-left: 4px;
+
 	color: #999999;
 }
 
 div.link div.buttons i.button:hover {
-	color: #00BD83;
+	color: #00bd83;
 }
 
 div#search-mobile {
 	overflow: auto;
+
 	margin: 0 15px 20px;
 }
 
 input#search-bar-mobile {
-	float: left;
 	width: 90%;
+
+	float: left;
 }
 
 button#search-button-mobile {
-	float: right;
 	width: 10%;
+
+	float: right;
 }
 
 input#add-modal-url-field {
@@ -298,77 +332,95 @@ div#embed-modal-body img {
 }
 
 div#embed-modal-body div.video-wrapper {
+	height: 0;
+
+	padding-top: 25px;
+	padding-bottom: 56.25%;
+
 	position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 25px;
-    height: 0;
 }
 
 div#embed-modal-body div.video-wrapper iframe {
+	width: 100%;
+	height: 100%;
+
 	position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+	top: 0;
+	left: 0;
 }
 
 div.stats-item {
-	position: relative;
-	margin-bottom: 20px;
-	display: block;
 	overflow: auto;
-	background: #ffffff;
-	border: 1px solid #cccccc;
-	text-align: center;
+
+	margin-bottom: 20px;
 	padding: 8px;
+
+	display: block;
+	position: relative;
+
+	background: #ffffff;
+
+	border: 1px solid #cccccc;
+
+	text-align: center;
 }
 
 div.stats-item p.name {
-	margin: 0px;
+	margin: 0;
 }
 
 div.stats-item p.number {
+	margin: 0;
+
 	font-size: 24px;
-	margin: 0px;
 }
 
 div.chart-wrapper {
-	background: #ffffff;
-	border: 1px solid #cccccc;
 	margin-bottom: 20px;
+
+	background: #ffffff;
+
+	border: 1px solid #cccccc;
+
 	text-align: center;
 }
 
 canvas#stats-chart {
-	position: relative;
-	display: block;
-	overflow: auto;
-	padding: 8px;
-	height: 174px;
 	width: 100%;
+	height: 174px;
+	overflow: auto;
+
+	padding: 8px;
+
+	display: block;
+	position: relative;
 }
 
 ul.line-legend {
-	list-style-type: none;
 	margin: -8px 0 8px 0;
 	padding: 0;
+
+	list-style-type: none;
 }
 
 ul.line-legend li {
-	display: inline;
 	margin: 0 16px;
+
+	display: inline;
 }
 
 ul.line-legend span {
 	width: 10px;
 	height: 10px;
-	display: inline-block;
+
 	margin-right: 8px;
+
+	display: inline-block;
 }
 
 div.footer {
-	text-align: center;
 	color: #999999;
+	text-align: center;
 }
 
 div.footer a {
@@ -382,17 +434,15 @@ div.footer div.popover {
 }
 
 div.footer div.popover div.popover-content {
-
 }
 
 div.footer div.popover ul {
-	margin-left: 12px;
 	margin-bottom: 0;
+	margin-left: 12px;
 	padding: 0;
 }
 
 div.tooltip {
-	/*margin-top: -8px !important;*/
 	width: 100px;
 }
 
@@ -406,6 +456,7 @@ div.tooltip div.tooltip-inner {
 
 div#facebook-login-wrapper {
 	height: 34px;
+
 	margin-top: 4px;
 }
 
@@ -414,13 +465,15 @@ div#facebook-modal div.modal-body {
 }
 
 ul#conversation-list {
-	list-style-type: none;
 	margin: 0;
 	padding: 0;
+
+	list-style-type: none;
 }
 
 ul#conversation-list li {
 	padding: 10px 16px;
+
 	cursor: pointer;
 }
 
@@ -429,5 +482,5 @@ ul#conversation-list li:not(:first-child) {
 }
 
 ul#conversation-list li:hover {
-	color: #00BD83;
+	color: #00bd83;
 }
