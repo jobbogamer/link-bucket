@@ -1,3 +1,4 @@
+import newrelic.agent
 import os
 from flask import Flask, url_for, render_template, request, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -9,6 +10,8 @@ from external_apis import screenshots, github
 
 ##### Config #####
 
+newrelic.agent.initialize('newrelic.ini')
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "d47d2b74ff64e5a6ae5aedd4edebeaf1"
 
@@ -18,6 +21,7 @@ except KeyError as error:
 	app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
 db = SQLAlchemy(app)
+database.create_tables()
 
 ##### Routes #####
 
