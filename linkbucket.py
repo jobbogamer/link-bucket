@@ -21,7 +21,6 @@ except KeyError as error:
 	app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
 db = SQLAlchemy(app)
-database.create_tables()
 
 ##### Routes #####
 
