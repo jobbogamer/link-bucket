@@ -1,10 +1,10 @@
-import linkbucket
-import utils
+from utils import utils
 import pickle
 from external_apis import readability
 from datetime import datetime, date
+from flask.ext.sqlalchemy import SQLAlchemy
 
-db = linkbucket.db
+db = SQLAlchemy()
 
 ##### Model classes #####
 

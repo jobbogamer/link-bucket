@@ -1,9 +1,8 @@
 from datetime import datetime
 from flask import jsonify
-import utils
+from utils import utils
 from external_apis import screenshots
-
-import database
+from model import database
 
 def add(url, title=''):
 	result = { }

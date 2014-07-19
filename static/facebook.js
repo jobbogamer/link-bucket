@@ -3,7 +3,7 @@ function facebookCallbackLoginStatusChanged(response) {
 		var userID = response['authResponse']['userID'];
 		facebookGetInbox(userID);
 	} else {
-		$('#facebook-login').prop('disabled', true);
+		$('#facebook-button').prop('disabled', true);
 	}
 }
 
@@ -46,6 +46,31 @@ function facebookGetOlderMessages(response, lastID, mostRecentID, messsages) {
 			});
 		}
 	}
+}
+
+function facebookBeginParseFlow() {
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			var userID = response['authResponse']['userID'];
+			facebookGetInbox(userID);
+		} else {
+			facebookLogIn();
+		}
+	});
+}
+
+function facebookLogIn() {
+	FB.login(function(response) {
+		if (response['status'] === "connected") {
+			var userID = response['authResponse']['userID'];
+			facebookGetInbox(userID);
+		} else {
+			// Don't bother, they obviously don't care
+		}
+	},
+	{
+		scope: 'read_mailbox'
+	});
 }
 
 function facebookGetInbox(userID) {
@@ -95,22 +120,9 @@ function facebookGetInbox(userID) {
 			}
 
 			$('#facebook-modal-body').html(html);
-			document.getElementById('facebook-login').onclick = facebookShowConversationList;
-			document.getElementById('facebook-login-mobile').onclick = facebookShowConversationList;
-			document.getElementById('facebook-login-mobile').innerHTML = "Parse from Facebook";
-			$('#facebook-login').css('color', '#000000');
-			$('#facebook-login-wrapper').tooltip('destroy');
 		} else if (response['error']) {
-			$('#facebook-login-wrapper').tooltip('destroy');
-			$('#facebook-login-wrapper').prop('title', "Can't contact Facebook");
-			$('#facebook-login-wrapper').tooltip();
+			// Oopsie, something failed
 		}
-	});
-}
-
-function facebookGetLoginStatus() {
-	FB.getLoginStatus(function(response) {
-		facebookCallbackLoginStatusChanged(response);
 	});
 }
 
@@ -122,7 +134,6 @@ function facebookLoadSDK() {
         	version : 'v2.0',
         	status	: true,
 		});
-		facebookGetLoginStatus();
 	};
 
 	(function(d, s, id) {

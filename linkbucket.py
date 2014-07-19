@@ -1,11 +1,10 @@
 import newrelic.agent
 import os
 from flask import Flask, url_for, render_template, request, jsonify
-from flask.ext.sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 
-import database
-import api
+from model import database
+from routes import api
 from external_apis import screenshots, github
 
 ##### Config #####
@@ -20,7 +19,7 @@ try:
 except KeyError as error:
 	app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://localhost:5432"
 
-db = SQLAlchemy(app)
+database.db.init_app(app)
 
 ##### Routes #####
 
