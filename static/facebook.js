@@ -120,6 +120,8 @@ function facebookGetInbox(userID) {
 			}
 
 			$('#facebook-modal-body').html(html);
+			$('#facebook-modal').modal('show');
+			document.getElementById('facebook-button').onclick = facebookToggleConversationList;
 		} else if (response['error']) {
 			// Oopsie, something failed
 		}
@@ -165,6 +167,7 @@ function facebookParseConversation(threadID) {
 	}).done(function(data) {
 		if (data['success']) {
 			var lastID = data['last_message_id'];
+			console.log(data);
 			if (lastID) {
 				// Get messages from now back to lastID
 			} else {
@@ -174,6 +177,6 @@ function facebookParseConversation(threadID) {
 	});
 }
 
-function facebookShowConversationList() {
-	$('#facebook-modal').modal('show');
+function facebookToggleConversationList() {
+	$('#facebook-modal').modal('toggle');
 }

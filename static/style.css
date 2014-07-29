@@ -76,9 +76,9 @@ a:hover {
 
 .navbar-default .navbar-nav > .active > a, .navbar-default
 .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-	background: #00bd83;
-
-	color: #ffffff;
+	color: #00bd83;
+	background: none;
+	font-weight: bold;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
@@ -99,7 +99,7 @@ a:hover {
 }
 
 .navbar-brand-img {
-	padding: 5px 20px 5px 5px;
+	padding: 5px;
 
 	float: left;
 }
@@ -129,13 +129,13 @@ button#facebook-login {
 }
 
 button#add-link {
-	margin-right: 4px;
+	margin-right: 8px;
 	margin-left: 4px;
 }
 
 div#viewmode {
 	margin-right: 4px;
-	margin-left: 4px;
+	margin-left: 8px;
 }
 
 div.link {
