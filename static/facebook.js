@@ -7,45 +7,39 @@ function facebookCallbackLoginStatusChanged(response) {
 	}
 }
 
-function facebookGetOlderMessages(response, lastID, mostRecentID, messsages) {
-	if (response['data']) {
-		var comments = response['data'];
-		var mostRecentID = mostRecentID;
+function facebookGetOlderMessages(url, threadID, lastID, mostRecentID, messsages) {
+	FB.api(url, function(response) {
 		var foundLastID = false;
-		
-		for (var i = 0; i < comments.length; i++) {
-			var comment = comments[i];
-			if (comment['id'] > mostRecentID) {
-				mostRecentID = comment['id'];
-			}
-			if (comment['id'] === lastID) {
-				foundLastID = true;
-			} else if (comment['id'] > lastID) {
-				messages.push({
-					text: comment['message'],
-					date: comment['created_time']
-				});
-			}
-		}
-
-		if (foundLastID) {
-			$.ajax({
-				url: '/api/facebook/parse',
-				data: {
-					'last_id': mostRecentID,
-					'messages': JSON.stringify(messages)
+		if (response['comments']) {
+			var comments = response['comments']['data'];
+			for (var i = 0; i < comments.length; i++) {
+				var comment = comments[i];
+				if (comment['id'] === lastID) {
+					foundLastID = true;
+				} else if (comment['id'] > lastID) {
+					if (comment['id'] > mostRecentID) {
+						mostRecentID = comment['id'];
+					}
+					messages.push({
+						id: comment['id'],
+						text: comment['message'],
+						date: comment['created_time']
+					});
 				}
-			}).done(function(data) {
-				// Add the parsed messages
-			});
+			}
+			if (foundLastID) {
+				var jsonString = JSON.stringify(messages);
+				// parse the messages
+			} else {
+				var nextURL = response['comments']['paging']['next'];
+				var threadIDPos = nextURL.indexOf(threadID);
+				nextURL = nextURL.substring(threadIDPos);
+				facebookGetOlderMessages(nextURL, threadID, lastID, mostRecentID, messages);
+			}
 		} else {
-			$.ajax({
-				url: response['paging']['next']
-			}).done(function(data) {
-				facebookGetOlderMessages(data, lastID, mostRecentID, messages);
-			});
+			// No messages came back
 		}
-	}
+	});
 }
 
 function facebookBeginParseFlow() {
@@ -167,12 +161,52 @@ function facebookParseConversation(threadID) {
 	}).done(function(data) {
 		if (data['success']) {
 			var lastID = data['last_message_id'];
-			console.log(data);
 			if (lastID) {
 				// Get messages from now back to lastID
+				facebookGetOlderMessages('/' + threadID, threadID, lastID, lastID, []);
 			} else {
 				// Get messages from a single API call
+				FB.api('/' + threadID, function(response) {
+					console.log(response);
+					var messages = [];
+					var lastID = '0';
+					if (response['comments']) {
+						var comments = response['comments']['data'];
+						for (var i = 0; i < comments.length; i++) {
+							var comment = comments[i];
+							if (comment['id'] > lastID) {
+								lastID = comment['id'];
+							}
+							messages.push({
+								id: comment['id'],
+								text: comment['message'],
+								date: comment['created_time']
+							});
+						}
+						var jsonString = JSON.stringify(messages);
+						console.log(jsonString);
+					} else {
+						// No messages came back
+					}
+				});
 			}
+		}
+	});
+}
+
+function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID) {
+	$.ajax({
+		url: '/api/facebook/parse',
+		data: {
+			'thread_id': threadID,
+			'most_recent_id': mostRecentID,
+			'json': jsonString
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			// add the links
+		} else {
+			// failed
 		}
 	});
 }
