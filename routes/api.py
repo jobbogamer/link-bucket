@@ -123,7 +123,7 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 				date = utils.parse_date(message['date'])
 				title = ''
 
-				if ':ot:' in message['text']:
+				if ':rt:' in message['text']:
 					title = utils.extract_title(message['text'], urls)
 				
 				for i in range(len(urls)):

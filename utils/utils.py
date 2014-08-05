@@ -17,7 +17,7 @@ def extract_links(string):
 	return links
 
 def extract_title(string, urls):
-	string = string.replace(':ot:', '')
+	string = string.replace(':rt:', '')
 
 	for url in urls:
 		string = string.replace(url, '')
