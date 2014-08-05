@@ -166,7 +166,7 @@ class FacebookConversation(db.Model):
 		self.thread_id= thread_id
 		self.last_message_id = last_message_id
 
-	def set_last_message_id(id):
+	def set_last_message_id(self, id):
 		self.last_message_id = id
 		commit_changes()
 
@@ -196,6 +196,11 @@ def _find_embed(url):
 	return ('', 0)
 
 ##### Public API #####
+
+def add_facebook_conversation(thread_id, last_message_id):
+	conversation = FacebookConversation(thread_id, last_message_id)
+	db.session.add(conversation)
+	commit_changes()
 
 def add_link(url, date):
 	new_link = Link(url, date)

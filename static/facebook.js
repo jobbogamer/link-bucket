@@ -7,7 +7,7 @@ function facebookCallbackLoginStatusChanged(response) {
 	}
 }
 
-function facebookGetOlderMessages(url, threadID, lastID, mostRecentID, messsages) {
+function facebookGetOlderMessages(url, threadID, lastID, mostRecentID, messages) {
 	FB.api(url, function(response) {
 		var foundLastID = false;
 		if (response['comments']) {
@@ -29,7 +29,7 @@ function facebookGetOlderMessages(url, threadID, lastID, mostRecentID, messsages
 			}
 			if (foundLastID) {
 				var jsonString = JSON.stringify(messages);
-				// parse the messages
+				facebookSendMessagesForParsing(jsonString, threadID, mostRecentID);
 			} else {
 				var nextURL = response['comments']['paging']['next'];
 				var threadIDPos = nextURL.indexOf(threadID);
@@ -167,7 +167,6 @@ function facebookParseConversation(threadID) {
 			} else {
 				// Get messages from a single API call
 				FB.api('/' + threadID, function(response) {
-					console.log(response);
 					var messages = [];
 					var lastID = '0';
 					if (response['comments']) {
@@ -178,13 +177,12 @@ function facebookParseConversation(threadID) {
 								lastID = comment['id'];
 							}
 							messages.push({
-								id: comment['id'],
 								text: comment['message'],
 								date: comment['created_time']
 							});
 						}
 						var jsonString = JSON.stringify(messages);
-						console.log(jsonString);
+						facebookSendMessagesForParsing(jsonString, threadID, lastID);
 					} else {
 						// No messages came back
 					}
@@ -197,6 +195,7 @@ function facebookParseConversation(threadID) {
 function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID) {
 	$.ajax({
 		url: '/api/facebook/parse',
+		type: 'POST',
 		data: {
 			'thread_id': threadID,
 			'most_recent_id': mostRecentID,
@@ -204,9 +203,9 @@ function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			// add the links
+			console.log('success!');
 		} else {
-			// failed
+			console.log(data['message']);
 		}
 	});
 }

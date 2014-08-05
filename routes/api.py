@@ -3,6 +3,7 @@ from flask import jsonify
 from utils import utils
 from external_apis import screenshots
 from model import database
+import json
 
 def add(url, title=''):
 	result = { }
@@ -99,6 +100,49 @@ def facebook_last_message_id(thread_id):
 		result = {
 			'success': False,
 			'message': error
+		}
+
+	return jsonify(result)
+
+
+def facebook_parse_messages(thread_id, last_message_id, json_string):
+	result = { }
+
+	try:
+		conversation = database.get_facebook_conversation(thread_id)
+		if not(conversation is None):
+			conversation.set_last_message_id(last_message_id)
+		else:
+			database.add_facebook_conversation(thread_id, last_message_id)
+
+		messages = json.loads(json_string)
+
+		for message in messages:
+			if not(':ig:' in message['text']):
+				urls = utils.extract_links(message['text'])
+				date = utils.parse_date(message['date'])
+				title = ''
+
+				if ':ot:' in message['text']:
+					title = utils.extract_title(message['text'], urls)
+				
+				for i in range(len(urls)):
+					link = database.add_link(urls[i], date)
+					if len(title) > 0:
+						if len(urls) > 1:
+							database.edit_title_without_counting(link.id, title + " (" + str(i+1) + ")")
+						else:
+							database.edit_title_without_counting(link.id, title)
+
+		result = {
+			'success': True,
+			'thread_id': thread_id,
+			'links': []
+		}
+	except Exception as error:
+		result = {
+			'success': False,
+			'message': str(error)
 		}
 
 	return jsonify(result)

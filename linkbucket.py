@@ -102,6 +102,13 @@ def api_facebook_lastchecked():
 	thread_id = request.args.get('id', '')
 	return api.facebook_last_message_id(thread_id)
 
+@app.route('/api/facebook/parse', methods=['POST'])
+def api_facebook_parse():
+	thread_id = request.form['thread_id']
+	most_recent_id = request.form['most_recent_id']
+	json = request.form['json']
+	return api.facebook_parse_messages(thread_id, most_recent_id, json)
+
 @app.route('/api/star', methods=['GET'])
 def api_star():
 	id = int(request.args.get('id', 0))
