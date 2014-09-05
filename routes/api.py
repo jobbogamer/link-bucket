@@ -127,12 +127,13 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 					title = utils.extract_title(message['text'], urls)
 				
 				for i in range(len(urls)):
-					link = database.add_link(urls[i], date)
-					if len(title) > 0:
-						if len(urls) > 1:
-							database.edit_title_without_counting(link.id, title + " (" + str(i+1) + ")")
-						else:
-							database.edit_title_without_counting(link.id, title)
+					if 'linkbucket.joshasch.com' not in urls[i]:
+						link = database.add_link(urls[i], date)
+						if len(title) > 0:
+							if len(urls) > 1:
+								database.edit_title_without_counting(link.id, title + " (" + str(i+1) + ")")
+							else:
+								database.edit_title_without_counting(link.id, title)
 
 		result = {
 			'success': True,
