@@ -118,34 +118,35 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 		messages = json.loads(json_string)
 
 		for message in messages:
-			if not(':ig:' in message['text']):
-				urls = utils.extract_links(message['text'])
-				date = utils.parse_date(message['date'])
-				title = ''
+			if 'text' in message:
+				if not(':ig:' in message['text']):
+					urls = utils.extract_links(message['text'])
+					date = utils.parse_date(message['date'])
+					title = ''
 
-				if ':rt:' in message['text']:
-					title = utils.extract_title(message['text'], urls)
-				
-				links = []
-				for i in range(len(urls)):
-					if 'linkbucket.joshasch.com' not in urls[i]:
-						link = database.add_link(urls[i], date)
-						if len(title) > 0:
-							if len(urls) > 1:
-								link = database.edit_title_without_counting(link.id, title + " (" + str(i+1) + ")")
-							else:
-								link = database.edit_title_without_counting(link.id, title)
+					if ':rt:' in message['text']:
+						title = utils.extract_title(message['text'], urls)
+					
+					links = []
+					for i in range(len(urls)):
+						if 'linkbucket.joshasch.com' not in urls[i]:
+							link = database.add_link(urls[i], date)
+							if len(title) > 0:
+								if len(urls) > 1:
+									link = database.edit_title_without_counting(link.id, title + " (" + str(i+1) + ")")
+								else:
+									link = database.edit_title_without_counting(link.id, title)
 
-						link_dict = {
-							"id": link.id,
-							"title": link.title,
-							"url": link.url,
-							"domain": link.domain,
-							"image_url": link.image_url,
-							"embed_url": link.embed_url,
-							"embed_type": link.embed_type,
-						}
-						links.append(link_dict)
+							link_dict = {
+								"id": link.id,
+								"title": link.title,
+								"url": link.url,
+								"domain": link.domain,
+								"image_url": link.image_url,
+								"embed_url": link.embed_url,
+								"embed_type": link.embed_type,
+							}
+							links.append(link_dict)
 
 		result = {
 			'success': True,
