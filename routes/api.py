@@ -117,6 +117,7 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 
 		messages = json.loads(json_string)
 
+		links = []
 		for message in messages:
 			if 'text' in message:
 				if not(':ig:' in message['text']):
@@ -127,7 +128,6 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 					if ':rt:' in message['text']:
 						title = utils.extract_title(message['text'], urls)
 					
-					links = []
 					for i in range(len(urls)):
 						if 'linkbucket.joshasch.com' not in urls[i]:
 							link = database.add_link(urls[i], date)
@@ -145,6 +145,8 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 								"image_url": link.image_url,
 								"embed_url": link.embed_url,
 								"embed_type": link.embed_type,
+								"screenshot_url": screenshots.get_screenshot(link.url),
+								"timesince": utils.timesince(link.date)
 							}
 							links.append(link_dict)
 

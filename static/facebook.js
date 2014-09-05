@@ -136,11 +136,11 @@ function facebookGetInbox(userID) {
 
 function facebookLoadSDK() {
 	window.fbAsyncInit = function() {
-    	FB.init({
-        	appId	: '815778521766772',
-        	xfbml	: false,
-        	version : 'v2.0',
-        	status	: true,
+		FB.init({
+			appId   : '815778521766772',
+			xfbml   : false,
+			version : 'v2.0',
+			status  : true,
 		});
 	};
 
@@ -227,6 +227,7 @@ function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID, name
 
 		if (data['success']) {
 			facebookUpdateLinks(data['links']);
+			facebookToggleConversationList();
 		} else {
 			console.log(data['message']);
 		}
@@ -238,5 +239,10 @@ function facebookToggleConversationList() {
 }
 
 function facebookUpdateLinks(links) {
-
+	for (var i = 0; i < links.length; i++) {
+		link = links[i];
+		createAddedLink(link['id'], link['url'], link['title'], link['domain'],
+		                link['embed_type'], link['embed_url'], link['image_url'],
+		                link['screenshot_url']);
+	}
 }
