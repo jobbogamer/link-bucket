@@ -126,19 +126,31 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 				if ':rt:' in message['text']:
 					title = utils.extract_title(message['text'], urls)
 				
+				links = []
 				for i in range(len(urls)):
 					if 'linkbucket.joshasch.com' not in urls[i]:
 						link = database.add_link(urls[i], date)
 						if len(title) > 0:
 							if len(urls) > 1:
-								database.edit_title_without_counting(link.id, title + " (" + str(i+1) + ")")
+								link = database.edit_title_without_counting(link.id, title + " (" + str(i+1) + ")")
 							else:
-								database.edit_title_without_counting(link.id, title)
+								link = database.edit_title_without_counting(link.id, title)
+
+						link_dict = {
+							"id": link.id,
+							"title": link.title,
+							"url": link.url,
+							"domain": link.domain,
+							"image_url": link.image_url,
+							"embed_url": link.embed_url,
+							"embed_type": link.embed_type,
+						}
+						links.append(link_dict)
 
 		result = {
 			'success': True,
 			'thread_id': thread_id,
-			'links': []
+			'links': links
 		}
 	except Exception as error:
 		result = {
