@@ -238,11 +238,13 @@ def edit_title(id, new_title):
 	link.title = new_title
 	db.session.commit()
 	get_stats().increment_edits()
+	return link
 
 def edit_title_without_counting(id, new_title):
 	link = get_link_by_id(id)
 	link.title = new_title
 	db.session.commit()
+	return link
 
 def get_facebook_conversation(thread_id):
 	conversation = FacebookConversation.query.filter_by(thread_id = thread_id).first()
