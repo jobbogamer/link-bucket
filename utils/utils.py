@@ -43,3 +43,17 @@ def parse_date(string):
 	time_diff = datetime.now() - datetime.utcnow()
 	date = date + time_diff
 	return date
+
+def timesince(date):
+	now = datetime.now()
+	delta = now - date
+	seconds = delta.total_seconds()
+
+	if seconds < 60:
+		return "<1m"
+	elif seconds < (60 * 60):
+		return str(int(seconds / 60)) + "m"
+	elif seconds < (24 * 60 * 60):
+		return str(int(seconds / (60 * 60))) + "h"
+	else:
+		return str(int(seconds / (24 * 60 * 60))) + "d"

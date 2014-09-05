@@ -3,6 +3,7 @@ import os
 from flask import Flask, url_for, render_template, request, jsonify
 from datetime import datetime, date
 
+import utils
 from model import database
 from routes import api
 from external_apis import screenshots, github
@@ -138,18 +139,7 @@ def screenshot_url(url):
 
 @app.template_filter('timesince')
 def timesince(date):
-	now = datetime.now()
-	delta = now - date
-	seconds = delta.total_seconds()
-
-	if seconds < 60:
-		return "<1m"
-	elif seconds < (60 * 60):
-		return str(int(seconds / 60)) + "m"
-	elif seconds < (24 * 60 * 60):
-		return str(int(seconds / (60 * 60))) + "h"
-	else:
-		return str(int(seconds / (24 * 60 * 60))) + "d"
+	return utils.timesince(date)
 
 @app.template_filter('timesince_long')
 def timesince_long(the_date):
