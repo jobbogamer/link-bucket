@@ -63,6 +63,9 @@ function facebookLogIn() {
 			facebookGetInbox(userID);
 		} else {
 			// Don't bother, they obviously don't care
+			$('#facebook-button span').toggleClass('fa-facebook');
+			$('#facebook-button span').toggleClass('fa-spinner');
+			$('#facebook-button span').toggleClass('fa-spin');
 		}
 	},
 	{
@@ -124,7 +127,9 @@ function facebookGetInbox(userID) {
 			$('#facebook-button span').toggleClass('fa-spinner');
 			$('#facebook-button span').toggleClass('fa-spin');
 		} else if (response['error']) {
-			// Oopsie, something failed
+			$('#facebook-button span').toggleClass('fa-facebook');
+			$('#facebook-button span').toggleClass('fa-spinner');
+			$('#facebook-button span').toggleClass('fa-spin');
 		}
 	});
 }
