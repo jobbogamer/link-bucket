@@ -43,6 +43,9 @@ function facebookGetOlderMessages(url, threadID, name, lastID, mostRecentID, mes
 }
 
 function facebookBeginParseFlow() {
+	$('#facebook-button span').toggleClass('fa-facebook');
+	$('#facebook-button span').toggleClass('fa-spinner');
+	$('#facebook-button span').toggleClass('fa-spin');
 	FB.getLoginStatus(function(response) {
 		if (response.status === 'connected') {
 			var userID = response['authResponse']['userID'];
@@ -117,6 +120,9 @@ function facebookGetInbox(userID) {
 			$('#facebook-modal-body').html(html);
 			$('#facebook-modal').modal('show');
 			document.getElementById('facebook-button').onclick = facebookToggleConversationList;
+			$('#facebook-button span').toggleClass('fa-facebook');
+			$('#facebook-button span').toggleClass('fa-spinner');
+			$('#facebook-button span').toggleClass('fa-spin');
 		} else if (response['error']) {
 			// Oopsie, something failed
 		}
@@ -164,7 +170,6 @@ function facebookParseConversation(threadID) {
 			'id' : threadID
 		}
 	}).done(function(data) {
-		console.log(data);
 		if (data['success']) {
 			var lastID = data['last_message_id'];
 			if (lastID) {
@@ -216,7 +221,7 @@ function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID, name
 		listItem.html(name);
 
 		if (data['success']) {
-			console.log(data);
+			facebookUpdateLinks(data['links']);
 		} else {
 			console.log(data['message']);
 		}
@@ -225,4 +230,8 @@ function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID, name
 
 function facebookToggleConversationList() {
 	$('#facebook-modal').modal('toggle');
+}
+
+function facebookUpdateLinks(links) {
+
 }
