@@ -3,7 +3,7 @@ import os
 from flask import Flask, url_for, render_template, request, jsonify
 from datetime import datetime, date
 
-import utils
+from utils import utils
 from model import database
 from routes import api
 from external_apis import screenshots, github
