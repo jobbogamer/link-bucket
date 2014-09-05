@@ -7,7 +7,7 @@ function facebookCallbackLoginStatusChanged(response) {
 	}
 }
 
-function facebookGetOlderMessages(url, threadID, lastID, mostRecentID, messages) {
+function facebookGetOlderMessages(url, threadID, name, lastID, mostRecentID, messages) {
 	FB.api(url, function(response) {
 		var foundLastID = false;
 		if (response['comments']) {
@@ -29,7 +29,7 @@ function facebookGetOlderMessages(url, threadID, lastID, mostRecentID, messages)
 			}
 			if (foundLastID) {
 				var jsonString = JSON.stringify(messages);
-				facebookSendMessagesForParsing(jsonString, threadID, mostRecentID);
+				facebookSendMessagesForParsing(jsonString, threadID, mostRecentID, name);
 			} else {
 				var nextURL = response['comments']['paging']['next'];
 				var threadIDPos = nextURL.indexOf(threadID);
@@ -94,9 +94,10 @@ function facebookGetInbox(userID) {
 				var numConversations = Math.min(conversations.length, 10);
 				for (var i = 0; i < numConversations; i++) {
 					conversation = conversations[i];
-					html += '<li class="conversation" onclick="facebookParseConversation(' +
-						conversation["id"] +
-						');"><div class="profile-picture"><div class="no-picture"></div></div><div class="name">';
+					html += '<li id="conversation-' + conversation["id"] +
+						'" class="conversation" onclick="facebookParseConversation(' +
+						conversation["id"] + ');"><div class="profile-picture">' +
+						'<div class="no-picture"></div></div><div class="name">';
 					if (conversation['people'].length == 1) {
 						html += conversation['people'][0];
 					} else if (conversation['people'].length == 2) {
@@ -153,17 +154,22 @@ function facebookLogIn() {
 }
 
 function facebookParseConversation(threadID) {
+	var listItem = $("#conversation-" + threadID + " .name")
+	var name = listItem.html();
+	listItem.html('<i class="fa fa-spinner fa-spin"></i>');
+
 	$.ajax({
 		url: '/api/facebook/lastchecked',
 		data: {
 			'id' : threadID
 		}
 	}).done(function(data) {
+		console.log(data);
 		if (data['success']) {
 			var lastID = data['last_message_id'];
 			if (lastID) {
 				// Get messages from now back to lastID
-				facebookGetOlderMessages('/' + threadID, threadID, lastID, lastID, []);
+				facebookGetOlderMessages('/' + threadID, threadID, name, lastID, lastID, []);
 			} else {
 				// Get messages from a single API call
 				FB.api('/' + threadID, function(response) {
@@ -182,17 +188,21 @@ function facebookParseConversation(threadID) {
 							});
 						}
 						var jsonString = JSON.stringify(messages);
-						facebookSendMessagesForParsing(jsonString, threadID, lastID);
+						facebookSendMessagesForParsing(jsonString, threadID, lastID, name);
 					} else {
 						// No messages came back
+						var listItem = $("#conversation-" + threadID + " .name")
+						listItem.html(name);
 					}
 				});
 			}
+		} else {
+			console.log(data);
 		}
 	});
 }
 
-function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID) {
+function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID, name) {
 	$.ajax({
 		url: '/api/facebook/parse',
 		type: 'POST',
@@ -202,8 +212,11 @@ function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID) {
 			'json': jsonString
 		}
 	}).done(function(data) {
+		var listItem = $("#conversation-" + threadID + " .name")
+		listItem.html(name);
+
 		if (data['success']) {
-			console.log('success!');
+			console.log(data);
 		} else {
 			console.log(data['message']);
 		}
