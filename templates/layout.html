@@ -110,16 +110,26 @@
     				</div>
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
-						<li><button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal"><span class="fa fa-plus fa-fw"></span></button></li>
-						<li><button id="facebook-button" type="button" class="btn btn-default navbar-btn" onclick="facebookBeginParseFlow();"><span class="fa fa-facebook fa-fw"></span></button></li>
+						<li>
+							<button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal" title="Add Link">
+								<span class="fa fa-plus fa-fw"></span>
+							</button>
+						</li>
+						<li>
+							<button id="facebook-button" type="button" class="btn btn-default navbar-btn" onclick="facebookBeginParseFlow();" title="Parse from Facebook">
+								<span class="fa fa-facebook fa-fw"></span>
+							</button>
+						</li>
 						{% if options['viewmode_visible'] %}
 						<li>
 							<div id="viewmode" class="btn-group" data-toggle="buttons">
-		 						<label id="viewmode-compact" class="btn btn-default navbar-btn viewmode-button" onclick="setCompactMode(true);">
-		    						<input type="radio" name="viewmode"><span class="fa fa-th fa-fw"></span>
+		 						<label id="viewmode-compact" class="btn btn-default navbar-btn viewmode-button" onclick="setCompactMode(true);" title="Compact View">
+		    						<input type="radio" name="viewmode">
+		    						<span class="fa fa-align-justify fa-fw"></span>
 		  						</label>
-		  						<label id="viewmode-expanded" class="btn btn-default navbar-btn viewmode-button active" onclick="setCompactMode(false);">
-		    						<input type="radio" name="viewmode"><span class="fa fa-th-large fa-fw"></span>
+		  						<label id="viewmode-expanded" class="btn btn-default navbar-btn viewmode-button active" onclick="setCompactMode(false);" title="Expanded View">
+		    						<input type="radio" name="viewmode">
+		    						<span class="fa fa-navicon fa-fw"></span>
 		  						</label>
 							</div>
   						</li>
