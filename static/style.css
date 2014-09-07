@@ -114,28 +114,26 @@ a:hover {
 }
 
 div#search {
-	width: 225px;
-
-	margin-right: -12px;
-	margin-left: 4px;
+	margin-left: 6px;
+	padding-right: 0;
 }
 
 button#facebook-login {
 	margin-top: 4px;
-	margin-right: 4px;
-	margin-left: 4px;
+	margin-right: 6px;
+	margin-left: 6px;
 
 	color: #999999;
 }
 
 button#add-link {
-	margin-right: 8px;
-	margin-left: 4px;
+	margin-right: 6px;
+	margin-left: 6px;
 }
 
 div#viewmode {
-	margin-right: 4px;
-	margin-left: 8px;
+	margin-right: 0px;
+	margin-left: 6px;
 }
 
 div.link {

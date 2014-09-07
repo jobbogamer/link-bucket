@@ -13,7 +13,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 
-	<body class="page-{{ options['active_page'] }}" {% if options['active_page'] == 2 %}onload="setUpStatsChart({{ histories['add'] }}, {{ histories['click'] }});"{% endif %}>
+	<body class="page-{{ options['active_page'] }}" onload="{% if options['active_page'] == 2 %}setUpStatsChart({{ histories['add'] }}, {{ histories['click'] }});{% endif %}">
 		<div id="fb-root"></div>
 		<div id="add-modal" class="modal fade">
 			<div class="modal-dialog">
@@ -105,13 +105,8 @@
 						<li class="visible-xs"><a id="viewmode-mobile" onclick="toggleCompactMode();">Compact View</a></li>
 					</ul>
 					
-					<div id="search" class="navbar-right navbar-form input-group hidden-xs">
+					<div id="search" class="navbar-right navbar-form hidden-xs">
       					<input type="text" class="form-control" placeholder="Search" autocomplete="off" />
-      					<span class="input-group-btn">
-        					<button class="btn btn-default" type="button" onclick="showSearchBar();">
-        						<span class="fa fa-search"></span>
-        					</button>
-     					</span>
     				</div>
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
