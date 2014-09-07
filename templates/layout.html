@@ -108,7 +108,9 @@
 					<div id="search" class="navbar-right navbar-form input-group hidden-xs">
       					<input type="text" class="form-control" placeholder="Search" autocomplete="off" />
       					<span class="input-group-btn">
-        					<button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+        					<button class="btn btn-default" type="button" onclick="showSearchBar();">
+        						<span class="fa fa-search"></span>
+        					</button>
      					</span>
     				</div>
 
@@ -158,7 +160,7 @@
 		</div>
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<script src="{{ url_for('static', filename='linkbucket.js') }}"></script>
 		<script src="{{ url_for('static', filename='facebook.js') }}"></script>
 		<script src="{{ url_for('static', filename='jquery.cookie.js') }}"></script>
