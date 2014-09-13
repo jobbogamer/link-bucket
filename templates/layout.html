@@ -139,6 +139,58 @@
 			</div>
 		</nav>
 
+		<div id="coverup"></div>
+
+		<div id="search-results">
+			<ul>
+				<li id="search-result-1">
+					<a href="/">
+						<p class="title">Peter Dinklage</p>
+						<div class="meta">
+							<p class="domain">yourepeat.com</p>
+							<p class="date">76d</p>
+						</div>
+					</a>
+				</li>
+				<li id="search-result-2" class="archived">
+					<a href="/">
+						<p class="title">Woody's Hat - YouTube</p>
+						<div class="meta">
+							<p class="domain">youtube.com</p>
+							<p class="date">84d</p>
+						</div>
+					</a>
+				</li>
+				<li id="search-result-3">
+					<a href="/">
+						<p class="title">Knack (Hard Mode) - Chapters 2-4 to 3-2</p>
+						<div class="meta">
+							<p class="domain">youtube.com</p>
+							<p class="date">123d</p>
+						</div>
+					</a>
+				</li>
+				<li id="search-result-4" class="selected">
+					<a href="/">
+						<p class="title">Knack (Hard Mode) - Chapters 2-2 to 2-3</p>
+						<div class="meta">
+							<p class="domain">youtube.com</p>
+							<p class="date">128d</p>
+						</div>
+					</a>
+				</li>
+				<li id="search-result-5">
+					<a href="/">
+						<p class="title">Knack (Hard Mode) - Chapters 1-1 to 2-1</p>
+						<div class="meta">
+							<p class="domain">youtube.com</p>
+							<p class="date">129d</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+
 		{% with messages = get_flashed_messages(with_categories=true) %}
 			{% if messages %}
 				<ul id="flashes">
@@ -161,7 +213,9 @@
 		</div>
 
 		<div class="footer">
+			{% if options['version'] %}
 			<p>Linkbucket <a id="version-popover" data-toggle="popover" data-title="{{ options['version'].tag_name }} ({{ options['version'].date | timesince_long }})" data-html="true" data-content="<ul>{{ options['version'].body.replace('- ', '</li><li>') }}</li></ul>">{{ options['version'].tag_name }}</a></p>
+			{% endif %}
 		</div>
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

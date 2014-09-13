@@ -3,9 +3,25 @@ var KEY_ESCAPE = 27;
 var KEY_ARROW_UP = 38;
 var KEY_ARROW_DOWN = 40;
 
+var searchResults = null;
+var selectedItem = -1;
+
+function getLinksFromServer() {
+	
+}
+
+function openSelectedItem() {
+
+}
+
+function performSearch(query) {
+
+}
+
 function searchBarKeyDown(searchBar, event) {
 	if (event.keyCode == KEY_ENTER) {
-
+		// if an item is highlighted, open that link
+		// if nothing is highlighted, open /search
 	} else if (event.keyCode == KEY_ESCAPE) {
 		// on first press, clear search bar
 		// on second press, blur search bar
@@ -13,5 +29,11 @@ function searchBarKeyDown(searchBar, event) {
 		// highlight next result up
 	} else if (event.keyCode == KEY_ARROW_DOWN) {
 		// highlight next result down
+	} else {
+		
 	}
+}
+
+function updateResultDropdown(item, position) {
+
 }
