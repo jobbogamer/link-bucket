@@ -4,36 +4,80 @@ var KEY_ARROW_UP = 38;
 var KEY_ARROW_DOWN = 40;
 
 var searchResults = null;
-var selectedItem = -1;
+var numResults = 0;
+var selectedItem = 0;
 
 function getLinksFromServer() {
 	
 }
 
-function openSelectedItem() {
+function hideDropdown() {
+	$('#coverup').fadeOut();
+	$('#search-results').fadeOut();
+}
 
+function markItemSelected(index) {
+	$('#search-result-' + selectedItem).removeClass('selected');
+	$('#search-result-' + index).addClass('selected');
+	selectedItem = index;
+}
+
+function openSelectedItem() {
+	if (selectedItem > 0) {
+		href = $('#search-result-' + selectedItem + ' a').attr('href');
+		// log a click
+		window.location.href = href;
+	}
 }
 
 function performSearch(query) {
 
 }
 
+function searchBarBlur(searchBar) {
+	hideDropdown();
+}
+
+function searchBarFocus(searchBar) {
+	showDropdown();
+}
+
 function searchBarKeyDown(searchBar, event) {
 	if (event.keyCode == KEY_ENTER) {
-		// if an item is highlighted, open that link
-		// if nothing is highlighted, open /search
+		event.preventDefault();
+		if (selectedItem > 0) {
+			openSelectedItem();
+		} else if (searchBar.value.length > 0) {
+			slash = window.location.href.indexOf('/', 7);
+			current = window.location.href.substring(0, slash);
+			window.location.href = current + "/search?q=" + searchBar.value;
+		}
 	} else if (event.keyCode == KEY_ESCAPE) {
-		// on first press, clear search bar
-		// on second press, blur search bar
+		if (searchBar.value.length > 0) {
+			searchBar.value = "";
+		} else {
+			searchBar.blur();
+		}
 	} else if (event.keyCode == KEY_ARROW_UP) {
-		// highlight next result up
+		if (selectedItem > 0) {
+			markItemSelected(selectedItem - 1);
+		}
+		event.preventDefault();
 	} else if (event.keyCode == KEY_ARROW_DOWN) {
-		// highlight next result down
+		if (selectedItem < numResults) {
+			markItemSelected(selectedItem + 1);
+		}
+		event.preventDefault();
 	} else {
-		
+		performSearch(searchBar.value);
 	}
 }
 
-function updateResultDropdown(item, position) {
+function showDropdown() {
+	$('#coverup').fadeIn();
+	$('#search-results').fadeIn();
+}
+
+function updateResultDropdown() {
 
 }

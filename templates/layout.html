@@ -106,7 +106,8 @@
 					</ul>
 					
 					<div id="search" class="navbar-right navbar-form hidden-xs">
-      					<input type="text" class="form-control" placeholder="Search" autocomplete="off" />
+      					<input type="text" class="form-control" placeholder="Search" autocomplete="off"
+      					 onkeydown="searchBarKeyDown(this, event);" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" />
     				</div>
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
@@ -143,48 +144,58 @@
 
 		<div id="search-results">
 			<ul>
-				<li id="search-result-1">
+				<li id="search-result-1" onmouseover="markItemSelected(1);">
 					<a href="/">
-						<p class="title">Peter Dinklage</p>
-						<div class="meta">
-							<p class="domain">yourepeat.com</p>
-							<p class="date">76d</p>
+						<div class="search-result-wrapper">
+							<p class="title">Peter Dinklage</p>
+							<div class="meta">
+								<p class="domain">yourepeat.com</p>
+								<p class="date">76d</p>
+							</div>
 						</div>
 					</a>
 				</li>
-				<li id="search-result-2" class="archived">
+				<li id="search-result-2" class="archived" onmouseover="markItemSelected(2);">
 					<a href="/">
-						<p class="title">Woody's Hat - YouTube</p>
-						<div class="meta">
-							<p class="domain">youtube.com</p>
-							<p class="date">84d</p>
+						<div class="search-result-wrapper">
+							<p class="title">Woody's Hat - YouTube</p>
+							<div class="meta">
+								<p class="domain">youtube.com</p>
+								<p class="date">84d</p>
+							</div>
 						</div>
 					</a>
 				</li>
-				<li id="search-result-3">
+				<li id="search-result-3" onmouseover="markItemSelected(3);">
 					<a href="/">
-						<p class="title">Knack (Hard Mode) - Chapters 2-4 to 3-2</p>
-						<div class="meta">
-							<p class="domain">youtube.com</p>
-							<p class="date">123d</p>
+						<div class="search-result-wrapper">
+							<p class="title">Knack (Hard Mode) - Chapters 2-4 to 3-2</p>
+							<div class="meta">
+								<p class="domain">youtube.com</p>
+								<p class="date">123d</p>
+							</div>
 						</div>
 					</a>
 				</li>
-				<li id="search-result-4" class="selected">
+				<li id="search-result-4" onmouseover="markItemSelected(4);">
 					<a href="/">
-						<p class="title">Knack (Hard Mode) - Chapters 2-2 to 2-3</p>
-						<div class="meta">
-							<p class="domain">youtube.com</p>
-							<p class="date">128d</p>
+						<div class="search-result-wrapper">
+							<p class="title">Knack (Hard Mode) - Chapters 2-2 to 2-3</p>
+							<div class="meta">
+								<p class="domain">youtube.com</p>
+								<p class="date">128d</p>
+							</div>
 						</div>
 					</a>
 				</li>
-				<li id="search-result-5">
+				<li id="search-result-5" onmouseover="markItemSelected(5);">
 					<a href="/">
-						<p class="title">Knack (Hard Mode) - Chapters 1-1 to 2-1</p>
-						<div class="meta">
-							<p class="domain">youtube.com</p>
-							<p class="date">129d</p>
+						<div class="search-result-wrapper">
+							<p class="title">Knack (Hard Mode) - Chapters 1-1 to 2-1</p>
+							<div class="meta">
+								<p class="domain">youtube.com</p>
+								<p class="date">129d</p>
+							</div>
 						</div>
 					</a>
 				</li>
@@ -224,5 +235,6 @@
 		<script src="{{ url_for('static', filename='facebook.js') }}"></script>
 		<script src="{{ url_for('static', filename='jquery.cookie.js') }}"></script>
 		<script src="{{ url_for('static', filename='chart.js') }}"></script>
+		<script src="{{ url_for('static', filename='search.js') }}"></script>
 	</body>
 </html>
