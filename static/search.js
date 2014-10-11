@@ -7,7 +7,7 @@ var KEY_DELETE = 46;
 
 var searchItems = [];
 var searchResults = [];
-var selectedItem = 0;
+var selectedItem = -1;
 var query = "";
 var contactingServer = false;
 
@@ -17,6 +17,8 @@ function getLinksFromServer() {
 	$.ajax({
 		url: '/api/all'
 	}).done(function(data) {
+		selectedItem = -1;
+		searchResults = [];
 		contactingServer = false;
 		if (data['success']) {
 			searchItems = data['links'];
@@ -25,8 +27,6 @@ function getLinksFromServer() {
 			searchItems = [];
 			$('.search-static').html('<p>No results.</p>');
 		}
-		searchResults = [];
-		selectedItem = 0;
 	})
 }
 
@@ -44,15 +44,14 @@ function markItemSelected(index) {
 }
 
 function openSelectedItem() {
-	if (selectedItem > 0) {
-		href = $('#search-result-' + selectedItem + ' a').attr('href');
+	if (selectedItem > -1) {
+		document.getElementById('search-link-' + selectedItem).click();
 		// log a click
-		window.location.href = href;
 	}
 }
 
 function performSearch(query) {
-	selectedItem = 0;
+	selectedItem = -1;
 	searchResults = [];
 	if (searchItems.length == 0) {
 		$('.search-static').html('<p>No results.</p>');
@@ -65,7 +64,9 @@ function performSearch(query) {
 		results = [];
 		for (var i = 0; i < searchItems.length; i++) {
 			if (regex.test(searchItems[i]["title"])) {
-				searchResults.push(searchItems[i]);
+				if (searchResults.length < 10) {
+					searchResults.push(searchItems[i]);
+				}
 			}
 		}
 		updateResultDropdown();
@@ -87,7 +88,7 @@ function searchBarFocus(searchBar) {
 function searchBarKeyDown(searchBar, event) {
 	if (event.keyCode == KEY_ENTER) {
 		event.preventDefault();
-		if (selectedItem > 0) {
+		if (selectedItem > -1) {
 			openSelectedItem();
 		} else if (searchBar.value.length > 0) {
 			slash = window.location.href.indexOf('/', 7);
@@ -95,6 +96,7 @@ function searchBarKeyDown(searchBar, event) {
 			window.location.href = current + "/search?q=" + searchBar.value;
 		}
 	} else if (event.keyCode == KEY_ESCAPE) {
+		event.preventDefault();
 		if (searchBar.value.length > 0) {
 			searchBar.value = "";
 			hideDropdown();
@@ -102,15 +104,15 @@ function searchBarKeyDown(searchBar, event) {
 			searchBar.blur();
 		}
 	} else if (event.keyCode == KEY_ARROW_UP) {
-		if (selectedItem > 0) {
+		event.preventDefault();
+		if (selectedItem > -1) {
 			markItemSelected(selectedItem - 1);
 		}
-		event.preventDefault();
 	} else if (event.keyCode == KEY_ARROW_DOWN) {
-		if (selectedItem < searchResults.length) {
+		event.preventDefault();
+		if (selectedItem + 1 < searchResults.length) {
 			markItemSelected(selectedItem + 1);
 		}
-		event.preventDefault();
 	} else if (event.keyCode == KEY_BACKSPACE || event.keyCode == KEY_DELETE) {
 		if (searchBar.value.length == 1) {
 			hideDropdown();
@@ -119,17 +121,22 @@ function searchBarKeyDown(searchBar, event) {
 }
 
 function searchBarKeyPressed(searchBar, event) {
-	var keynum;
-	if (window.event) { // IE					
-		keynum = event.keyCode;
-	} else if (e.which) { // Other browsers					
-		keynum = event.which;
-	}
-	query = searchBar.value + String.fromCharCode(keynum);
-	if (searchBar.value.length + 1 > 0) {
-		showDropdown();
-		if (!contactingServer) {
-			performSearch(query);
+	console.log(event.metaKey);
+	if (!event.metaKey) {
+		var keynum;
+		if (window.event) { // IE					
+			keynum = event.keyCode;
+		} else if (e.which) { // Other browsers					
+			keynum = event.which;
+		}
+		query = searchBar.value + String.fromCharCode(keynum);
+		if (query.length > 0) {
+			showDropdown();
+			if (!contactingServer) {
+				performSearch(query);
+			}
+		} else {
+			hideDropdown();
 		}
 	}
 }
@@ -152,9 +159,9 @@ function updateResultDropdown() {
 				'</li>';
 	} else {
 		html = "";
-		for (var i = 0; i < searchResults.length && i < 5; i++) {
+		for (var i = 0; i < searchResults.length && i < 10; i++) {
 			itemHTML = '<li id="search-result-' + i + '" onmouseover="markItemSelected(' + i + ');">' +
-							'<a href="' + searchResults[i]["url"] + '">' +
+							'<a onclick="clickLink(' + searchResults[i]["id"] + ');" id="search-link-' + i + '" target="_blank" href="' + searchResults[i]["url"] + '">' +
 								'<div class="search-result-wrapper">' + 
 									'<p class="title">' + searchResults[i]["title"] + '</p>' +
 									'<div class="meta">' +
