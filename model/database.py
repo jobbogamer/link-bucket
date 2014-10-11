@@ -250,6 +250,11 @@ def get_facebook_conversation(thread_id):
 	conversation = FacebookConversation.query.filter_by(thread_id = thread_id).first()
 	return conversation
 
+def get_all_links():
+	links = Link.query.all()
+	links = sorted(links, key=lambda link: link.date, reverse=True)
+	return links
+
 def get_archived_links():
 	links = Link.query.filter_by(archived = True).all()
 	links = sorted(links, key=lambda link: link.date, reverse=True)

@@ -43,6 +43,38 @@ def add(url, title=''):
 	return jsonify(result)
 
 
+def all():
+	try:
+		links = database.get_all_links()
+		json_links = []
+		for link in links:
+			json_link = {
+				'id': link.id,
+				'title': link.title,
+				'url': link.url,
+				'domain': link.domain,
+				'embed_type': link.embed_type,
+				'embed_url': link.embed_url,
+				'image_url': link.image_url,
+				'screenshot_url': screenshots.get_screenshot(link.url),
+				'date': utils.timesince(link.date)
+			}
+			json_links.append(json_link)
+
+		result = {
+			'success': True,
+			'links': json_links
+		}
+
+	except Exception as error:
+		result = {
+			'success': False,
+			'message': str(error)
+		}
+
+	return jsonify(result)
+
+
 def archive(id):
 	result = { }
 

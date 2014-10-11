@@ -83,6 +83,10 @@ def api_add():
 	title = request.args.get('title', '')
 	return api.add(url, title)
 
+@app.route('/api/all', methods=['GET'])
+def api_all():
+	return api.all()
+
 @app.route('/api/archive', methods=['GET'])
 def api_archive():
 	id = int(request.args.get('id', 0))

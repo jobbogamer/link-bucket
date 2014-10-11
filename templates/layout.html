@@ -107,7 +107,7 @@
 					
 					<div id="search" class="navbar-right navbar-form hidden-xs">
       					<input type="text" class="form-control" placeholder="Search" autocomplete="off"
-      					 onkeydown="searchBarKeyDown(this, event);" onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" />
+      					 onkeydown="searchBarKeyDown(this, event);" onkeypress="searchBarKeyPressed(this, event); " onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" />
     				</div>
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
@@ -145,56 +145,10 @@
 		<div id="search-results">
 			<ul>
 				<li id="search-result-1" onmouseover="markItemSelected(1);">
-					<a href="/">
+					<a>
 						<div class="search-result-wrapper">
-							<p class="title">Peter Dinklage</p>
-							<div class="meta">
-								<p class="domain">yourepeat.com</p>
-								<p class="date">76d</p>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li id="search-result-2" class="archived" onmouseover="markItemSelected(2);">
-					<a href="/">
-						<div class="search-result-wrapper">
-							<p class="title">Woody's Hat - YouTube</p>
-							<div class="meta">
-								<p class="domain">youtube.com</p>
-								<p class="date">84d</p>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li id="search-result-3" onmouseover="markItemSelected(3);">
-					<a href="/">
-						<div class="search-result-wrapper">
-							<p class="title">Knack (Hard Mode) - Chapters 2-4 to 3-2</p>
-							<div class="meta">
-								<p class="domain">youtube.com</p>
-								<p class="date">123d</p>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li id="search-result-4" onmouseover="markItemSelected(4);">
-					<a href="/">
-						<div class="search-result-wrapper">
-							<p class="title">Knack (Hard Mode) - Chapters 2-2 to 2-3</p>
-							<div class="meta">
-								<p class="domain">youtube.com</p>
-								<p class="date">128d</p>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li id="search-result-5" onmouseover="markItemSelected(5);">
-					<a href="/">
-						<div class="search-result-wrapper">
-							<p class="title">Knack (Hard Mode) - Chapters 1-1 to 2-1</p>
-							<div class="meta">
-								<p class="domain">youtube.com</p>
-								<p class="date">129d</p>
+							<div class="search-static">
+								<p>No results.</p>
 							</div>
 						</div>
 					</a>

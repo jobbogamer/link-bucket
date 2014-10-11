@@ -502,7 +502,7 @@ div#search-results {
 	top: 50px;
 	right: 15px;
 	z-index: 9999;
-	max-width: 33%;
+	width: 33%;
 }
 
 div#search-results ul {
@@ -525,6 +525,11 @@ div#search-results li a {
 div#search-results li a div.search-result-wrapper {
 	padding: 6px 8px 6px 8px;
 	overflow: auto;
+}
+
+div#search-results li a div.search-result-wrapper div.search-static {
+	text-align: center;
+	width: 100%;
 }
 
 div#search-results li a:hover {
