@@ -38,6 +38,9 @@ function facebookGetOlderMessages(url, threadID, name, lastID, mostRecentID, mes
 			}
 		} else {
 			// No messages came back
+			var listItem = $("#conversation-" + threadID + " .name");
+			listItem.html(name);
+			showFacebookError();
 		}
 	});
 }
@@ -96,7 +99,11 @@ function facebookGetInbox(userID) {
 			}
 
 			if (conversations.length > 0) {
-				var html = '<ul id="conversation-list">';
+				var html = '<div id="facebook-modal-error-message" class="alert alert-danger">' +
+				    	   		'<h4 id="facebook-modal-error-title">Something went wrong.</h4>' +
+				    			'<p id="facebook-modal-error-content">Couldn\'t load messages from Facebook; try again later.</p>' +
+				    		'</div>' +
+				    		'<ul id="conversation-list">';
 				var numConversations = Math.min(conversations.length, 10);
 				for (var i = 0; i < numConversations; i++) {
 					conversation = conversations[i];
@@ -165,7 +172,7 @@ function facebookLogIn() {
 }
 
 function facebookParseConversation(threadID) {
-	var listItem = $("#conversation-" + threadID + " .name")
+	var listItem = $("#conversation-" + threadID + " .name");
 	var name = listItem.html();
 	listItem.html('<i class="fa fa-spinner fa-spin"></i>');
 
@@ -201,13 +208,16 @@ function facebookParseConversation(threadID) {
 						facebookSendMessagesForParsing(jsonString, threadID, lastID, name);
 					} else {
 						// No messages came back
-						var listItem = $("#conversation-" + threadID + " .name")
+						var listItem = $("#conversation-" + threadID + " .name");
 						listItem.html(name);
+						showFacebookError();
 					}
 				});
 			}
 		} else {
-			console.log(data);
+			var listItem = $("#conversation-" + threadID + " .name");
+			listItem.html(name);
+			showFacebookError();
 		}
 	});
 }
@@ -222,7 +232,7 @@ function facebookSendMessagesForParsing(jsonString, threadID, mostRecentID, name
 			'json': jsonString
 		}
 	}).done(function(data) {
-		var listItem = $("#conversation-" + threadID + " .name")
+		var listItem = $("#conversation-" + threadID + " .name");
 		listItem.html(name);
 
 		if (data['success']) {

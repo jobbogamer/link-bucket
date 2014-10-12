@@ -173,6 +173,10 @@ function hideAddError() {
 	$('#add-modal-error-message').slideUp();
 }
 
+function hideFacebookError() {
+	$('#facebook-modal-error-message').slideUp();
+}
+
 function setCompactMode(compact) {
 	if (compact) {
 		$('body').addClass('compact');
@@ -212,6 +216,10 @@ function setUpModals() {
 
 	$('#edit-modal').on('shown.bs.modal', function (e) {
 		$('#edit-modal-title-field').focus();
+	});
+
+	$('#facebook-modal').on('hidden.bs.modal', function (e) {
+		hideFacebookError();
 	});
 }
 
@@ -335,6 +343,10 @@ function showEditTitleModal(id) {
 	var title = document.getElementById('title-' + id).innerHTML;
 	document.getElementById('edit-modal-title-field').value = title;
 	document.getElementById('edit-modal-save-button').dataset.id = id;
+}
+
+function showFacebookError() {
+	$('#facebook-modal-error-message').slideDown();
 }
 
 function toggleCompactMode() {

@@ -462,6 +462,12 @@ div#facebook-modal div.modal-body {
 	padding: 0;
 }
 
+div#facebook-modal-error-message {
+	display: none;
+	border-radius: 0;
+	margin-bottom: 0;
+}
+
 ul#conversation-list {
 	margin: 0;
 	padding: 0;
