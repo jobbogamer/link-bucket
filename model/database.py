@@ -3,6 +3,7 @@ import pickle
 from external_apis import readability
 from datetime import datetime, date
 from flask.ext.sqlalchemy import SQLAlchemy
+import re
 
 db = SQLAlchemy()
 
@@ -296,6 +297,17 @@ def mark_link_as_unstarred(id):
 	link = get_link_by_id(id)
 	link.starred = False
 	db.session.commit()
+
+def search_for_links(query):
+	regex_str = ".*".join(list(query))
+	regex = re.compile(regex_str)
+	links = get_all_links()
+	results = []
+	for link in links:
+		match = re.search(regex, link.title)
+		if match is not None:
+			results.append(link)
+	return results
 
 def unarchive_link(id):
 	link = get_link_by_id(id)

@@ -10,6 +10,7 @@ var searchResults = [];
 var selectedItem = -1;
 var query = "";
 var contactingServer = false;
+var queryInserted = false;
 
 function getLinksFromServer() {
 	$('.search-static').html('<i class="fa fa-spin fa-spinner"></i>');
@@ -78,8 +79,9 @@ function searchBarBlur(searchBar) {
 }
 
 function searchBarFocus(searchBar) {
-	if (searchBar.value.length == 0) {
+	if (searchBar.value.length == 0 || queryInserted) {
 		getLinksFromServer();
+		queryInserted = false;
 	} else {
 		showDropdown();
 	}
@@ -121,7 +123,6 @@ function searchBarKeyDown(searchBar, event) {
 }
 
 function searchBarKeyPressed(searchBar, event) {
-	console.log(event.metaKey);
 	if (!event.metaKey) {
 		var keynum;
 		if (window.event) { // IE					

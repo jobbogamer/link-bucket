@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container-fluid">
+	<div class="row">
+		{% for link in links %}
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div id="link-{{ link.id }}" class="link {% if link.unread %}unread{% endif %} {% if link.starred %}starred{% endif %}">
+				{% if link.embed_type > 0 %}
+				<a class="embed-link" data-toggle="modal" data-target="#embed-modal"
+						onclick="clickLink({{ link.id }}); setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, '{{ link.embed_url }}', '{{ link.url }}');">
+				{% else %}
+				<a target="_blank" href="{{ link.url }}" onclick="clickLink({{ link.id }});">
+				{% endif %}
+					<p id="title-{{ link.id }}" class="title">{{ link.title }}</p>
+
+					<div class="meta">
+						{% if link.embed_type == 1 %}
+						<i class="indicator embed-indicator fa fa-film"></i>
+						{% endif %}
+						{% if link.embed_type == 2 %}
+						<i class="indicator embed-indicator fa fa-image"></i>
+						{% endif %}
+						<p class="domain">{{ link.domain }}</p>
+						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
+						<div class="buttons">
+							<a onclick="deleteLink({{ link.id }});"><i class="button fa fa-trash-o"></i></a>
+							<a onclick="unarchiveLink({{ link.id }});"><i class="button fa fa-undo"></i></a>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

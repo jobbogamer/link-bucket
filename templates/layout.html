@@ -107,7 +107,9 @@
 					
 					<div id="search" class="navbar-right navbar-form hidden-xs">
       					<input type="text" class="form-control" placeholder="Search" autocomplete="off"
-      					 onkeydown="searchBarKeyDown(this, event);" onkeypress="searchBarKeyPressed(this, event); " onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);" />
+      					 onkeydown="searchBarKeyDown(this, event);" onkeypress="searchBarKeyPressed(this, event); "
+      					 onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);"
+      					 {% if options['query'] %}value="{{ options['query'] }}"{% endif %} />
     				</div>
 
     				<ul class="nav navbar-nav navbar-right hidden-xs">
@@ -190,5 +192,11 @@
 		<script src="{{ url_for('static', filename='jquery.cookie.js') }}"></script>
 		<script src="{{ url_for('static', filename='chart.js') }}"></script>
 		<script src="{{ url_for('static', filename='search.js') }}"></script>
+
+		<script type="text/javascript">
+		{% if options['query'] %}
+			queryInserted = true;
+		{% endif %}
+		</script>
 	</body>
 </html>

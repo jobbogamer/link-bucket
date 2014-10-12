@@ -52,6 +52,21 @@ def archive():
 
 	return render_template('archive.html', options=options, links=links)
 
+@app.route('/search', methods=['GET'])
+def search():
+	query = request.args.get('q', '')
+	options = {
+		'time': datetime.now(),
+		'title': 'Search results for "{0}" - Linkbucket'.format(query),
+		'viewmode_visible': False,
+		'active_page': -1,
+		'version': github.get_latest_release('jobbogamer', 'linkbucket'),
+		'query': query
+	}
+	links = database.search_for_links(query)
+
+	return render_template('search.html', options=options, links=links)
+
 @app.route('/stats')
 def stats():
 	options = {
@@ -174,4 +189,4 @@ def thousands_separators(num):
 ##### Main #####
 
 if (__name__ == "__main__"):
-	app.run()
+	app.run(debug=True)
