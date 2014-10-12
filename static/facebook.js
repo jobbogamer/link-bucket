@@ -7,7 +7,7 @@ function facebookCallbackLoginStatusChanged(response) {
 	}
 }
 
-function facebookGetOlderMessages(url, threadID, name, lastID, mostRecentID, messages) {
+function facebookGetOlderMessages(url, threadID, name, lastID, mostRecentID, messages, count) {
 	FB.api(url, function(response) {
 		var foundLastID = false;
 		if (response['comments']) {
@@ -27,14 +27,14 @@ function facebookGetOlderMessages(url, threadID, name, lastID, mostRecentID, mes
 					});
 				}
 			}
-			if (foundLastID) {
+			if (foundLastID || count >= 20) {
 				var jsonString = JSON.stringify(messages);
 				facebookSendMessagesForParsing(jsonString, threadID, mostRecentID, name);
 			} else {
 				var nextURL = response['comments']['paging']['next'];
 				var threadIDPos = nextURL.indexOf(threadID);
 				nextURL = nextURL.substring(threadIDPos);
-				facebookGetOlderMessages(nextURL, threadID, lastID, mostRecentID, messages);
+				facebookGetOlderMessages(nextURL, threadID, lastID, mostRecentID, messages, count+1);
 			}
 		} else {
 			// No messages came back
@@ -179,7 +179,7 @@ function facebookParseConversation(threadID) {
 			var lastID = data['last_message_id'];
 			if (lastID) {
 				// Get messages from now back to lastID
-				facebookGetOlderMessages('/' + threadID, threadID, name, lastID, lastID, []);
+				facebookGetOlderMessages('/' + threadID, threadID, name, lastID, lastID, [], 0);
 			} else {
 				// Get messages from a single API call
 				FB.api('/' + threadID, function(response) {
