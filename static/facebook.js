@@ -145,9 +145,9 @@ function facebookGetInbox(userID) {
 function facebookLoadSDK() {
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId   : '815778521766772',
+			appId   : '776255502385741',
 			xfbml   : false,
-			version : 'v2.0',
+			version : 'v2.1',
 			status  : true,
 		});
 	};
