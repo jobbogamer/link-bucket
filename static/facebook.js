@@ -210,7 +210,7 @@ function facebookParseConversation(threadID) {
 						facebookSendMessagesForParsing(jsonString, threadID, lastID, name);
 					} else {
 						// No messages came back
-						console.log(data);
+						console.log(response);
 						var listItem = $("#conversation-" + threadID + " .name");
 						listItem.html(name);
 						showFacebookError();
