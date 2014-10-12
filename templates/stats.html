@@ -1,49 +1,54 @@
 {% extends "layout.html" %}
 {% block content %}
-	<div id="stats">
-		<div class="section" id="about">
-			<h2 class="heading">About Link Bucket</h2>
-			<div class="column left">
-				<ul id="stat-names">
-					<li class="name">Current Version</li>
-					<li class="name">Last Update</li>
-					<li class="name">Last Commit</li>
-				</ul>
-			</div>
 
-			<div class="column right">
-			<ul id="stat-details">
-					<li class="detail">{{ options['version'] }}</li>
-					<li class="detail" title="">{{ options['date'] }}</li>
-					<li class="detail"><a href="{{ options['commit'].url }}" target="_blank">{{ options['commit'].message }}</a></li>
-				</ul>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="chart-wrapper">
+				<canvas id="stats-chart" height="174"></canvas>
+			</div>
+			<div id="legend">
+
 			</div>
 		</div>
 
-		<div class="section" id="statistics">
-			<h2 class="heading">Statistics</h2>
-			<div class="column left">
-				<ul id="stat-names">
-					<li class="name">Links Added</li>
-					<li class="name">Links Clicked</li>
-					<li class="name">Links Archived</li>
-					<li class="name">Links Unarchived</li>
-					<li class="name">Titles Edited</li>
-					<li class="name">Searches Performed</li>
-				</ul>
-			</div>
-
-			<div class="column right">
-			<ul id="stat-details">
-					<li class="detail">{{ options['stats'].links_created }}</li>
-					<li class="detail">{{ options['stats'].links_clicked }}</li>
-					<li class="detail">{{ options['stats'].links_archived }}</li>
-					<li class="detail">{{ options['stats'].links_unarchived }}</li>
-					<li class="detail">{{ options['stats'].links_edited }}</li>
-					<li class="detail">{{ options['stats'].searches_performed }}</li>
-				</ul>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="stats-item">
+				<p class="name">Added</p>
+				<p class="number">{{ stats['total_added'] | thousands_separators }}</p>
 			</div>
 		</div>
-
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="stats-item">
+				<p class="name">Clicked</p>
+				<p class="number">{{ stats['total_clicked'] | thousands_separators }}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="stats-item">
+				<p class="name">Archived</p>
+				<p class="number">{{ stats['total_archived'] | thousands_separators }}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="stats-item">
+				<p class="name">Edited</p>
+				<p class="number">{{ stats['total_edited'] | thousands_separators }}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="stats-item">
+				<p class="name">Deleted</p>
+				<p class="number">{{ stats['total_deleted'] | thousands_separators }}</p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="stats-item">
+				<p class="name">Searches</p>
+				<p class="number">{{ stats['total_searches'] | thousands_separators }}</p>
+			</div>
+		</div>
 	</div>
+</div>
+
 {% endblock %}

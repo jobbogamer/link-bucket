@@ -1,27 +1,165 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 	<head>
-		<title>{{ options['browsertitle'] }}</title>
+		<title>{{ options['title'] }}</title>
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
-		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+
 		<link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
 		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}" />
-		<meta name="viewport" content="width=device-width" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 
-	<body>
-		<div class="header">
-			<a href="/">
-				<h1>{{ options['title'] }}</h1>
-			</a>
+	<body class="page-{{ options['active_page'] }}" onload="{% if options['active_page'] == 2 %}setUpStatsChart({{ histories['add'] }}, {{ histories['click'] }});{% endif %}">
+		<div id="fb-root"></div>
+		<div id="add-modal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+				        <h4 class="modal-title">Add Link</h4>
+				    </div>
+				    <div class="modal-body">
+				    	<div id="add-modal-error-message" class="alert alert-danger">
+				    		<h4 id="add-modal-error-title">Something went wrong.</h4>
+				    		<p id="add-modal-error-content">That link couldn't be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="">What was the error?</a></p>
+				    	</div>
+				        <input id="add-modal-url-field" type="text" class="form-control" placeholder="URL" autocomplete="off" />
+				        <input id="add-modal-title-field" type="text" class="form-control" placeholder="Title (optional)" autocomplete="off" />
+				    </div>
+				    <div class="modal-footer">
+						<button id="add-modal-cancel-button" type="button" class="btn btn-default" data-dismiss="modal" onclick="hideAddError();">Cancel</button>
+						<button id="add-modal-add-button" type="button" class="btn btn-primary" onclick="addLinkFromModal();">Add</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="navigation">
-				<ul>
-					<li><a href="{{ url_for('index') }}">Home</a></li>
-					<li><a href="{{ url_for('view_archive') }}">Archive</a></li>
-					<li><a href="{{ url_for('add') }}">Add Link</a></li>
-					<li><a href="{{ url_for('stats') }}">Stats</a></li>
-				</ul>
-			</div><!-- #navigation -->
+
+		<div id="embed-modal" class="modal fade">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 id="embed-modal-title" class="modal-title">Embedded Item</h4>
+				    </div>
+				    <div id="embed-modal-body" class="modal-body">
+				    	
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<div id="edit-modal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+				        <h4 id="edit-modal-title" class="modal-title">Edit Title</h4>
+				    </div>
+				    <div id="edit-modal-body" class="modal-body">
+				    	<input id="edit-modal-title-field" type="text" class="form-control" placeholder="Title" autocomplete="off" />
+				    </div>
+				     <div class="modal-footer">
+						<button id="edit-modal-cancel-button" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button id="edit-modal-save-button" type="button" class="btn btn-primary" onclick="editTitleFromModal();">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="facebook-modal" class="modal fade">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				        <h4 id="facebook-modal-title" class="modal-title">Conversations</h4>
+				    </div>
+				    <div id="facebook-modal-body" class="modal-body">
+				    	<div id="facebook-modal-error-message" class="alert alert-danger">
+				    		<h4 id="facebook-modal-error-title">Something went wrong.</h4>
+				    		<p id="facebook-modal-error-content">Couldn't load messages from Facebook; try again later.</p>
+				    	</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+      				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+	        			<span class="sr-only">Toggle navigation</span>
+	        			<span class="icon-bar"></span>
+	        			<span class="icon-bar"></span>
+	    				<span class="icon-bar"></span>
+      				</button>
+      				<a class="navbar-brand-img" href="/"><img src="{{ url_for('static', filename='logo.png') }}" /></a>
+   				</div>
+
+   				<div class="collapse navbar-collapse" id="navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li {% if options['active_page'] == 0 %}class="active"{% endif %}><a href="/">Home</a></li>
+						<li {% if options['active_page'] == 1 %}class="active"{% endif %}><a href="{{ url_for('archive') }}">Archive</a></li>
+						<li {% if options['active_page'] == 2 %}class="active"{% endif %}><a href="{{ url_for('stats') }}">Stats</a></li>
+						<li class="divider visible-xs"></li>
+						<li class="visible-xs"><a data-toggle="modal" data-target="#add-modal">Add Link</a></li>
+						<li class="visible-xs"><a id="facebook-button-mobile" onclick="facebookBeginParseFlow();">Get Links From Facebook</a></li>
+						<li class="visible-xs"><a id="viewmode-mobile" onclick="toggleCompactMode();">Compact View</a></li>
+					</ul>
+					
+					<div id="search" class="navbar-right navbar-form hidden-xs">
+      					<input type="text" class="form-control" placeholder="Search" autocomplete="off"
+      					 onkeydown="searchBarKeyDown(this, event);" onkeypress="searchBarKeyPressed(this, event); "
+      					 onfocus="searchBarFocus(this);" onblur="searchBarBlur(this);"
+      					 {% if options['query'] %}value="{{ options['query'] }}"{% endif %} />
+    				</div>
+
+    				<ul class="nav navbar-nav navbar-right hidden-xs">
+						<li>
+							<button id="add-link" type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#add-modal" title="Add Link">
+								<span class="fa fa-plus fa-fw"></span>
+							</button>
+						</li>
+						<li>
+							<button id="facebook-button" type="button" class="btn btn-default navbar-btn" onclick="facebookBeginParseFlow();" title="Parse from Facebook">
+								<span class="fa fa-facebook fa-fw"></span>
+							</button>
+						</li>
+						{% if options['viewmode_visible'] %}
+						<li>
+							<div id="viewmode" class="btn-group" data-toggle="buttons">
+		 						<label id="viewmode-compact" class="btn btn-default navbar-btn viewmode-button" onclick="setCompactMode(true);" title="Compact View">
+		    						<input type="radio" name="viewmode">
+		    						<span class="fa fa-align-justify fa-fw"></span>
+		  						</label>
+		  						<label id="viewmode-expanded" class="btn btn-default navbar-btn viewmode-button active" onclick="setCompactMode(false);" title="Expanded View">
+		    						<input type="radio" name="viewmode">
+		    						<span class="fa fa-navicon fa-fw"></span>
+		  						</label>
+							</div>
+  						</li>
+  						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div id="coverup"></div>
+
+		<div id="search-results">
+			<ul>
+				<li id="search-result-1" onmouseover="markItemSelected(1);">
+					<a>
+						<div class="search-result-wrapper">
+							<div class="search-static">
+								<p>No results.</p>
+							</div>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
 
 		{% with messages = get_flashed_messages(with_categories=true) %}
 			{% if messages %}
@@ -33,15 +171,35 @@
 			{% endif %}
 		{% endwith %}
 
-		<ul class="fa-ul" id="unlocked-achievements">
-
-		</ul>
-
 		<div class="content">
+			<form class="visible-xs inline-form" role="search">
+				<div id="search-mobile" class="form-group">
+					<input id="search-bar-mobile" type="text" class="form-control" placeholder="Search">
+					<button id="search-button-mobile" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+				</div>
+			</form>
+
 			{% block content %}{% endblock %}
 		</div>
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<div class="footer">
+			{% if options['version'] %}
+			<p>Linkbucket <a id="version-popover" data-toggle="popover" data-title="{{ options['version'].tag_name }} ({{ options['version'].date | timesince_long }})" data-html="true" data-content="<ul>{{ options['version'].body.replace('- ', '</li><li>') }}</li></ul>">{{ options['version'].tag_name }}</a></p>
+			{% endif %}
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<script src="{{ url_for('static', filename='linkbucket.js') }}"></script>
+		<script src="{{ url_for('static', filename='facebook.js') }}"></script>
+		<script src="{{ url_for('static', filename='jquery.cookie.js') }}"></script>
+		<script src="{{ url_for('static', filename='chart.js') }}"></script>
+		<script src="{{ url_for('static', filename='search.js') }}"></script>
+
+		<script type="text/javascript">
+		{% if options['query'] %}
+			queryInserted = true;
+		{% endif %}
+		</script>
 	</body>
 </html>
