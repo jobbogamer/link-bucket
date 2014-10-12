@@ -175,6 +175,7 @@ function facebookParseConversation(threadID) {
 	var listItem = $("#conversation-" + threadID + " .name");
 	var name = listItem.html();
 	listItem.html('<i class="fa fa-spinner fa-spin"></i>');
+	hideFacebookError();
 
 	$.ajax({
 		url: '/api/facebook/lastchecked',
