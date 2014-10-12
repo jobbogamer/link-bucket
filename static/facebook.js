@@ -38,6 +38,7 @@ function facebookGetOlderMessages(url, threadID, name, lastID, mostRecentID, mes
 			}
 		} else {
 			// No messages came back
+			console.log(response);
 			var listItem = $("#conversation-" + threadID + " .name");
 			listItem.html(name);
 			showFacebookError();
@@ -209,6 +210,7 @@ function facebookParseConversation(threadID) {
 						facebookSendMessagesForParsing(jsonString, threadID, lastID, name);
 					} else {
 						// No messages came back
+						console.log(data);
 						var listItem = $("#conversation-" + threadID + " .name");
 						listItem.html(name);
 						showFacebookError();
@@ -216,6 +218,7 @@ function facebookParseConversation(threadID) {
 				});
 			}
 		} else {
+			console.log(data);
 			var listItem = $("#conversation-" + threadID + " .name");
 			listItem.html(name);
 			showFacebookError();
