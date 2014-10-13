@@ -60,6 +60,7 @@ class Stats(db.Model):
 	total_edited = db.Column(db.Integer)
 	total_searches = db.Column(db.Integer)
 	total_unarchived = db.Column(db.Integer)
+	total_starred = db.Column(db.Integer)
 
 	add_history = db.Column(db.PickleType)
 	click_history = db.Column(db.PickleType)
@@ -74,6 +75,7 @@ class Stats(db.Model):
 		self.total_edited = 0
 		self.total_searches = 0
 		self.total_unarchived = 0
+		self.total_starred = 0
 
 		add_history_list = [0]*28
 		self.add_history = pickle.dumps(add_history_list, -1)
@@ -85,7 +87,7 @@ class Stats(db.Model):
 		return "[Stats - add({0}), arc({1}), cli({2}), del({3}), edi({4}), sea({5}), una({6})]".format(
 			self.total_added, self.total_archived, self.total_clicked,
 			self.total_deleted, self.total_edited, self.total_searches,
-			self.total_unarchived)
+			self.total_unarchived, self.total_starred)
 
 	def get_add_history(self):
 		return pickle.loads(self.add_history)
@@ -123,6 +125,10 @@ class Stats(db.Model):
 
 	def increment_searches(self):
 		self.total_searches += 1
+		commit_changes()
+
+	def increment_stars(self):
+		self.total_starred += 1
 		commit_changes()
 
 	def increment_unarchives(self):
@@ -284,6 +290,7 @@ def mark_link_as_starred(id):
 	link = get_link_by_id(id)
 	if not (link.unread):
 		link.starred = True
+		get_stats().increment_stars()
 		db.session.commit()
 		return True
 	return False
