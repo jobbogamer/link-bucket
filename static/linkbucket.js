@@ -24,6 +24,7 @@ function addLinkFromModal() {
 		if (data['success']) {
 			var link = data['link'];
 			createAddedLink(link['id'], link['url'], link['title'], link['domain'], link['embed_type'], link['embed_url'], link['image_url'], link['screenshot_url']);
+			clearAddModal();
 			$('#add-modal').modal('hide');
 		} else {
 			if (data['valid_url']) {
@@ -55,6 +56,11 @@ function archiveLink(id) {
 			});	
 		}
 	});
+}
+
+function clearAddModal() {
+	document.getElementById('add-modal-url-field').value = "";
+	document.getElementById('add-modal-title-field').value = "";
 }
 
 function clickLink(id) {
