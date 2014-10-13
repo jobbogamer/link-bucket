@@ -188,7 +188,7 @@ def _find_embed(url):
 		return (url.replace('.be', 'be.com/embed'), 1)
 
 	elif 'yourepeat.com/watch?v' in url_l:
-		return (url.replace('repeat', 'tube').replace('watch?v=', '/embed'), 1)
+		return (url.replace('repeat', 'tube').replace('watch?v=', 'embed/'), 1)
 
 	elif url_l.endswith('.jpg') or url_l.endswith('.jpeg') or url_l.endswith('.png') or url_l.endswith('.gif'):
 		if not ('dropbox.com' in url_l):
