@@ -78,14 +78,18 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 		var aTag = '<a target="_blank" href="' + url + '">';
 	}
 
-	if (imageURL) {
-		var thumbnail = '<span class="thumbnail" style="background-image: url(\'' + imageURL + '\');"></span>';
-	} else {
-		if (embedType == 2) {
-			var thumbnail = '<span class="thumbnail image-embed" style="background-image: url(\'' + embedURL + '\');"></span>';
+	if (showImages) {
+		if (imageURL) {
+			var thumbnail = '<span class="thumbnail" style="background-image: url(\'' + imageURL + '\');"></span>';
 		} else {
-			var thumbnail = '<span class="thumbnail screenshot" style="background-image: url(\'' + screenshotURL + '\');"></span>';
+			if (embedType == 2) {
+				var thumbnail = '<span class="thumbnail image-embed" style="background-image: url(\'' + embedURL + '\');"></span>';
+			} else {
+				var thumbnail = '<span class="thumbnail screenshot" style="background-image: url(\'' + screenshotURL + '\');"></span>';
+			}
 		}
+	} else {
+		var thumbnail = '';
 	}
 
 	if (embedType == 1) {

@@ -200,6 +200,11 @@
 		{% if options['query'] %}
 			queryInserted = true;
 		{% endif %}
+		{% if options['viewmode_visible'] %}
+			showImages = true;
+		{% else %}
+			showImages = false;
+		{% endif %}
 		</script>
 	</body>
 </html>

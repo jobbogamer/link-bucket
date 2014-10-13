@@ -31,7 +31,7 @@ def index():
 	options = {
 		'time': datetime.now(),
 		'title': "Linkbucket",
-		'viewmode_visible': True,
+		'viewmode_visible': False,
 		'active_page': 0,
 		'version': github.get_latest_release('jobbogamer', 'linkbucket')
 	}

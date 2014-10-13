@@ -13,6 +13,7 @@
 				<a target="_blank" href="{{ link.url }}" onclick="clickLink({{ link.id }});">
 				{% endif %}
 					<p id="title-{{ link.id }}" class="title">{{ link.title }}</p>
+					{% if options['viewmode_visible'] %}
 					{% if link.image_url %}
 					<span class="thumbnail" style="background-image: url('{{ link.image_url }}');"></span>
 					{% else %}
@@ -21,6 +22,7 @@
 						{% else %}
 					<span class="thumbnail screenshot" style="background-image: url('{{ link.url | screenshot_url }}');"></span>
 						{% endif %}
+					{% endif %}
 					{% endif %}
 
 					<div class="meta">
