@@ -165,11 +165,16 @@ function getURLParameters() {
 }
 
 function getViewModeFromCookie() {
-	var viewMode = $.cookie('viewmode');
-	if (viewMode == "compact") {
+	if (showImages) {
+		var viewMode = $.cookie('viewmode');
+		if (viewMode == "compact") {
+			setCompactMode(true);
+		} else if (viewMode == "expanded") {
+			setCompactMode(false);
+		}
+	} else {
+		var viewMode = "compact";
 		setCompactMode(true);
-	} else if (viewMode == "expanded") {
-		setCompactMode(false);
 	}
 }
 

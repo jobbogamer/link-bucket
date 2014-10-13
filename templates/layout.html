@@ -13,7 +13,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 	</head>
 
-	<body class="page-{{ options['active_page'] }}" onload="{% if options['active_page'] == 2 %}setUpStatsChart({{ histories['add'] }}, {{ histories['click'] }});{% endif %}">
+	<body class="page-{{ options['active_page'] }} {% if not options['viewmode_visible'] %}compact{% endif %}"
+		  onload="{% if options['active_page'] == 2 %}setUpStatsChart({{ histories['add'] }}, {{ histories['click'] }});{% endif %}">
 		<div id="fb-root"></div>
 		<div id="add-modal" class="modal fade">
 			<div class="modal-dialog">
