@@ -185,7 +185,7 @@
 
 		<div class="footer">
 			{% if options['version'] %}
-			<p>Linkbucket <a id="version-popover" data-toggle="popover" data-title="{{ options['version'].tag_name }} ({{ options['version'].date | timesince_long }})" data-html="true" data-content="<ul>{{ options['version'].body.replace('- ', '</li><li>') }}</li></ul>">{{ options['version'].tag_name }}</a></p>
+			<p>Linkbucket <a id="version-popover" data-toggle="popover" data-title="{{ options['version'].tag_name }} - {{ options['version'].date | timesince_long }}" data-html="true" data-content="<ul>{{ options['version'].body.replace('- ', '</li><li>') }}</li></ul>">{{ options['version'].tag_name }}</a></p>
 			{% endif %}
 		</div>
 
