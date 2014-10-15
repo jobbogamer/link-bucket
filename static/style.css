@@ -389,7 +389,6 @@ a.stats-release-link:hover {
 div.stats-version-number {
 	overflow: auto;
 	margin-bottom: 8px;
-	margin-top: 48px;
 	padding: 8px;
 	padding-top: 12px;
 	display: block;
@@ -400,6 +399,14 @@ div.stats-version-number {
 	color: #999999;
 }
 
+div.stats-version-number.faded {
+	opacity: 0.5;
+}
+
+div#release-1 {
+	margin-top: 48px;
+}
+
 div.stats-version-number p {
 	padding: 0;
 	margin: 0;
@@ -407,6 +414,11 @@ div.stats-version-number p {
 
 div.changelog-item {
 	text-align: left;
+	height: 78px;
+}
+
+div.changelog-item.faded {
+	opacity: 0.5;
 }
 
 div.changelog-item p {

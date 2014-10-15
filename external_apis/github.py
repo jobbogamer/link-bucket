@@ -94,3 +94,13 @@ def get_latest_release(owner, repo):
 		return Release(latest_release)
 	else:
 		return None
+
+def get_latest_releases(owner, repo, count):
+	releases = get_releases(owner, repo)
+	if releases is not None:
+		releases = sorted(releases, key=lambda release: release['created_at'], reverse=True)
+		releases = releases[:count]
+		result = [Release(release) for release in releases]
+		return result
+	else:
+		return None
