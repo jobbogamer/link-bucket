@@ -77,55 +77,57 @@ function clickLink(id) {
 }
 
 function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL) {
-	if (embedType > 0) {
-		var aTag = '<a class="embed-link" data-toggle="modal" data-target="#embed-modal"' +
-						'onclick="setUpEmbedPopover(' + id + ', ' + embedType + ', \'' + embedURL + '\', \'' + url + '\');">';
-	} else {
-		var aTag = '<a target="_blank" href="' + url + '">';
-	}
-
-	if (showImages) {
-		if (imageURL) {
-			var thumbnail = '<span class="thumbnail" style="background-image: url(\'' + imageURL + '\');"></span>';
+	if (activePage == 0) {
+		if (embedType > 0) {
+			var aTag = '<a class="embed-link" data-toggle="modal" data-target="#embed-modal"' +
+							'onclick="setUpEmbedPopover(' + id + ', ' + embedType + ', \'' + embedURL + '\', \'' + url + '\');">';
 		} else {
-			if (embedType == 2) {
-				var thumbnail = '<span class="thumbnail image-embed" style="background-image: url(\'' + embedURL + '\');"></span>';
-			} else {
-				var thumbnail = '<span class="thumbnail screenshot" style="background-image: url(\'' + screenshotURL + '\');"></span>';
-			}
+			var aTag = '<a target="_blank" href="' + url + '">';
 		}
-	} else {
-		var thumbnail = '';
-	}
 
-	if (embedType == 1) {
-		var indicator = '<i class="indicator embed-indicator fa fa-film"></i>';
-	} else if (embedType == 2) {
-		var indicator = '<i class="indicator embed-indicator fa fa-image"></i>';
-	} else {
-		var indicator = '<i class="indicator unread-indicator fa fa-circle"></i><i class="indicator starred-indicator fa fa-star"></i>';
-	}
+		if (showImages) {
+			if (imageURL) {
+				var thumbnail = '<span class="thumbnail" style="background-image: url(\'' + imageURL + '\');"></span>';
+			} else {
+				if (embedType == 2) {
+					var thumbnail = '<span class="thumbnail image-embed" style="background-image: url(\'' + embedURL + '\');"></span>';
+				} else {
+					var thumbnail = '<span class="thumbnail screenshot" style="background-image: url(\'' + screenshotURL + '\');"></span>';
+				}
+			}
+		} else {
+			var thumbnail = '';
+		}
 
-	var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">' +
-					'<div id="link-' + id + '" class="link unread">' +
-						aTag +
-							'<p id="title-' + id + '" class="title">' + title + '</p>' + 
-							thumbnail +
-							'<div class="meta">' +
-								indicator +
-								'<p class="domain">' + domain + '</p>' +
-								'<time>&lt;1m</time>' +
-								'<div class="buttons">' +
-									'<a onclick="archiveLink(' + id + ');"><i class="button fa fa-trash-o"></i></a>' +
-									'<a><i class="button fa fa-pencil"></i></a>' +
-									'<a onclick="toggleStar(' + id + ');"><i id="star-button-' + id + '" class="button star-button fa fa-star"></i></a>' +
+		if (embedType == 1) {
+			var indicator = '<i class="indicator embed-indicator fa fa-film"></i>';
+		} else if (embedType == 2) {
+			var indicator = '<i class="indicator embed-indicator fa fa-image"></i>';
+		} else {
+			var indicator = '<i class="indicator unread-indicator fa fa-circle"></i><i class="indicator starred-indicator fa fa-star"></i>';
+		}
+
+		var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">' +
+						'<div id="link-' + id + '" class="link unread">' +
+							aTag +
+								'<p id="title-' + id + '" class="title">' + title + '</p>' + 
+								thumbnail +
+								'<div class="meta">' +
+									indicator +
+									'<p class="domain">' + domain + '</p>' +
+									'<time>&lt;1m</time>' +
+									'<div class="buttons">' +
+										'<a onclick="archiveLink(' + id + ');"><i class="button fa fa-trash-o"></i></a>' +
+										'<a><i class="button fa fa-pencil"></i></a>' +
+										'<a onclick="toggleStar(' + id + ');"><i id="star-button-' + id + '" class="button star-button fa fa-star"></i></a>' +
+									'</div>' +
 								'</div>' +
-							'</div>' +
-						'</a>' +
-					'</div>' +
-				'</div>';
+							'</a>' +
+						'</div>' +
+					'</div>';
 
-	$('.row').prepend(html);
+		$('.row').prepend(html);
+	}
 }
 
 function deleteLink(id) {
