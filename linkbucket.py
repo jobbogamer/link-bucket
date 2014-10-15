@@ -33,7 +33,6 @@ def index():
 		'title': "Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 0,
-		'version': github.get_latest_release('jobbogamer', 'linkbucket')
 	}
 	links = database.get_links()
 
@@ -46,7 +45,6 @@ def archive():
 		'title': "Archive - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 1,
-		'version': github.get_latest_release('jobbogamer', 'linkbucket')
 	}
 	links = database.get_archived_links()
 
@@ -60,7 +58,6 @@ def search():
 		'title': 'Search results for "{0}" - Linkbucket'.format(query),
 		'viewmode_visible': False,
 		'active_page': -1,
-		'version': github.get_latest_release('jobbogamer', 'linkbucket'),
 		'query': query
 	}
 	links = database.search_for_links(query)
@@ -74,7 +71,6 @@ def stats():
 		'title': "Stats - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 2,
-		'version': github.get_latest_release('jobbogamer', 'linkbucket')
 	}
 	stats = database.get_stats()
 	if stats is None:
