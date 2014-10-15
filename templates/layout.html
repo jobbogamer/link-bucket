@@ -106,7 +106,9 @@
 						<li class="divider visible-xs"></li>
 						<li class="visible-xs"><a data-toggle="modal" data-target="#add-modal">Add Link</a></li>
 						<li class="visible-xs"><a id="facebook-button-mobile" onclick="facebookBeginParseFlow();">Get Links From Facebook</a></li>
+						{% if options['viewmode_visible'] %}
 						<li class="visible-xs"><a id="viewmode-mobile" onclick="toggleCompactMode();">Compact View</a></li>
+						{% endif %}
 					</ul>
 					
 					<div id="search" class="navbar-right navbar-form hidden-xs">
