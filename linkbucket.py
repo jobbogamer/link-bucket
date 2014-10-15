@@ -160,7 +160,7 @@ def timesince(date):
 
 @app.template_filter('timesince_long')
 def timesince_long(the_date):
-	now = datetime.utcnow()
+	now = datetime.now()
 	delta = now - the_date
 	seconds = delta.total_seconds()
 

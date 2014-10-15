@@ -1,6 +1,7 @@
 import requests
 import json
 from datetime import datetime
+from utils import utils
 
 class Commit():
 	sha1 = ''
@@ -33,7 +34,7 @@ class Release():
 	def __init__(self, json_release):
 		self.tag_name = json_release['tag_name']
 		self.body = json_release['body']
-		self.date = datetime.strptime(json_release['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+		self.date = utils.parse_date(json_release['created_at'])
 		self.url = json_release['html_url']
 		
 
