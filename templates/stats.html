@@ -55,6 +55,7 @@
 			<div id="release-{{ index }}" class="stats-version-number {% if index > 1 %}faded{% endif %}">
 				<p>
 					<a href="{{ release.url }}" class="stats-release-link">Linkbucket {{ release.tag_name }}</a>
+					– {{ release.date | timesince_long }}
 				</p>
 			</div>
 		</div>
