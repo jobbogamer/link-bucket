@@ -238,7 +238,7 @@ def delete_link(id):
 	link = get_link_by_id(id)
 	db.session.delete(link)
 	db.session.commit()
-	get_stats().increment_deleted()
+	get_stats().increment_deletes()
 
 def edit_title(id, new_title):
 	link = get_link_by_id(id)

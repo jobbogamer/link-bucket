@@ -82,7 +82,7 @@ def archive(id):
 		database.archive_link(id)
 		result = { 'success': True }
 	except Exception as error:
-		result = { 'success': False, 'message': error }
+		result = { 'success': False, 'message': str(error) }
 
 	return jsonify(result)
 
@@ -94,7 +94,7 @@ def click(id):
 		database.mark_link_as_read(id)
 		result = { 'success': True }
 	except Exception as error:
-		result = { 'success': False, 'message': error }
+		result = { 'success': False, 'message': str(error) }
 
 	return jsonify(result)
 
@@ -106,7 +106,7 @@ def delete(id):
 		database.delete_link(id)
 		result = { 'success': True }
 	except Exception as error:
-		result = { 'success': False, 'message': error }
+		result = { 'success': False, 'message': str(error) }
 
 	return jsonify(result)
 
@@ -131,7 +131,7 @@ def facebook_last_message_id(thread_id):
 	except Exception as error:
 		result = {
 			'success': False,
-			'message': error
+			'message': str(error)
 		}
 
 	return jsonify(result)
@@ -229,7 +229,7 @@ def unarchive(id):
 		database.unarchive_link(id)
 		result = { 'success': True }
 	except Exception as error:
-		result = { 'success': False, 'message': error }
+		result = { 'success': False, 'message': str(error) }
 
 	return jsonify(result)
 
