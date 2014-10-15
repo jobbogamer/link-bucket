@@ -71,6 +71,7 @@ def stats():
 		'title': "Stats - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 2,
+		'release': github.get_latest_release('jobbogamer', 'linkbucket')
 	}
 	stats = database.get_stats()
 	if stats is None:

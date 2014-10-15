@@ -28,11 +28,13 @@ class Release():
 	tag_name = ''
 	body = ''
 	date = None
+	url = ''
 
 	def __init__(self, json_release):
 		self.tag_name = json_release['tag_name']
 		self.body = json_release['body']
 		self.date = datetime.strptime(json_release['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+		self.url = json_release['html_url']
 		
 
 def _make_request(endpoint):
