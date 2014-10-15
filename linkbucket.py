@@ -160,25 +160,26 @@ def timesince(date):
 
 @app.template_filter('timesince_long')
 def timesince_long(the_date):
-	now = datetime.now()
+	now = datetime.utcnow()
 	delta = now - the_date
 	seconds = delta.total_seconds()
 
 	if seconds < 60:
 		return "less than a minute ago"
 	elif seconds < (60 * 60):
-		return str(int(seconds / 60)) + " minutes ago"
+		i = int(seconds / 60)
+		s = "" if i == 1 else "s"
+		return str(i) + " minute{0} ago".format(s)
 	elif seconds < (24 * 60 * 60):
-		return str(int(seconds / (60 * 60))) + " hours ago"
+		i = int(seconds / (60 * 60))
+		s = "" if i == 1 else "s"
+		return str(i) + " hour{0} ago".format(s)
 	else:
-		today = date.today()
-		date_short = the_date.date()
-		delta = today - date_short
-		days = delta.days
-		if days == 1:
+		i = int(seconds / (24 * 60 * 60))
+		if i == 1:
 			return "yesterday"
 		else:
-			return str(days) + " days ago"
+			return str(i) + " days ago"
 
 @app.template_filter('thousands_separators')
 def thousands_separators(num):
