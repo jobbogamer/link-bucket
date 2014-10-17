@@ -212,7 +212,7 @@ function setCompactMode(compact) {
 
 function setUpEmbedPopover(id, embedType, url, originalURL) {
 	var title = document.getElementById('title-' + id).innerHTML;
-	document.getElementById('embed-modal-title').innerHTML = '<a href="' + originalURL + '">' + title + '</a>';
+	document.getElementById('embed-modal-title').innerHTML = '<a target="_blank" href="' + originalURL + '">' + title + '</a>';
 	if (embedType == 1) {
 		var html = '<div class="video-wrapper"><iframe src="' + url + '?rel=0" frameborder="0" allowfullscreen="true"></iframe></div>';
 		document.getElementById('embed-modal-body').innerHTML = html;
