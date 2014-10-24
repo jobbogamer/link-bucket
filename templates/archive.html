@@ -16,16 +16,16 @@
 
 					<div class="meta">
 						{% if link.embed_type == 1 %}
-						<i class="indicator embed-indicator fa fa-film"></i>
+						<i class="indicator embed-indicator fa fa-fw fa-film"></i>
 						{% endif %}
 						{% if link.embed_type == 2 %}
-						<i class="indicator embed-indicator fa fa-image"></i>
+						<i class="indicator embed-indicator fa fa-fw fa-image"></i>
 						{% endif %}
 						<p class="domain">{{ link.domain }}</p>
 						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
 						<div class="buttons">
-							<a onclick="deleteLink({{ link.id }});"><i class="button fa fa-trash-o"></i></a>
-							<a onclick="unarchiveLink({{ link.id }});"><i class="button fa fa-undo"></i></a>
+							<a onclick="deleteLink({{ link.id }});"><i class="button fa fa-fw fa-trash-o"></i></a>
+							<a onclick="unarchiveLink({{ link.id }}, true);"><i class="button fa fa-fw fa-undo"></i></a>
 						</div>
 					</div>
 				</a>

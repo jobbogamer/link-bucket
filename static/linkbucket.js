@@ -43,7 +43,7 @@ function addLinkFromModal() {
 	});
 }
 
-function archiveLink(id) {
+function archiveLink(id, hide) {
 	$.ajax({
 		url: '/api/archive',
 		data: {
@@ -51,9 +51,13 @@ function archiveLink(id) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			$('#link-' + id).fadeOut(complete = function() {
-				$('#link-' + id).parent().remove();
-			});	
+			if (hide) {
+				$('#link-' + id).fadeOut(complete = function() {
+					$('#link-' + id).parent().remove();
+				});
+			} else {
+				$('#link-' + id).addClass("archived");
+			}
 		}
 	});
 }
@@ -117,7 +121,7 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 									'<p class="domain">' + domain + '</p>' +
 									'<time>&lt;1m</time>' +
 									'<div class="buttons">' +
-										'<a onclick="archiveLink(' + id + ');"><i class="button fa fa-trash-o"></i></a>' +
+										'<a onclick="archiveLink(' + id + ', true);"><i class="button fa fa-trash-o"></i></a>' +
 										'<a><i class="button fa fa-pencil"></i></a>' +
 										'<a onclick="toggleStar(' + id + ');"><i id="star-button-' + id + '" class="button star-button fa fa-star"></i></a>' +
 									'</div>' +
@@ -392,7 +396,7 @@ function toggleStar(id) {
 	});
 }
 
-function unarchiveLink(id) {
+function unarchiveLink(id, hide) {
 	$.ajax({
 		url: '/api/unarchive',
 		data: {
@@ -400,9 +404,13 @@ function unarchiveLink(id) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			$('#link-' + id).fadeOut(complete = function() {
-				$('#link-' + id).parent().remove();
-			});	
+			if (hide) {
+				$('#link-' + id).fadeOut(complete = function() {
+					$('#link-' + id).parent().remove();
+				});
+			} else {
+				$('#link-' + id).removeClass("archived");
+			}
 		}
 	});
 }

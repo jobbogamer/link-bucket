@@ -27,23 +27,23 @@
 
 					<div class="meta">
 						{% if link.embed_type == 1 %}
-						<i class="indicator embed-indicator fa fa-film"></i>
+						<i class="indicator embed-indicator fa fa-fw fa-film"></i>
 						{% endif %}
 						{% if link.embed_type == 2 %}
-						<i class="indicator embed-indicator fa fa-image"></i>
+						<i class="indicator embed-indicator fa fa-fw fa-image"></i>
 						{% endif %}
 						{% if link.embed_type == 0 %}
-						<i class="indicator unread-indicator fa fa-circle"></i>
+						<i class="indicator unread-indicator fa fa-fw fa-circle"></i>
 						{% endif %}
 						{% if link.embed_type == 0 %}
-						<i class="indicator starred-indicator fa fa-star"></i>
+						<i class="indicator starred-indicator fa fa-fw fa-star"></i>
 						{% endif %}
 						<p class="domain">{{ link.domain }}</p>
 						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
 						<div class="buttons">
-							<a onclick="archiveLink({{ link.id }});"><i class="button fa fa-trash-o"></i></a>
-							<a onclick="showEditTitleModal({{ link.id }});" data-toggle="modal" data-target="#edit-modal"><i class="button fa fa-pencil"></i></a>
-							<a onclick="toggleStar({{ link.id }});"><i id="star-button-{{ link.id }}" class="button star-button fa fa-star"></i></a>
+							<a onclick="showEditTitleModal({{ link.id }});" data-toggle="modal" data-target="#edit-modal"><i class="button fa fa-fw fa-pencil"></i></a>
+							<a onclick="toggleStar({{ link.id }});"><i id="star-button-{{ link.id }}" class="button star-button fa fa-fw fa-star"></i></a>
+							<a onclick="archiveLink({{ link.id }}, true);"><i class="button fa fa-fw fa-archive"></i></a>
 						</div>
 					</div>
 				</a>

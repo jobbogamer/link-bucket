@@ -253,6 +253,39 @@ div.link.starred i.starred-indicator {
 	display: inline;
 }
 
+div.link a.unarchive-button {
+	display: none;
+}
+
+div.link a.delete-button {
+	display: none;
+}
+
+div.link.archived a.archive-button {
+	display: none;
+}
+
+div.link.archived a.edit-button {
+	display: none;
+}
+
+div.link.archived a.star-button {
+	display: none;
+}
+
+div.link.archived a.unarchive-button {
+	display: initial;
+}
+
+div.link.archived a.delete-button {
+	display: initial;
+}
+
+div.link.archived p.title {
+	color: #999999;
+	font-style: italic;
+}
+
 div.link p.domain {
 	float: left;
 
@@ -278,14 +311,11 @@ div.link:hover div.buttons {
 	display: block;
 }
 
-div.link.unread:hover i.star-button {
+/*div.link.unread:hover i.star-button {
 	display: none;
-}
+}*/
 
 div.link div.buttons i.button {
-	margin-right: 4px;
-	margin-left: 4px;
-
 	color: #999999;
 }
 
