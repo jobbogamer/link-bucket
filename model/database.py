@@ -307,7 +307,7 @@ def mark_link_as_unstarred(id):
 
 def search_for_links(query):
 	regex_str = ".*".join(list(query))
-	regex = re.compile(regex_str)
+	regex = re.compile(regex_str, re.IGNORECASE)
 	links = get_all_links()
 	results = []
 	for link in links:
