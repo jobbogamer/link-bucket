@@ -255,7 +255,7 @@ function setUpPopovers() {
 	})
 }
 
-function setUpStatsChart(addHistory, clickHistory) {
+function setUpStatsChart(addHistory, clickHistory, viewHistory) {
 	var labels = [];
 
 	for (var i = 0; i < 28; i++) {
@@ -280,6 +280,9 @@ function setUpStatsChart(addHistory, clickHistory) {
 		if (clickHistory[i] > max) {
 			max = clickHistory[i];
 		}
+		if (viewHistory[i] > max) {
+			max = viewHistory[i];
+		}
 	}
 
 	var data = {
@@ -303,6 +306,16 @@ function setUpStatsChart(addHistory, clickHistory) {
 			pointHighlightFill: "#007A42",
 			pointHighlightStroke: "#007A42",
 			data: clickHistory
+		},
+		{
+			label: "Pageviews",
+			fillColor: "RGBA(39, 173, 126, 0)",
+			strokeColor: "#004812",
+			pointColor: "#004812",
+			pointStrokeColor: "#004812",
+			pointHighlightFill: "#004812",
+			pointHighlightStroke: "#004812",
+			data: viewHistory
 		}]
 	};
 

@@ -64,6 +64,7 @@ class Stats(db.Model):
 
 	add_history = db.Column(db.PickleType)
 	click_history = db.Column(db.PickleType)
+	view_history = db.Column(db.PickleType)
 
 	def __init__(self):
 		self.last_day = date.today()
@@ -83,6 +84,9 @@ class Stats(db.Model):
 		click_history_list = [0]*28
 		self.click_history = pickle.dumps(click_history_list, -1)
 
+		view_history_list = [0]*28
+		self.view_history = pickle.dumps(view_history_list, -1)
+
 	def __repr__(self):
 		return "[Stats - add({0}), arc({1}), cli({2}), del({3}), edi({4}), sea({5}), una({6})]".format(
 			self.total_added, self.total_archived, self.total_clicked,
@@ -94,6 +98,9 @@ class Stats(db.Model):
 
 	def get_click_history(self):
 		return pickle.loads(self.click_history)
+
+	def get_view_history(self):
+		return pickle.loads(self.view_history)
 
 	def increment_adds(self):
 		self.move_history_if_necessary()
@@ -135,15 +142,25 @@ class Stats(db.Model):
 		self.total_unarchived += 1
 		commit_changes()
 
+	def increment_views(self):
+		self.move_history_if_necessary()
+		view_history_list = self.get_view_history()
+		view_history_list[27] += 1
+		self.set_view_history(view_history_list)
+		commit_changes()
+
 	def move_history(self, days):
 		add_history_list = self.get_add_history()
 		click_history_list = self.get_click_history()
+		view_history_list = self.get_view_history()
 
 		add_history_list = add_history_list[days:] + [0]*days
 		click_history_list = click_history_list[days:] + [0]*days
+		view_history_list = view_history_list[days:] + [0]*days
 
 		self.set_add_history(add_history_list)
 		self.set_click_history(click_history_list)
+		self.set_view_history(view_history_list)
 
 	def move_history_if_necessary(self):
 		today = date.today()
@@ -161,6 +178,10 @@ class Stats(db.Model):
 
 	def set_click_history(self, click_history_list):
 		self.click_history = pickle.dumps(click_history_list, -1)
+		commit_changes()
+
+	def set_view_history(self, view_history_list):
+		self.view_history = pickle.dumps(view_history_list, -1)
 		commit_changes()
 
 

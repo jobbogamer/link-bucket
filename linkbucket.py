@@ -36,6 +36,10 @@ def index():
 	}
 	links = database.get_links()
 
+	stats = database.get_stats()
+	stats.move_history_if_necessary()
+	stats.increment_views()
+
 	return render_template('index.html', options=options, links=links)
 
 @app.route('/archive')
@@ -47,6 +51,10 @@ def archive():
 		'active_page': 1,
 	}
 	links = database.get_archived_links()
+
+	stats = database.get_stats()
+	stats.move_history_if_necessary()
+	stats.increment_views()
 
 	return render_template('archive.html', options=options, links=links)
 
@@ -62,6 +70,10 @@ def search():
 	}
 	links = database.search_for_links(query)
 
+	stats = database.get_stats()
+	stats.move_history_if_necessary()
+	stats.increment_views()
+
 	return render_template('search.html', options=options, links=links)
 
 @app.route('/stats')
@@ -71,19 +83,19 @@ def stats():
 		'title': "Stats - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 2,
-		# 'release': github.get_latest_release('jobbogamer', 'linkbucket'),
 		'releases': github.get_latest_releases('jobbogamer', 'linkbucket', 3)
 	}
+	
 	stats = database.get_stats()
-	if stats is None:
-		database.create_stats()
-		stats = database.get_stats()
-
 	stats.move_history_if_necessary()
+	stats.increment_views()
+
+	print stats.get_view_history()
 
 	histories = {
 		'add': stats.get_add_history(),
-		'click': stats.get_click_history()
+		'click': stats.get_click_history(),
+		'view': stats.get_view_history()
 	}
 
 	return render_template('stats.html', options=options, stats=stats, histories=histories)
