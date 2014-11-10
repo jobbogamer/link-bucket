@@ -468,7 +468,7 @@ div.chart-wrapper {
 	text-align: center;
 }
 
-canvas#stats-chart {
+canvas.stats-chart {
 	width: 100%;
 	height: 174px;
 	overflow: auto;

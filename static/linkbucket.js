@@ -255,7 +255,7 @@ function setUpPopovers() {
 	})
 }
 
-function setUpStatsChart(addHistory, clickHistory, viewHistory) {
+function setUpStatsChart() {
 	var labels = [];
 
 	for (var i = 0; i < 28; i++) {
@@ -272,23 +272,31 @@ function setUpStatsChart(addHistory, clickHistory, viewHistory) {
 		}
 	}
 
-	var max = -1;
+	var addMax = -1;
 	for (var i = 0; i < 28; i++) {
-		if (addHistory[i] > max) {
-			max = addHistory[i];
-		}
-		if (clickHistory[i] > max) {
-			max = clickHistory[i];
-		}
-		if (viewHistory[i] > max) {
-			max = viewHistory[i];
+		if (addHistory[i] > addMax) {
+			addMax = addHistory[i];
 		}
 	}
 
-	var data = {
+	var clickMax = -1;
+	for (var i = 0; i < 28; i++) {
+		if (clickHistory[i] > clickMax) {
+			clickMax = clickHistory[i];
+		}
+	}
+
+	var viewMax = -1;
+	for (var i = 0; i < 28; i++) {
+		if (viewHistory[i] > viewMax) {
+			viewMax = viewHistory[i];
+		}
+	}
+
+	var addData = {
 		labels: labels,
 		datasets: [{
-			label: "Links added",
+			label: "Links Added",
 			fillColor: "RGBA(0, 189, 131, 0)",
 			strokeColor: "#00BD83",
 			pointColor: "#00BD83",
@@ -296,45 +304,81 @@ function setUpStatsChart(addHistory, clickHistory, viewHistory) {
 			pointHighlightFill: "#00BD83",
 			pointHighlightStroke: "#00BD83",
 			data: addHistory
-		},
-		{
-			label: "Links clicked",
-			fillColor: "RGBA(9, 143, 96, 0)",
-			strokeColor: "#007A42",
-			pointColor: "#007A42",
-			pointStrokeColor: "#007A42",
-			pointHighlightFill: "#007A42",
-			pointHighlightStroke: "#007A42",
+		}]
+	};
+
+	var clickData = {
+		labels: labels,
+		datasets: [{
+			label: "Links Clicked",
+			fillColor: "RGBA(0, 189, 131, 0)",
+			strokeColor: "#00BD83",
+			pointColor: "#00BD83",
+			pointStrokeColor: "#00BD83",
+			pointHighlightFill: "#00BD83",
+			pointHighlightStroke: "#00BD83",
 			data: clickHistory
-		},
-		{
+		}]
+	};
+
+	var viewData = {
+		labels: labels,
+		datasets: [{
 			label: "Pageviews",
-			fillColor: "RGBA(39, 173, 126, 0)",
-			strokeColor: "#004812",
-			pointColor: "#004812",
-			pointStrokeColor: "#004812",
-			pointHighlightFill: "#004812",
-			pointHighlightStroke: "#004812",
+			fillColor: "RGBA(0, 189, 131, 0)",
+			strokeColor: "#00BD83",
+			pointColor: "#00BD83",
+			pointStrokeColor: "#00BD83",
+			pointHighlightFill: "#00BD83",
+			pointHighlightStroke: "#00BD83",
 			data: viewHistory
 		}]
 	};
 
-	var context = $("#stats-chart").get(0).getContext("2d");
-	var statsChart = new Chart(context).Line(data, {
+	var context = $("#stats-chart-1").get(0).getContext("2d");
+	var addChart = new Chart(context).Line(addData, {
+		showTooltips : false,
+		pointDot: false,
 		responsive: true,
 		scaleShowGridLines : false,
 		bezierCurve : false,
-		bezierCurveTension : 0.4,
-		pointDot : false,
-		tooltipTitleFontStyle: "normal",
 		scaleOverride: true,
 		scaleSteps: 1,
-    	scaleStepWidth: max,
+    	scaleStepWidth: addMax,
     	scaleStartValue: 0,
 	});
+	var legendHTML = addChart.generateLegend();
+	$('#chart-wrapper-1').append(legendHTML);
 
-	var legendHTML = statsChart.generateLegend();
-	$('.chart-wrapper').append(legendHTML);
+	var context = $("#stats-chart-2").get(0).getContext("2d");
+	var clickChart = new Chart(context).Line(clickData, {
+		showTooltips : false,
+		pointDot: false,
+		responsive: true,
+		scaleShowGridLines : false,
+		bezierCurve : false,
+		scaleOverride: true,
+		scaleSteps: 1,
+    	scaleStepWidth: clickMax,
+    	scaleStartValue: 0,
+	});
+	var legendHTML = clickChart.generateLegend();
+	$('#chart-wrapper-2').append(legendHTML);
+
+	var context = $("#stats-chart-3").get(0).getContext("2d");
+	var viewChart = new Chart(context).Line(viewData, {
+		showTooltips : false,
+		pointDot: false,
+		responsive: true,
+		scaleShowGridLines : false,
+		bezierCurve : false,
+		scaleOverride: true,
+		scaleSteps: 1,
+    	scaleStepWidth: viewMax,
+    	scaleStartValue: 0,
+	});
+	var legendHTML = viewChart.generateLegend();
+	$('#chart-wrapper-3').append(legendHTML);
 }
 
 function setUpTooltips() {
