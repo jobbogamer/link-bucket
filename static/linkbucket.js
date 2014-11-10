@@ -350,6 +350,7 @@ function setUpStatsChart() {
 		scaleSteps: 1,
     	scaleStepWidth: addMax,
     	scaleStartValue: 0,
+    	maintainAspectRatio: false,
 	});
 	var legendHTML = addChart.generateLegend();
 	$('#chart-wrapper-1').append(legendHTML);
@@ -365,6 +366,7 @@ function setUpStatsChart() {
 		scaleSteps: 1,
     	scaleStepWidth: clickMax,
     	scaleStartValue: 0,
+    	maintainAspectRatio: false,
 	});
 	var legendHTML = clickChart.generateLegend();
 	$('#chart-wrapper-2').append(legendHTML);
@@ -380,6 +382,7 @@ function setUpStatsChart() {
 		scaleSteps: 1,
     	scaleStepWidth: viewMax,
     	scaleStartValue: 0,
+    	maintainAspectRatio: false,
 	});
 	var legendHTML = viewChart.generateLegend();
 	$('#chart-wrapper-3').append(legendHTML);
