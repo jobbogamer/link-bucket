@@ -90,8 +90,6 @@ def stats():
 	stats.move_history_if_necessary()
 	stats.increment_views()
 
-	print stats.get_view_history()
-
 	histories = {
 		'add': stats.get_add_history(),
 		'click': stats.get_click_history(),
