@@ -65,6 +65,7 @@
 			</div>
 		</div>
 
+		{% if options['releases'] %}
 		{% for release in options['releases'] %}
 		{% set index = loop.index %}
 		<div class="col-xs-12">
@@ -84,6 +85,7 @@
 		</div>
 		{% endfor %}
 		{% endfor %}
+		{% endif %}
 	</div>
 </div>
 
