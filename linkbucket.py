@@ -34,7 +34,7 @@ def index():
 		'viewmode_visible': False,
 		'active_page': 0,
 	}
-	links = database.get_links()
+	links = database.get_unread_links()
 
 	stats = database.get_stats()
 	stats.move_history_if_necessary()

@@ -301,6 +301,11 @@ def get_stats():
 	stats = Stats.query.filter_by(id = 1).first()
 	return stats
 
+def get_unread_links():
+	links = Link.query.filter_by(unread = True).all()
+	links = sorted(links, key=lambda link: link.date, reverse=True)
+	return links
+
 def mark_link_as_read(id):
 	link = get_link_by_id(id)
 	link.unread = False
