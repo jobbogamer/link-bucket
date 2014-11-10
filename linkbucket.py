@@ -30,7 +30,7 @@ def index():
 
 	options = {
 		'time': datetime.now(),
-		'title': "Linkbucket",
+		'title': "Inbox - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 0,
 	}
