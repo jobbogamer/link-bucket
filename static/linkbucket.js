@@ -67,7 +67,7 @@ function clearAddModal() {
 	document.getElementById('add-modal-title-field').value = "";
 }
 
-function clickLink(id) {
+function clickLink(id, hide) {
 	$.ajax({
 		url: '/api/click',
 		data: {
@@ -75,10 +75,13 @@ function clickLink(id) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			$('#link-' + id).removeClass('unread');
-			$('#link-' + id).fadeOut(complete = function() {
-				$('#link-' + id).parent().remove();
-			});
+			if (hide) {
+				$('#link-' + id).fadeOut(complete = function() {
+					$('#link-' + id).parent().remove();
+				});
+			} else {
+				$('#link-' + id).removeClass('unread');
+			}
 		}
 	})
 }
@@ -445,7 +448,7 @@ function toggleCompactMode() {
 	}
 }
 
-function toggleStar(id) {
+function toggleStar(id, hide) {
 	if ($('#link-' + id).hasClass('starred')) {
 		var url = '/api/unstar';
 	} else {
@@ -458,7 +461,15 @@ function toggleStar(id) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			$('#link-' + id).toggleClass('starred');
+			if (hide) {
+				$('#link-' + id).fadeOut(complete = function() {
+					$('#link-' + id).parent().remove();
+				});
+			} else {
+				$('#link-' + id).toggleClass('starred');
+			}
+		} else {
+			console.log(data);
 		}
 	});
 }

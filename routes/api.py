@@ -92,7 +92,6 @@ def click(id):
 
 	try:
 		database.mark_link_as_read(id)
-		database.archive_link(id)
 		result = { 'success': True }
 	except Exception as error:
 		result = { 'success': False, 'message': str(error) }
