@@ -203,13 +203,17 @@ function setCompactMode(compact) {
 		$('body').addClass('compact');
 		$('#viewmode-expanded').removeClass('active');
 		$('#viewmode-compact').addClass('active');
-		document.getElementById('viewmode-mobile').innerHTML = 'Expanded View';
+		if (document.getElementById('viewmode-mobile')) {
+			document.getElementById('viewmode-mobile').innerHTML = 'Expanded View';
+		}
 		setViewModeCookie(true);
 	} else {
 		$('body').removeClass('compact');
 		$('#viewmode-expanded').addClass('active');
 		$('#viewmode-compact').removeClass('active');
-		document.getElementById('viewmode-mobile').innerHTML = 'Compact View';
+		if (document.getElementById('viewmode-mobile')) {
+			document.getElementById('viewmode-mobile').innerHTML = 'Compact View';
+		}
 		setViewModeCookie(false);
 	}
 }
