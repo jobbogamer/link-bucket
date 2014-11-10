@@ -75,7 +75,10 @@ function clickLink(id) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			$('#link-' + id).removeClass('unread');	
+			$('#link-' + id).removeClass('unread');
+			$('#link-' + id).fadeOut(complete = function() {
+				$('#link-' + id).parent().remove();
+			});
 		}
 	})
 }
