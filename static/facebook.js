@@ -119,7 +119,7 @@ function facebookGetInbox(userID) {
 					} else if (conversation['people'].length == 3) {
 						html += conversation['people'][0] + ", " + conversation['people'][1] + ", and " + conversation['people'][2];
 					} else {
-						html += conversation['people'][0] + ", " + conversation['people'][1] + ", and " + (conversation['people'].length - 1) + " others with some words";
+						html += conversation['people'][0] + ", " + conversation['people'][1] + ", and " + (conversation['people'].length - 1) + " others";
 					}
 					html += "</div></li>";
 				}
