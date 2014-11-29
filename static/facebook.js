@@ -147,10 +147,10 @@ function facebookLoadSDK() {
 		FB.init({
 			appId   : '776255502385741',
 			xfbml   : false,
-			version : 'v2.1',
 			status  : true,
 		});
 	};
+            version : 'v2.2',
 
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
