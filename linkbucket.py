@@ -195,6 +195,18 @@ def timesince_long(the_date):
 def thousands_separators(num):
 	return "{:,}".format(num)
 
+@app.template_filter('duration')
+def duration(seconds):
+	minutes = int(seconds / 60)
+	leftover_seconds = seconds - (minutes * 60)
+
+	if leftover_seconds < 10:
+		seconds_str = "0{0}".format(leftover_seconds)
+	else:
+		seconds_str = str(leftover_seconds)
+
+	return "{0}:{1}".format(minutes, leftover_seconds)
+
 ##### Main #####
 
 if (__name__ == "__main__"):

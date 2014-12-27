@@ -292,6 +292,11 @@ div.link p.domain {
 	color: #999999;
 }
 
+div.link p.duration {
+	float: left;
+	color: #999999;
+}
+
 div.link time {
 	float: right;
 

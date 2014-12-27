@@ -39,6 +39,9 @@
 						<i class="indicator starred-indicator fa fa-fw fa-star"></i>
 						{% endif %}
 						<p class="domain">{{ link.domain }}</p>
+						{% if link.embed_type == 1 %}
+						<p class="duration">&nbsp;({{ link.word_count | duration }})</p>
+						{% endif %}
 						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
 						<div class="buttons">
 							<a onclick="showEditTitleModal({{ link.id }});" data-toggle="modal" data-target="#edit-modal"><i class="button fa fa-fw fa-pencil"></i></a>

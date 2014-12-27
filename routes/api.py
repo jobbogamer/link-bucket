@@ -14,25 +14,25 @@ def add(url, title=''):
 				link = database.add_link(url, datetime.now())
 				if title and (len(title) > 0):
 					database.edit_title_without_counting(link.id, title)
+
+				result = {
+					'success': True,
+					'valid_url': True,
+					'link': {
+						'id': link.id,
+						'title': link.title,
+						'url': link.url,
+						'domain': link.domain,
+						'embed_type': link.embed_type,
+						'embed_url': link.embed_url,
+						'image_url': link.image_url,
+						'screenshot_url': screenshots.get_screenshot(link.url)
+					}
+				}
 	
 			except Exception as error:
 				print "(API) Couldn't add link. " + str(type(error)) + " - " + str(error)
 				result = { 'success': False, 'valid_url': True, 'message': str(error) }
-
-			result = {
-				'success': True,
-				'valid_url': True,
-				'link': {
-					'id': link.id,
-					'title': link.title,
-					'url': link.url,
-					'domain': link.domain,
-					'embed_type': link.embed_type,
-					'embed_url': link.embed_url,
-					'image_url': link.image_url,
-					'screenshot_url': screenshots.get_screenshot(link.url)
-				}
-			}
 
 		else:
 			result = { 'success': False, 'valid_url': utils.page_exists(url), 'no_url': False }

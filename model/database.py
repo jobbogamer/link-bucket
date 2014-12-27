@@ -4,6 +4,8 @@ from external_apis import readability
 from datetime import datetime, date
 from flask.ext.sqlalchemy import SQLAlchemy
 import re
+import requests
+import json
 
 db = SQLAlchemy()
 
@@ -38,6 +40,7 @@ class Link(db.Model):
 		if parsed is None:
 			self.title = "(No title)"
 			self.domain = utils.find_domain(url)
+			self.word_count = 0
 		else:
 			self.title = parsed.title
 			self.domain = parsed.domain
@@ -45,7 +48,7 @@ class Link(db.Model):
 			self.word_count = parsed.word_count
 			self.image_url = parsed.image_url
 
-		self.embed_url, self.embed_type = _find_embed(url)
+		self.embed_url, self.embed_type, self.word_count = _find_embed(url, self.word_count)
 
 
 class Stats(db.Model):
@@ -201,27 +204,61 @@ class FacebookConversation(db.Model):
 
 ##### Private API #####
 
-def _find_embed(url):
+def _find_embed(url, word_count):
 	url_l = url.lower()
+
+	new_url = None
+	embed_type = 0
 
 	if 'youtube.com/watch?v' in url_l:
 		if '&' in url_l:
 			param_pos = url_l.find('&')
-			return (url[:param_pos].replace('watch?v=', 'embed/'), 1)
+			new_url = url[:param_pos].replace('watch?v=', 'embed/')
+			embed_type = 1
 		else:
-			return (url.replace('watch?v=', 'embed/'), 1)
+			new_url = url.replace('watch?v=', 'embed/')
+			embed_type = 1
 
 	elif 'youtu.be' in url_l:
-		return (url.replace('.be', 'be.com/embed'), 1)
+		new_url = url.replace('.be', 'be.com/embed')
+		embed_type = 1
 
 	elif 'yourepeat.com/watch?v' in url_l:
-		return (url.replace('repeat', 'tube').replace('watch?v=', 'embed/'), 1)
+		new_url = url.replace('repeat', 'tube').replace('watch?v=', 'embed/')
+		embed_type = 1
 
 	elif url_l.endswith('.jpg') or url_l.endswith('.jpeg') or url_l.endswith('.png') or url_l.endswith('.gif'):
 		if not ('dropbox.com' in url_l):
-			return (url, 2)
+			new_url = url
+			embed_type = 2
 
-	return ('', 0)
+	if new_url is not None:
+		return (new_url, embed_type, _get_video_length(new_url))
+	else:
+		return ('', 0, word_count)
+
+
+def _get_video_length(url):
+	id_start = url.find('embed/') + 6
+
+	id_end = url.find('/', id_start)
+	if id_end == -1:
+		id_end = url.find('?', id_start)
+	
+	if id_end == -1:
+		video_id = url[id_start:]
+	else:
+		id_end += 1
+		video_id = url[id_start:id_end]
+
+	api_url = 'http://gdata.youtube.com/feeds/api/videos/{0}?v=2&alt=jsonc'.format(video_id)
+	response = requests.get(api_url)
+	json_data = json.loads(response.text or response.content)
+
+	print json_data
+
+	duration = json_data["data"]["duration"]
+	return int(duration)
 
 ##### Public API #####
 
