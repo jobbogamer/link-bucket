@@ -207,6 +207,18 @@ def duration(seconds):
 
 	return "{0}:{1}".format(minutes, leftover_seconds)
 
+@app.template_filter('reading_time')
+def reading_time(words):
+	if words is None:
+		return ""
+	else:
+		minutes = int(words / 250)
+
+		if minutes < 1:
+			return "- <1m"
+		else:
+			return "- {0}m".format(minutes)
+
 ##### Main #####
 
 if (__name__ == "__main__"):

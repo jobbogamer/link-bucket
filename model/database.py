@@ -233,7 +233,10 @@ def _find_embed(url, word_count):
 			embed_type = 2
 
 	if new_url is not None:
-		return (new_url, embed_type, _get_video_length(new_url))
+		if embed_type == 1:
+			return (new_url, embed_type, _get_video_length(new_url))
+		else:
+			return (new_url, embed_type, word_count)
 	else:
 		return ('', 0, word_count)
 
@@ -254,8 +257,6 @@ def _get_video_length(url):
 	api_url = 'http://gdata.youtube.com/feeds/api/videos/{0}?v=2&alt=jsonc'.format(video_id)
 	response = requests.get(api_url)
 	json_data = json.loads(response.text or response.content)
-
-	print json_data
 
 	duration = json_data["data"]["duration"]
 	return int(duration)

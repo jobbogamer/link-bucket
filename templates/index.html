@@ -40,7 +40,11 @@
 						{% endif %}
 						<p class="domain">{{ link.domain }}</p>
 						{% if link.embed_type == 1 %}
-						<p class="duration">&nbsp;({{ link.word_count | duration }})</p>
+						<p class="duration">&nbsp;- {{ link.word_count | duration }}</p>
+						{% else %}
+							{% if link.embed_type == 0 %}
+						<p class="duration">&nbsp;{{ link.word_count | reading_time }}</p>
+							{% endif %}
 						{% endif %}
 						<time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
 						<div class="buttons">
