@@ -227,58 +227,15 @@ div.link i.indicator {
 
 div.link i.unread-indicator {
 	padding-top: 5px;
-
-	display: none;
-
 	font-size: 11px;
-}
-
-div.link i.starred-indicator {
-	display: none;
 }
 
 div.link.unread i.indicator {
 	color: #107bf7;
 }
 
-div.link.unread i.unread-indicator {
-	display: inline;
-}
-
 div.link.starred i.indicator {
 	color: #fd9945;
-}
-
-div.link.starred i.starred-indicator {
-	display: inline;
-}
-
-div.link a.unarchive-button {
-	display: none;
-}
-
-div.link a.delete-button {
-	display: none;
-}
-
-div.link.archived a.archive-button {
-	display: none;
-}
-
-div.link.archived a.edit-button {
-	display: none;
-}
-
-div.link.archived a.star-button {
-	display: none;
-}
-
-div.link.archived a.unarchive-button {
-	display: initial;
-}
-
-div.link.archived a.delete-button {
-	display: initial;
 }
 
 div.link.archived p.title {
@@ -315,10 +272,6 @@ div.link div.buttons {
 div.link:hover div.buttons {
 	display: block;
 }
-
-/*div.link.unread:hover i.star-button {
-	display: none;
-}*/
 
 div.link div.buttons i.button {
 	color: #999999;

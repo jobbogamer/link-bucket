@@ -9,7 +9,7 @@
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
 
             <div id="link-{{ link.id }}"
-                 class="link {% if link.unread %}unread{% endif %} {% if link.starred %}starred{% endif %}">
+                 class="link {% if link.unread %}unread{% endif %} {% if link.starred %}starred{% endif %} {% if link.archived %}archived{% endif %}">
 
                 {% if link.embed_type > 0 %}
                 <!-- Link with some kind of embedded item -->
@@ -83,25 +83,6 @@
                             </a><!-- .delete-button -->
 
                             {% else %}
-                                {% if link.starred %}
-                            <!-- Star outline button for unstar -->
-                            <a onclick="toggleStar({{ link.id }}, true);"
-                               class="unstar-button">
-
-                                <i class="button fa fa-fw fa-star-o"></i>
-
-                            </a><!-- .star-button -->
-
-                                {% else %}
-                            <!-- Star button for star -->
-                            <a onclick="toggleStar({{ link.id }}, true);"
-                               class="star-button">
-
-                                <i class="button fa fa-fw fa-star"></i>
-
-                            </a><!-- .star-button -->
-                                {% endif %}
-
                             <!-- Pencil button for edit -->
                             <a onclick="showEditTitleModal({{ link.id }});"
                                class="edit-button"
@@ -111,6 +92,25 @@
                                 <i class="button fa fa-fw fa-pencil"></i>
 
                             </a> <!-- .edit-button -->
+                            {% endif %}
+
+                            {% if link.starred %}
+                            <!-- Star outline button for unstar -->
+                            <a onclick="toggleStar({{ link.id }}, true);"
+                               class="unstar-button">
+
+                                <i class="button fa fa-fw fa-star-o"></i>
+
+                            </a><!-- .star-button -->
+
+                            {% else %}
+                            <!-- Star button for star -->
+                            <a onclick="toggleStar({{ link.id }}, true);"
+                               class="star-button">
+
+                                <i class="button fa fa-fw fa-star"></i>
+
+                            </a><!-- .star-button -->
                             {% endif %}
 
                         </div> <!-- .buttons -->
