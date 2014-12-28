@@ -64,6 +64,7 @@ class Stats(db.Model):
 	total_searches = db.Column(db.Integer)
 	total_unarchived = db.Column(db.Integer)
 	total_starred = db.Column(db.Integer)
+	total_pageviews = db.Column(db.Integer)
 
 	add_history = db.Column(db.PickleType)
 	click_history = db.Column(db.PickleType)
@@ -80,6 +81,7 @@ class Stats(db.Model):
 		self.total_searches = 0
 		self.total_unarchived = 0
 		self.total_starred = 0
+		self.total_pageviews = 0
 
 		add_history_list = [0]*28
 		self.add_history = pickle.dumps(add_history_list, -1)
@@ -150,6 +152,7 @@ class Stats(db.Model):
 		view_history_list = self.get_view_history()
 		view_history_list[27] += 1
 		self.set_view_history(view_history_list)
+		self.total_pageviews += 1
 		commit_changes()
 
 	def move_history(self, days):
