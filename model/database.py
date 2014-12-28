@@ -350,6 +350,9 @@ def get_starred_links():
 
 def get_stats():
 	stats = Stats.query.filter_by(id = 1).first()
+	if stats is None:
+		create_stats()
+		stats = Stats.query.filter_by(id = 1).first()	
 	return stats
 
 def get_unread_links():

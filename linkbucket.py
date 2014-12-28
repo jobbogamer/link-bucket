@@ -26,24 +26,19 @@ database.db.init_app(app)
 
 @app.route('/')
 def index():
-	print "1"
 	database.create_tables()
-	print "2"
 	options = {
 		'time': datetime.now(),
 		'title': "Inbox - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 0,
 	}
-	print "3"
 	links = database.get_matching_links(unread=True)
-	print "4"
+
 	stats = database.get_stats()
-	print "5"
 	stats.move_history_if_necessary()
-	print "6"
 	stats.increment_views()
-	print "7"
+
 	return render_template('link_view.html', options=options, links=links)
 
 @app.route('/archive')
