@@ -240,6 +240,11 @@ def get_pageviews_chart_data():
 	return json.dumps(output)
 
 
+def ping():
+	result = { 'success': True }
+	return jsonify(result)
+
+
 def star(id):
 	result = { }
 
