@@ -331,7 +331,17 @@ def get_link_by_id(id):
 	return link
 
 def get_links():
-	links = Link.query.filter_by(archived = False).all()
+	links = Link.query.filter_by(archived = False, starred = False).all()
+	links = sorted(links, key=lambda link: link.date, reverse=True)
+	return links
+
+def get_matching_links(unread=False, starred=False, archived=False):
+	links = Link.query.filter_by(unread=unread, starred=starred, archived=archived)
+	links = sorted(links, key=lambda link: link.date, reverse=True)
+	return links
+
+def get_starred_links():
+	links = Link.query.filter_by(archived = False, starred = True).all()
 	links = sorted(links, key=lambda link: link.date, reverse=True)
 	return links
 

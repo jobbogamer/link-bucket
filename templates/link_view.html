@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        {% for link in links %}
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+
+            <div id="link-{{ link.id }}"
+                 class="link {% if link.unread %}unread{% endif %} {% if link.starred %}starred{% endif %}">
+
+                {% if link.embed_type > 0 %}
+                <!-- Link with some kind of embedded item -->
+                <a class="embed-link"
+                   data-toggle="modal"
+                   data-target="#embed-modal"
+                   onclick="clickLink({{ link.id }}, false); setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, '{{ link.embed_url }}', '{{ link.url }}');">
+
+                {% else %}
+                <!-- Normal link with no embedded item -->
+                <a target="_blank"
+                   href="{{ link.url }}"
+                   onclick="clickLink({{ link.id }});">
+                {% endif %}
+
+                    <!-- Title of the link -->
+                    <p id="title-{{ link.id }}" class="title">{{ link.title }}</p>
+
+                    <!-- Meta section with icons, timesince, etc -->
+                    <div class="meta">
+
+                        {% if link.embed_type == 1 %}
+                        <!-- Filmstrip icon for videos -->
+                        <i class="indicator embed-indicator fa fa-fw fa-film"></i>
+                        {% endif %}
+
+                        {% if link.embed_type == 2 %}
+                        <!-- Photo icon for images -->
+                        <i class="indicator embed-indicator fa fa-fw fa-image"></i>
+                        {% endif %}
+
+                        {% if link.embed_type == 0 %}
+                            {% if link.starred %}
+                        <!-- Icon for starred -->
+                        <i class="indicator starred-indicator fa fa-fw fa-star"></i>
+
+                            {% else %}
+                                {% if link.unread %}
+                        <!-- Icon for unread -->
+                        <i class="indicator unread-indicator fa fa-fw fa-circle"></i>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+
+                        <!-- Domain name -->
+                        <p class="domain">{{ link.domain }}</p>
+
+                        {% if link.embed_type == 1 %}
+                        <!-- Duration of embedded video -->
+                        <p class="duration">&nbsp;- {{ link.word_count | duration }}</p>
+                        {% endif %}
+                        
+                        {% if link.embed_type == 0 %}
+                        <!-- Estimated reading time -->
+                        <p class="duration">&nbsp;{{ link.word_count | reading_time }}</p>
+                        {% endif %}
+
+                        <!-- Time since the link was added -->
+                        <time datetime="{{ link.date }}">{{ link.date | timesince }}</time>
+
+                        <!-- Archive/star/delete buttons -->
+                        <div class="buttons">
+
+                            {% if link.archived %}
+                            <!-- Dustbin button for delete -->
+                            <a onclick="deleteLink({{ link.id }});"
+                               class="delete-button">
+
+                                <i class="button fa fa-fw fa-trash-o"></i>
+
+                            </a><!-- .delete-button -->
+
+                            {% else %}
+                                {% if link.starred %}
+                            <!-- Star outline button for unstar -->
+                            <a onclick="toggleStar({{ link.id }}, true);"
+                               class="unstar-button">
+
+                                <i class="button fa fa-fw fa-star-o"></i>
+
+                            </a><!-- .star-button -->
+
+                                {% else %}
+                            <!-- Star button for star -->
+                            <a onclick="toggleStar({{ link.id }}, true);"
+                               class="star-button">
+
+                                <i class="button fa fa-fw fa-star"></i>
+
+                            </a><!-- .star-button -->
+                                {% endif %}
+
+                            <!-- Pencil button for edit -->
+                            <a onclick="showEditTitleModal({{ link.id }});"
+                               class="edit-button"
+                               data-toggle="modal"
+                               data-target="#edit-modal">
+
+                                <i class="button fa fa-fw fa-pencil"></i>
+
+                            </a> <!-- .edit-button -->
+                            {% endif %}
+
+                        </div> <!-- .buttons -->
+
+                    </div> <!-- .meta -->
+
+                </a>
+
+            </div> <!-- #link-xx -->
+
+        </div> <!-- .col-xs-12 etc -->
+        {% endfor %}
+
+    </div> <!-- .row -->
+
+</div> <!-- .container-fluid -->
+
+{% endblock %}

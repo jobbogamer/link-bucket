@@ -34,7 +34,7 @@ def index():
 		'viewmode_visible': False,
 		'active_page': 0,
 	}
-	links = database.get_unread_links()
+	links = database.get_matching_links(unread=True)
 
 	stats = database.get_stats()
 	stats.move_history_if_necessary()
@@ -48,15 +48,32 @@ def archive():
 		'time': datetime.now(),
 		'title': "Archive - Linkbucket",
 		'viewmode_visible': False,
-		'active_page': 1,
+		'active_page': 2,
 	}
-	links = database.get_archived_links()
+	links = database.get_matching_links(archived=True)
 
 	stats = database.get_stats()
 	stats.move_history_if_necessary()
 	stats.increment_views()
 
 	return render_template('archive.html', options=options, links=links)
+
+@app.route('/starred')
+def starred():
+	options = {
+		'time': datetime.now(),
+		'title': "Starred - Linkbucket",
+		'viewmode_visible': False,
+		'active_page': 1,
+	}
+	links = database.get_matching_links(starred=True)
+	links.extend(database.get_matching_links(starred=True, unread=True))
+
+	stats = database.get_stats()
+	stats.move_history_if_necessary()
+	stats.increment_views()
+
+	return render_template('link_view.html', options=options, links=links)
 
 @app.route('/search', methods=['GET'])
 def search():
@@ -82,7 +99,7 @@ def stats():
 		'time': datetime.now(),
 		'title': "Stats - Linkbucket",
 		'viewmode_visible': False,
-		'active_page': 2,
+		'active_page': 3,
 		'releases': github.get_latest_releases('jobbogamer', 'linkbucket', 3)
 	}
 	
