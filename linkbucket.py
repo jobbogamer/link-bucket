@@ -68,6 +68,7 @@ def starred():
 	}
 	links = database.get_matching_links(starred=True)
 	links.extend(database.get_matching_links(starred=True, unread=True))
+	links = sorted(links, key=lambda link: link.date, reverse=True)
 
 	stats = database.get_stats()
 	stats.move_history_if_necessary()
