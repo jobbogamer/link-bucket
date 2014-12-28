@@ -24,6 +24,60 @@ function clickLink(id) {
 	});
 }
 
+function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL) {
+	if (activePage == 0) {
+		if (embedType > 0) {
+			var aTag = '<a class="embed-link" data-toggle="modal" data-target="#embed-modal"' +
+							'onclick="setUpEmbedPopover(' + id + ', ' + embedType + ', \'' + embedURL + '\', \'' + url + '\');">';
+		} else {
+			var aTag = '<a target="_blank" href="' + url + '">';
+		}
+
+		if (showImages) {
+			if (imageURL) {
+				var thumbnail = '<span class="thumbnail" style="background-image: url(\'' + imageURL + '\');"></span>';
+			} else {
+				if (embedType == 2) {
+					var thumbnail = '<span class="thumbnail image-embed" style="background-image: url(\'' + embedURL + '\');"></span>';
+				} else {
+					var thumbnail = '<span class="thumbnail screenshot" style="background-image: url(\'' + screenshotURL + '\');"></span>';
+				}
+			}
+		} else {
+			var thumbnail = '';
+		}
+
+		if (embedType == 1) {
+			var indicator = '<i class="indicator embed-indicator fa fa-film"></i>';
+		} else if (embedType == 2) {
+			var indicator = '<i class="indicator embed-indicator fa fa-image"></i>';
+		} else {
+			var indicator = '<i class="indicator unread-indicator fa fa-circle"></i><i class="indicator starred-indicator fa fa-star"></i>';
+		}
+
+		var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">' +
+						'<div id="link-' + id + '" class="link unread">' +
+							aTag +
+								'<p id="title-' + id + '" class="title">' + title + '</p>' + 
+								thumbnail +
+								'<div class="meta">' +
+									indicator +
+									'<p class="domain">' + domain + '</p>' +
+									'<time>&lt;1m</time>' +
+									'<div class="buttons">' +
+										'<a onclick="archiveLink(' + id + ', true);"><i class="button fa fa-trash-o"></i></a>' +
+										'<a><i class="button fa fa-pencil"></i></a>' +
+										'<a onclick="toggleStar(' + id + ');"><i id="star-button-' + id + '" class="button star-button fa fa-star"></i></a>' +
+									'</div>' +
+								'</div>' +
+							'</a>' +
+						'</div>' +
+					'</div>';
+
+		$('.row').prepend(html);
+	}
+}
+
 function deleteLink(id) {
 	$.ajax({
 		url: '/api/delete',
@@ -94,7 +148,7 @@ function unstarLink(id) {
 	});
 }
 
-///////////  //////////
+/////////// Modals //////////
 
 function addLinkFromModal() {
 	hideAddError();
@@ -137,89 +191,12 @@ function clearAddModal() {
 	document.getElementById('add-modal-title-field').value = "";
 }
 
-function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL) {
-	if (activePage == 0) {
-		if (embedType > 0) {
-			var aTag = '<a class="embed-link" data-toggle="modal" data-target="#embed-modal"' +
-							'onclick="setUpEmbedPopover(' + id + ', ' + embedType + ', \'' + embedURL + '\', \'' + url + '\');">';
-		} else {
-			var aTag = '<a target="_blank" href="' + url + '">';
-		}
-
-		if (showImages) {
-			if (imageURL) {
-				var thumbnail = '<span class="thumbnail" style="background-image: url(\'' + imageURL + '\');"></span>';
-			} else {
-				if (embedType == 2) {
-					var thumbnail = '<span class="thumbnail image-embed" style="background-image: url(\'' + embedURL + '\');"></span>';
-				} else {
-					var thumbnail = '<span class="thumbnail screenshot" style="background-image: url(\'' + screenshotURL + '\');"></span>';
-				}
-			}
-		} else {
-			var thumbnail = '';
-		}
-
-		if (embedType == 1) {
-			var indicator = '<i class="indicator embed-indicator fa fa-film"></i>';
-		} else if (embedType == 2) {
-			var indicator = '<i class="indicator embed-indicator fa fa-image"></i>';
-		} else {
-			var indicator = '<i class="indicator unread-indicator fa fa-circle"></i><i class="indicator starred-indicator fa fa-star"></i>';
-		}
-
-		var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">' +
-						'<div id="link-' + id + '" class="link unread">' +
-							aTag +
-								'<p id="title-' + id + '" class="title">' + title + '</p>' + 
-								thumbnail +
-								'<div class="meta">' +
-									indicator +
-									'<p class="domain">' + domain + '</p>' +
-									'<time>&lt;1m</time>' +
-									'<div class="buttons">' +
-										'<a onclick="archiveLink(' + id + ', true);"><i class="button fa fa-trash-o"></i></a>' +
-										'<a><i class="button fa fa-pencil"></i></a>' +
-										'<a onclick="toggleStar(' + id + ');"><i id="star-button-' + id + '" class="button star-button fa fa-star"></i></a>' +
-									'</div>' +
-								'</div>' +
-							'</a>' +
-						'</div>' +
-					'</div>';
-
-		$('.row').prepend(html);
-	}
-}
-
-function getURLParameters() {
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = decodeURIComponent(hash[1]);
-    }
-    return vars;
-}
-
 function hideAddError() {
 	$('#add-modal-error-message').slideUp();
 }
 
 function hideFacebookError() {
 	$('#facebook-modal-error-message').slideUp();
-}
-
-function setUpEmbedPopover(id, embedType, url, originalURL) {
-	var title = document.getElementById('title-' + id).innerHTML;
-	document.getElementById('embed-modal-title').innerHTML = '<a target="_blank" href="' + originalURL + '">' + title + '</a>';
-	if (embedType == 1) {
-		var html = '<div class="video-wrapper"><iframe src="' + url + '?rel=0" frameborder="0" allowfullscreen="true"></iframe></div>';
-		document.getElementById('embed-modal-body').innerHTML = html;
-	} else if (embedType == 2) {
-		var html = '<img src="' + url + '" />'
-		document.getElementById('embed-modal-body').innerHTML = html;
-	}
 }
 
 function setUpModals() {
@@ -240,6 +217,57 @@ function setUpModals() {
 	});
 }
 
+function showAddError(urlGiven, validURL, databaseError) {
+	if (!urlGiven) {
+		document.getElementById('add-modal-error-title').innerHTML = "You forgot something.";
+		document.getElementById('add-modal-error-content').innerHTML = "No URL was given.";
+	} else if (!validURL) {
+		document.getElementById('add-modal-error-title').innerHTML = "That's not the link you're looking for.";
+		document.getElementById('add-modal-error-content').innerHTML = "It doesn't look like that URL points to a valid page.";
+	} else {
+		document.getElementById('add-modal-error-title').innerHTML = "Something went wrong.";
+		document.getElementById('add-modal-error-content').innerHTML = 'That link couldn\'t be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="' + databaseError + '">What was the error?</a>';
+	}
+	$('#add-modal-error-message').slideDown();
+}
+
+function showAddSheetIfNecessary() {
+	var params = getURLParameters();
+	if (params['add']) {
+		if (params['url']) {
+			document.getElementById('add-modal-url-field').value = params['url'];
+		}
+		if (params['title']) {
+			document.getElementById('add-modal-title-field').value = params['title'];
+		}
+		$('#add-modal').modal('show');
+	}
+}
+
+function showEditTitleModal(id) {
+	var title = document.getElementById('title-' + id).innerHTML;
+	document.getElementById('edit-modal-title-field').value = title;
+	document.getElementById('edit-modal-save-button').dataset.id = id;
+}
+
+function showFacebookError() {
+	$('#facebook-modal-error-message').slideDown();
+}
+
+////////// Popovers //////////
+
+function setUpEmbedPopover(id, embedType, url, originalURL) {
+	var title = document.getElementById('title-' + id).innerHTML;
+	document.getElementById('embed-modal-title').innerHTML = '<a target="_blank" href="' + originalURL + '">' + title + '</a>';
+	if (embedType == 1) {
+		var html = '<div class="video-wrapper"><iframe src="' + url + '?rel=0" frameborder="0" allowfullscreen="true"></iframe></div>';
+		document.getElementById('embed-modal-body').innerHTML = html;
+	} else if (embedType == 2) {
+		var html = '<img src="' + url + '" />'
+		document.getElementById('embed-modal-body').innerHTML = html;
+	}
+}
+
 function setUpPopovers() {
 	$('#add-modal-error-popover').popover({
 		placement: "bottom",
@@ -250,6 +278,14 @@ function setUpPopovers() {
 		placement: "top",
 	})
 }
+
+////////// Tooltips //////////
+
+function setUpTooltips() {
+	$('#facebook-login-wrapper').tooltip();
+}
+
+////////// Charts //////////
 
 function setUpStatsChart() {
 	var labels = [];
@@ -380,43 +416,15 @@ function setUpStatsChart() {
 	$('#chart-wrapper-3').append(legendHTML);
 }
 
-function setUpTooltips() {
-	$('#facebook-login-wrapper').tooltip();
-}
+////////// Utilities //////////
 
-function showAddError(urlGiven, validURL, databaseError) {
-	if (!urlGiven) {
-		document.getElementById('add-modal-error-title').innerHTML = "You forgot something.";
-		document.getElementById('add-modal-error-content').innerHTML = "No URL was given.";
-	} else if (!validURL) {
-		document.getElementById('add-modal-error-title').innerHTML = "That's not the link you're looking for.";
-		document.getElementById('add-modal-error-content').innerHTML = "It doesn't look like that URL points to a valid page.";
-	} else {
-		document.getElementById('add-modal-error-title').innerHTML = "Something went wrong.";
-		document.getElementById('add-modal-error-content').innerHTML = 'That link couldn\'t be added; try again later. <a id="add-modal-error-popover" data-toggle="popover" data-content="' + databaseError + '">What was the error?</a>';
-	}
-	$('#add-modal-error-message').slideDown();
-}
-
-function showAddSheetIfNecessary() {
-	var params = getURLParameters();
-	if (params['add']) {
-		if (params['url']) {
-			document.getElementById('add-modal-url-field').value = params['url'];
-		}
-		if (params['title']) {
-			document.getElementById('add-modal-title-field').value = params['title'];
-		}
-		$('#add-modal').modal('show');
-	}
-}
-
-function showEditTitleModal(id) {
-	var title = document.getElementById('title-' + id).innerHTML;
-	document.getElementById('edit-modal-title-field').value = title;
-	document.getElementById('edit-modal-save-button').dataset.id = id;
-}
-
-function showFacebookError() {
-	$('#facebook-modal-error-message').slideDown();
+function getURLParameters() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = decodeURIComponent(hash[1]);
+    }
+    return vars;
 }
