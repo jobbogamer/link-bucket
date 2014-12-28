@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import jsonify
 from utils import utils
 from external_apis import screenshots
@@ -196,6 +196,48 @@ def facebook_parse_messages(thread_id, last_message_id, json_string):
 		}
 
 	return jsonify(result)
+
+
+def get_added_chart_data():
+	stats = database.get_stats()
+	history = stats.get_add_history()[:28]
+	output = []
+
+	for i in range(len(history)):
+		days_ago = 27 - i
+		date = datetime.now() - timedelta(days=days_ago)
+
+		output.append({'date': date.strftime("%Y-%m-%d"), 'added': history[i]})
+
+	return json.dumps(output)
+
+
+def get_clicked_chart_data():
+	stats = database.get_stats()
+	history = stats.get_click_history()[:28]
+	output = []
+
+	for i in range(len(history)):
+		days_ago = 27 - i
+		date = datetime.now() - timedelta(days=days_ago)
+
+		output.append({'date': date.strftime("%Y-%m-%d"), 'clicked': history[i]})
+
+	return json.dumps(output)
+
+
+def get_pageviews_chart_data():
+	stats = database.get_stats()
+	history = stats.get_view_history()[:28]
+	output = []
+
+	for i in range(len(history)):
+		days_ago = 27 - i
+		date = datetime.now() - timedelta(days=days_ago)
+
+		output.append({'date': date.strftime("%Y-%m-%d"), 'pageviews': history[i]})
+
+	return json.dumps(output)
 
 
 def star(id):

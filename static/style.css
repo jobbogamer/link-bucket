@@ -625,3 +625,21 @@ div#search-results li p.domain {
 div#search-results li p.date {
 	float: right;
 }
+
+div.chart {
+	text-align: center;
+}
+
+.mg-chart-title {
+	margin: 0;
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.mg-line1-color {
+	stroke: #00BD83;
+}
+
+.mg-area1-color {
+	fill: red;
+}

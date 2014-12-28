@@ -133,6 +133,18 @@ def api_archive():
 	id = int(request.args.get('id', 0))
 	return api.archive(id)
 
+@app.route('/api/chart/added', methods=['GET'])
+def api_chart_added():
+	return api.get_added_chart_data()
+
+@app.route('/api/chart/clicked', methods=['GET'])
+def api_chart_clicked():
+	return api.get_clicked_chart_data()
+
+@app.route('/api/chart/pageviews', methods=['GET'])
+def api_chart_pageviews():
+	return api.get_pageviews_chart_data()
+
 @app.route('/api/click', methods=['GET'])
 def api_click():
 	id = int(request.args.get('id', 0))

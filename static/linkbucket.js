@@ -4,6 +4,10 @@ $(function() {
 	setUpTooltips();
 	setUpPopovers();
 	showAddSheetIfNecessary();
+
+	if (activePage == 3) {
+		setUpStatsChart();
+	}
 });
 
 /////////// Interaction functions //////////
@@ -314,132 +318,83 @@ function setUpTooltips() {
 ////////// Charts //////////
 
 function setUpStatsChart() {
-	var labels = [];
-
-	for (var i = 0; i < 28; i++) {
-		if (i == 27) {
-			labels[i] = "Today";
-		} else if (i == 26) {
-			labels[i] = "Yesterday";
-		} else {
-			var date = new Date();
-			var dayOfMonth = date.getDate();
-			date.setDate(dayOfMonth - (27-i));
-			var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-			labels[i] = date.getDate() + " " + monthNames[date.getMonth()];
-		}
-	}
-
-	var addMax = -1;
-	for (var i = 0; i < 28; i++) {
-		if (addHistory[i] > addMax) {
-			addMax = addHistory[i];
-		}
-	}
-
-	var clickMax = -1;
-	for (var i = 0; i < 28; i++) {
-		if (clickHistory[i] > clickMax) {
-			clickMax = clickHistory[i];
-		}
-	}
-
-	var viewMax = -1;
-	for (var i = 0; i < 28; i++) {
-		if (viewHistory[i] > viewMax) {
-			viewMax = viewHistory[i];
-		}
-	}
-
-	var addData = {
-		labels: labels,
-		datasets: [{
-			label: "Links Added",
-			fillColor: "RGBA(0, 189, 131, 0)",
-			strokeColor: "#00BD83",
-			pointColor: "#00BD83",
-			pointStrokeColor: "#00BD83",
-			pointHighlightFill: "#00BD83",
-			pointHighlightStroke: "#00BD83",
-			data: addHistory
-		}]
-	};
-
-	var clickData = {
-		labels: labels,
-		datasets: [{
-			label: "Links Clicked",
-			fillColor: "RGBA(0, 189, 131, 0)",
-			strokeColor: "#00BD83",
-			pointColor: "#00BD83",
-			pointStrokeColor: "#00BD83",
-			pointHighlightFill: "#00BD83",
-			pointHighlightStroke: "#00BD83",
-			data: clickHistory
-		}]
-	};
-
-	var viewData = {
-		labels: labels,
-		datasets: [{
-			label: "Pageviews",
-			fillColor: "RGBA(0, 189, 131, 0)",
-			strokeColor: "#00BD83",
-			pointColor: "#00BD83",
-			pointStrokeColor: "#00BD83",
-			pointHighlightFill: "#00BD83",
-			pointHighlightStroke: "#00BD83",
-			data: viewHistory
-		}]
-	};
-
-	var context = $("#stats-chart-1").get(0).getContext("2d");
-	var addChart = new Chart(context).Line(addData, {
-		showTooltips : false,
-		pointDot: false,
-		responsive: true,
-		scaleShowGridLines : false,
-		bezierCurve : false,
-		scaleOverride: true,
-		scaleSteps: 1,
-    	scaleStepWidth: addMax,
-    	scaleStartValue: 0,
-    	maintainAspectRatio: false,
+	d3.json('/api/chart/added', function(data) {
+    	data = MG.convert.date(data, 'date');
+	    MG.data_graphic({
+	        title: "Links Added",
+	        data: data,
+	        target: '#added-chart',
+	        x_accessor: 'date',
+	        y_accessor: 'added',
+	        animate_on_load: true,
+	        interpolate: 'linear',
+	        area: false,
+	        linked: true,
+	        left: 32,
+	        right: 32,
+	        top: 32,
+	        bottom: 32,
+	        height: 175,
+	        mouseover: function(d, i) {
+                var df = d3.time.format('%b %d');
+                var date = df(d['date']);
+                $('#added-chart svg .mg-active-datapoint')
+                    .text(date + '  •  ' + d['added'] + ' added');
+            },
+    	});
 	});
-	var legendHTML = addChart.generateLegend();
-	$('#chart-wrapper-1').append(legendHTML);
 
-	var context = $("#stats-chart-2").get(0).getContext("2d");
-	var clickChart = new Chart(context).Line(clickData, {
-		showTooltips : false,
-		pointDot: false,
-		responsive: true,
-		scaleShowGridLines : false,
-		bezierCurve : false,
-		scaleOverride: true,
-		scaleSteps: 1,
-    	scaleStepWidth: clickMax,
-    	scaleStartValue: 0,
-    	maintainAspectRatio: false,
+	d3.json('/api/chart/clicked', function(data) {
+    	data = MG.convert.date(data, 'date');
+	    MG.data_graphic({
+	        title: "Links Clicked",
+	        data: data,
+	        target: '#clicked-chart',
+	        x_accessor: 'date',
+	        y_accessor: 'clicked',
+	        animate_on_load: true,
+	        interpolate: 'linear',
+	        area: false,
+	        linked: true,
+	        left: 32,
+	        right: 32,
+	        top: 32,
+	        bottom: 32,
+	        height: 175,
+	        mouseover: function(d, i) {
+                var df = d3.time.format('%b %d');
+                var date = df(d['date']);
+                $('#clicked-chart svg .mg-active-datapoint')
+                    .text(date + '  •  ' + d['clicked'] + ' clicked');
+            },
+    	});
 	});
-	var legendHTML = clickChart.generateLegend();
-	$('#chart-wrapper-2').append(legendHTML);
 
-	var context = $("#stats-chart-3").get(0).getContext("2d");
-	var viewChart = new Chart(context).Line(viewData, {
-		showTooltips : false,
-		pointDot: false,
-		responsive: true,
-		scaleShowGridLines : false,
-		bezierCurve : false,
-		scaleOverride: true,
-		scaleSteps: 1,
-    	scaleStepWidth: viewMax,
-    	scaleStartValue: 0,
-    	maintainAspectRatio: false,
+	d3.json('/api/chart/pageviews', function(data) {
+    	data = MG.convert.date(data, 'date');
+	    MG.data_graphic({
+	        title: "Pageviews",
+	        data: data,
+	        target: '#pageviews-chart',
+	        x_accessor: 'date',
+	        y_accessor: 'pageviews',
+	        animate_on_load: true,
+	        interpolate: 'linear',
+	        area: false,
+	        linked: true,
+	        left: 32,
+	        right: 32,
+	        top: 32,
+	        bottom: 32,
+	        height: 175,
+	        mouseover: function(d, i) {
+                var df = d3.time.format('%b %d');
+                var date = df(d['date']);
+                $('#pageviews-chart svg .mg-active-datapoint')
+                    .text(date + '  •  ' + d['pageviews'] + ' pageviews');
+            },
+    	});
 	});
-	var legendHTML = viewChart.generateLegend();
-	$('#chart-wrapper-3').append(legendHTML);
 }
 
 ////////// Utilities //////////
