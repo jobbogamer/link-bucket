@@ -1,1 +1,1 @@
-web: gunicorn linkbucket:app
+web: gunicorn linkbucket:app --log-file -
