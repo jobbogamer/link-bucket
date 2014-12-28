@@ -40,7 +40,7 @@ def index():
 	stats.move_history_if_necessary()
 	stats.increment_views()
 
-	return render_template('index.html', options=options, links=links)
+	return render_template('link_view.html', options=options, links=links)
 
 @app.route('/archive')
 def archive():
@@ -56,7 +56,7 @@ def archive():
 	stats.move_history_if_necessary()
 	stats.increment_views()
 
-	return render_template('archive.html', options=options, links=links)
+	return render_template('link_view.html', options=options, links=links)
 
 @app.route('/starred')
 def starred():
