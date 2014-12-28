@@ -209,17 +209,6 @@
 		{% if options['query'] %}
 			queryInserted = true;
 		{% endif %}
-		{% if options['viewmode_visible'] %}
-			showImages = true;
-		{% else %}
-			showImages = false;
-		{% endif %}
-
-		{% if histories %}
-		var addHistory = {{ histories['add'] }};
-		var clickHistory = {{ histories['click'] }};
-		var viewHistory = {{ histories['view'] }};
-		{% endif %}
 
 		activePage = {{ options['active_page'] }};
 		</script>
