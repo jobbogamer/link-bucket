@@ -27,52 +27,78 @@ function clickLink(id) {
 function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL) {
 	if (activePage == 0) {
 		if (embedType > 0) {
-			var aTag = '<a class="embed-link" data-toggle="modal" data-target="#embed-modal"' +
-							'onclick="setUpEmbedPopover(' + id + ', ' + embedType + ', \'' + embedURL + '\', \'' + url + '\');">';
+			var aTag = '<!-- Link with some kind of embedded item -->' +
+                		'<a class="embed-link"' +
+                   			'data-toggle="modal"' +
+                   			'data-target="#embed-modal"' +
+                   			'onclick="clickLink({{ link.id }}); setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, \'{{ link.embed_url }}\', \'{{ link.url }}\');">';
 		} else {
-			var aTag = '<a target="_blank" href="' + url + '">';
-		}
-
-		if (showImages) {
-			if (imageURL) {
-				var thumbnail = '<span class="thumbnail" style="background-image: url(\'' + imageURL + '\');"></span>';
-			} else {
-				if (embedType == 2) {
-					var thumbnail = '<span class="thumbnail image-embed" style="background-image: url(\'' + embedURL + '\');"></span>';
-				} else {
-					var thumbnail = '<span class="thumbnail screenshot" style="background-image: url(\'' + screenshotURL + '\');"></span>';
-				}
-			}
-		} else {
-			var thumbnail = '';
+			var aTag = '<!-- Normal link with no embedded item -->' +
+                	   	'<a target="_blank"' +
+                   	   		'href="{{ link.url }}"' +
+                   			'onclick="clickLink({{ link.id }});">';
 		}
 
 		if (embedType == 1) {
-			var indicator = '<i class="indicator embed-indicator fa fa-film"></i>';
+			var indicator = '<!-- Filmstrip icon for videos -->' +
+                        	'<i class="indicator embed-indicator fa fa-fw fa-film"></i>';
 		} else if (embedType == 2) {
-			var indicator = '<i class="indicator embed-indicator fa fa-image"></i>';
+			var indicator = '<!-- Photo icon for images -->' +
+                        	'<i class="indicator embed-indicator fa fa-fw fa-image"></i>';
 		} else {
-			var indicator = '<i class="indicator unread-indicator fa fa-circle"></i><i class="indicator starred-indicator fa fa-star"></i>';
+			var indicator = '<!-- Icon for unread -->' +
+                        	'<i class="indicator unread-indicator fa fa-fw fa-circle"></i>';
 		}
 
+
 		var html = '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">' +
-						'<div id="link-' + id + '" class="link unread">' +
-							aTag +
-								'<p id="title-' + id + '" class="title">' + title + '</p>' + 
-								thumbnail +
-								'<div class="meta">' +
-									indicator +
-									'<p class="domain">' + domain + '</p>' +
-									'<time>&lt;1m</time>' +
-									'<div class="buttons">' +
-										'<a onclick="archiveLink(' + id + ', true);"><i class="button fa fa-trash-o"></i></a>' +
-										'<a><i class="button fa fa-pencil"></i></a>' +
-										'<a onclick="toggleStar(' + id + ');"><i id="star-button-' + id + '" class="button star-button fa fa-star"></i></a>' +
-									'</div>' +
-								'</div>' +
-							'</a>' +
-						'</div>' +
-					'</div>';
+						'<div id="link-' + id + '"' +
+                 			  'class="link unread">' +
+                			aTag +
+								'<!-- Title of the link -->' +
+                    			'<p id="title-' + id + '" class="title">' + title + '</p>' +
+
+                    			'<!-- Meta section with icons, timesince, etc -->' +
+                    			'<div class="meta">' +
+
+                    				indicator +
+
+                        			'<!-- Domain name -->' +
+                        			'<p class="domain">' + domain + '</p>' +
+
+                        			'<!-- Time since the link was added -->' +
+                        			'<time>&lt;1m</time>' +
+
+                        			'<!-- Archive/star/delete buttons -->' +
+                        			'<div class="buttons">' +
+
+                            			'<!-- Pencil button for edit -->' +
+			                            '<a onclick="showEditTitleModal(' + id + ');"' +
+			                               'class="edit-button"' +
+			                               'data-toggle="modal"' +
+			                               'data-target="#edit-modal">' +
+
+                                			'<i class="button fa fa-fw fa-pencil"></i>' +
+
+                            			'</a> <!-- .edit-button -->' +
+
+			                            '<!-- Star button for star -->' +
+			                            '<a onclick="starLink(' + id + ');"' +
+			                               'class="star-button">' +
+
+			                                '<i class="button fa fa-fw fa-star"></i>' +
+
+			                            '</a><!-- .star-button -->' +
+
+			                        '</div> <!-- .buttons -->' +
+
+			                    '</div> <!-- .meta -->' +
+
+			                '</a>' +
+
+			            '</div> <!-- #link-xx -->' +
+
+			        '</div> <!-- .col-xs-12 etc -->';
 
 		$('.row').prepend(html);
 	}
