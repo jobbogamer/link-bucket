@@ -1,6 +1,5 @@
 $(function() {
 	facebookLoadSDK();
-	getViewModeFromCookie();
 	setUpModals();
 	setUpTooltips();
 	setUpPopovers();
