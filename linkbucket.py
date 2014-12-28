@@ -26,6 +26,7 @@ database.db.init_app(app)
 
 @app.route('/')
 def index():
+	print "help!"
 	database.create_tables()
 
 	options = {
