@@ -41,6 +41,28 @@ function deleteLink(id) {
 	});
 }
 
+function editTitleFromModal() {
+	var id = document.getElementById('edit-modal-save-button').dataset.id;
+	$.ajax({
+		url: '/api/title',
+		data: {
+			'id' : id,
+			'title': document.getElementById('edit-modal-title-field').value
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			document.getElementById('title-' + id).innerHTML = data['title'];
+			$('#edit-modal').modal('hide');
+		}
+	});
+}
+
+function hideLink(id) {
+	$('#link-' + id).fadeOut(complete = function() {
+		$('#link-' + id).parent().remove();
+	});	
+}
+
 function starLink(id) {
 	$.ajax({
 		url: '/api/star',
@@ -111,19 +133,6 @@ function addLinkFromModal() {
 	});
 }
 
-function archiveLink(id) {
-	$.ajax({
-		url: '/api/archive',
-		data: {
-			'id' : id
-		}
-	}).done(function(data) {
-		if (data['success']) {
-			hideLink(id);
-		}
-	});
-}
-
 function clearAddModal() {
 	document.getElementById('add-modal-url-field').value = "";
 	document.getElementById('add-modal-title-field').value = "";
@@ -183,22 +192,6 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 	}
 }
 
-function editTitleFromModal() {
-	var id = document.getElementById('edit-modal-save-button').dataset.id;
-	$.ajax({
-		url: '/api/title',
-		data: {
-			'id' : id,
-			'title': document.getElementById('edit-modal-title-field').value
-		}
-	}).done(function(data) {
-		if (data['success']) {
-			document.getElementById('title-' + id).innerHTML = data['title'];
-			$('#edit-modal').modal('hide');
-		}
-	});
-}
-
 function getURLParameters() {
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -210,52 +203,12 @@ function getURLParameters() {
     return vars;
 }
 
-function getViewModeFromCookie() {
-	if (showImages) {
-		var viewMode = $.cookie('viewmode');
-		if (viewMode == "compact") {
-			setCompactMode(true);
-		} else if (viewMode == "expanded") {
-			setCompactMode(false);
-		}
-	} else {
-		var viewMode = "compact";
-		setCompactMode(true);
-	}
-}
-
 function hideAddError() {
 	$('#add-modal-error-message').slideUp();
 }
 
 function hideFacebookError() {
 	$('#facebook-modal-error-message').slideUp();
-}
-
-function hideLink(id) {
-	$('#link-' + id).fadeOut(complete = function() {
-		$('#link-' + id).parent().remove();
-	});	
-}
-
-function setCompactMode(compact) {
-	if (compact) {
-		$('body').addClass('compact');
-		$('#viewmode-expanded').removeClass('active');
-		$('#viewmode-compact').addClass('active');
-		if (document.getElementById('viewmode-mobile')) {
-			document.getElementById('viewmode-mobile').innerHTML = 'Expanded View';
-		}
-		setViewModeCookie(true);
-	} else {
-		$('body').removeClass('compact');
-		$('#viewmode-expanded').addClass('active');
-		$('#viewmode-compact').removeClass('active');
-		if (document.getElementById('viewmode-mobile')) {
-			document.getElementById('viewmode-mobile').innerHTML = 'Compact View';
-		}
-		setViewModeCookie(false);
-	}
 }
 
 function setUpEmbedPopover(id, embedType, url, originalURL) {
@@ -432,11 +385,6 @@ function setUpTooltips() {
 	$('#facebook-login-wrapper').tooltip();
 }
 
-function setViewModeCookie(compact) {
-	var mode = compact ? "compact" : "expanded";
-	$.cookie('viewmode', mode, { expires: 365, path: '/' });
-}
-
 function showAddError(urlGiven, validURL, databaseError) {
 	if (!urlGiven) {
 		document.getElementById('add-modal-error-title').innerHTML = "You forgot something.";
@@ -472,31 +420,4 @@ function showEditTitleModal(id) {
 
 function showFacebookError() {
 	$('#facebook-modal-error-message').slideDown();
-}
-
-function toggleCompactMode() {
-	if ($('body').hasClass('compact')) {
-		setCompactMode(false);
-	} else {
-		setCompactMode(true);
-	}
-}
-
-function unarchiveLink(id, hide) {
-	$.ajax({
-		url: '/api/unarchive',
-		data: {
-			'id' : id
-		}
-	}).done(function(data) {
-		if (data['success']) {
-			if (hide) {
-				$('#link-' + id).fadeOut(complete = function() {
-					$('#link-' + id).parent().remove();
-				});
-			} else {
-				$('#link-' + id).removeClass("archived");
-			}
-		}
-	});
 }
