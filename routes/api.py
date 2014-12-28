@@ -200,7 +200,7 @@ def star(id):
 	result = { }
 
 	try:
-		result = database.mark_link_as_starred(id)
+		database.mark_link_as_starred(id)
 		result = { 'success': result }
 	
 	except Exception as error:

@@ -16,7 +16,7 @@
                 <a class="embed-link"
                    data-toggle="modal"
                    data-target="#embed-modal"
-                   onclick="clickLink({{ link.id }}, false); setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, '{{ link.embed_url }}', '{{ link.url }}');">
+                   onclick="clickLink({{ link.id }}); setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, '{{ link.embed_url }}', '{{ link.url }}');">
 
                 {% else %}
                 <!-- Normal link with no embedded item -->
@@ -96,7 +96,7 @@
 
                             {% if link.starred %}
                             <!-- Star outline button for unstar -->
-                            <a onclick="toggleStar({{ link.id }}, true);"
+                            <a onclick="unstarLink({{ link.id }});"
                                class="unstar-button">
 
                                 <i class="button fa fa-fw fa-star-o"></i>
@@ -105,7 +105,7 @@
 
                             {% else %}
                             <!-- Star button for star -->
-                            <a onclick="toggleStar({{ link.id }}, true);"
+                            <a onclick="starLink({{ link.id }});"
                                class="star-button">
 
                                 <i class="button fa fa-fw fa-star"></i>

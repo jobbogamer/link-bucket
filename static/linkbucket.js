@@ -7,6 +7,74 @@ $(function() {
 	showAddSheetIfNecessary();
 });
 
+/////////// Interaction functions //////////
+
+function clickLink(id) {
+	$.ajax({
+		url: '/api/click',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			hideLink(id);
+		} else {
+			console.log("Failed to log click");
+			console.log(data);
+		}
+	});
+}
+
+function deleteLink(id) {
+	$.ajax({
+		url: '/api/delete',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			hideLink(id);
+		} else {
+			console.log("Failed to delete link");
+			console.log(data);
+		}
+	});
+}
+
+function starLink(id) {
+	$.ajax({
+		url: '/api/star',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			hideLink(id);
+		} else {
+			console.log("Failed to star link");
+			console.log(data);
+		}
+	});
+}
+
+function unstarLink(id) {
+	$.ajax({
+		url: '/api/unstar',
+		data: {
+			'id' : id
+		}
+	}).done(function(data) {
+		if (data['success']) {
+			hideLink(id);
+		} else {
+			console.log("Failed to unstar link");
+			console.log(data);
+		}
+	});
+}
+
+///////////  //////////
+
 function addLinkFromModal() {
 	hideAddError();
 	document.getElementById('add-modal-add-button').innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
@@ -43,7 +111,7 @@ function addLinkFromModal() {
 	});
 }
 
-function archiveLink(id, hide) {
+function archiveLink(id) {
 	$.ajax({
 		url: '/api/archive',
 		data: {
@@ -51,13 +119,7 @@ function archiveLink(id, hide) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			if (hide) {
-				$('#link-' + id).fadeOut(complete = function() {
-					$('#link-' + id).parent().remove();
-				});
-			} else {
-				$('#link-' + id).addClass("archived");
-			}
+			hideLink(id);
 		}
 	});
 }
@@ -65,25 +127,6 @@ function archiveLink(id, hide) {
 function clearAddModal() {
 	document.getElementById('add-modal-url-field').value = "";
 	document.getElementById('add-modal-title-field').value = "";
-}
-
-function clickLink(id, hide) {
-	$.ajax({
-		url: '/api/click',
-		data: {
-			'id' : id
-		}
-	}).done(function(data) {
-		if (data['success']) {
-			if (hide) {
-				$('#link-' + id).fadeOut(complete = function() {
-					$('#link-' + id).parent().remove();
-				});
-			} else {
-				$('#link-' + id).removeClass('unread');
-			}
-		}
-	})
 }
 
 function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL) {
@@ -140,21 +183,6 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 	}
 }
 
-function deleteLink(id) {
-	$.ajax({
-		url: '/api/delete',
-		data: {
-			'id' : id
-		}
-	}).done(function(data) {
-		if (data['success']) {
-			$('#link-' + id).fadeOut(complete = function() {
-				$('#link-' + id).parent().remove();
-			});	
-		}
-	});
-}
-
 function editTitleFromModal() {
 	var id = document.getElementById('edit-modal-save-button').dataset.id;
 	$.ajax({
@@ -202,6 +230,12 @@ function hideAddError() {
 
 function hideFacebookError() {
 	$('#facebook-modal-error-message').slideUp();
+}
+
+function hideLink(id) {
+	$('#link-' + id).fadeOut(complete = function() {
+		$('#link-' + id).parent().remove();
+	});	
 }
 
 function setCompactMode(compact) {
@@ -446,32 +480,6 @@ function toggleCompactMode() {
 	} else {
 		setCompactMode(true);
 	}
-}
-
-function toggleStar(id, hide) {
-	if ($('#link-' + id).hasClass('starred')) {
-		var url = '/api/unstar';
-	} else {
-		var url = '/api/star';
-	}
-	$.ajax({
-		url: url,
-		data: {
-			'id' : id
-		}
-	}).done(function(data) {
-		if (data['success']) {
-			if (hide) {
-				$('#link-' + id).fadeOut(complete = function() {
-					$('#link-' + id).parent().remove();
-				});
-			} else {
-				$('#link-' + id).toggleClass('starred');
-			}
-		} else {
-			console.log(data);
-		}
-	});
 }
 
 function unarchiveLink(id, hide) {

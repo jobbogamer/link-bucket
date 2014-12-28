@@ -362,12 +362,9 @@ def mark_link_as_read(id):
 
 def mark_link_as_starred(id):
 	link = get_link_by_id(id)
-	if not (link.unread):
-		link.starred = True
-		get_stats().increment_stars()
-		db.session.commit()
-		return True
-	return False
+	link.starred = True
+	get_stats().increment_stars()
+	db.session.commit()
 
 def mark_link_as_unread(id):
 	link = get_link_by_id(id)
