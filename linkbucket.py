@@ -166,6 +166,10 @@ def api_facebook_parse():
 	json = request.form['json']
 	return api.facebook_parse_messages(thread_id, most_recent_id, json)
 
+@app.route('/api/notifications', methods=['GET'])
+def api_notifications():
+	return api.notifications()
+
 @app.route('/api/ping', methods=['GET'])
 def api_ping():
 	return api.ping()

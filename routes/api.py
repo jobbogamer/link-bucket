@@ -240,6 +240,15 @@ def get_pageviews_chart_data():
 	return json.dumps(output)
 
 
+def notifications():
+	unread_links = database.get_matching_links(unread=True, starred=False, archived=False)
+	result = {
+		'success': True,
+		'value': len(unread_links)
+	}
+	return jsonify(result)
+
+
 def ping():
 	result = { 'success': True }
 	return jsonify(result)
