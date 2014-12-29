@@ -57,12 +57,12 @@
                         <!-- Domain name -->
                         <p class="domain">{{ link.domain }}</p>
 
-                        {% if link.embed_type == 1 %}
+                        {% if link.word_count and link.embed_type == 1 %}
                         <!-- Duration of embedded video -->
                         <p class="duration">&nbsp;- {{ link.word_count | duration }}</p>
                         {% endif %}
                         
-                        {% if link.embed_type == 0 %}
+                        {% if link.word_count and link.embed_type == 0 %}
                         <!-- Estimated reading time -->
                         <p class="duration">&nbsp;{{ link.word_count | reading_time }}</p>
                         {% endif %}
