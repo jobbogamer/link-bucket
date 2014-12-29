@@ -10,7 +10,7 @@ $(function() {
 	}
 });
 
-/////////// Interaction functions //////////
+////////// Interaction functions //////////
 
 function clickLink(id) {
 	$.ajax({
@@ -21,6 +21,10 @@ function clickLink(id) {
 	}).done(function(data) {
 		if (data['success']) {
 			hideLink(id);
+			if (data['moved_to_archive']) {
+				updateInboxCounter(-1);
+				updateArchiveCounter(1);
+			}
 		} else {
 			console.log("Failed to log click");
 			console.log(data);
@@ -105,6 +109,7 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 			        '</div> <!-- .col-xs-12 etc -->';
 
 		$('.row').prepend(html);
+		updateInboxCounter(1);
 	}
 }
 
@@ -117,6 +122,7 @@ function deleteLink(id) {
 	}).done(function(data) {
 		if (data['success']) {
 			hideLink(id);
+			updateArchiveCounter(-1);
 		} else {
 			console.log("Failed to delete link");
 			console.log(data);
@@ -155,6 +161,12 @@ function starLink(id) {
 	}).done(function(data) {
 		if (data['success']) {
 			hideLink(id);
+			updateStarredCounter(1);
+			if (data['moved_from_inbox']) {
+				updateInboxCounter(-1);
+			} else if (data['moved_from_archive']) {
+				updateArchiveCounter(-1);
+			}
 		} else {
 			console.log("Failed to star link");
 			console.log(data);
@@ -171,6 +183,12 @@ function unstarLink(id) {
 	}).done(function(data) {
 		if (data['success']) {
 			hideLink(id);
+			updateStarredCounter(-1);
+			if (data['moved_to_inbox']) {
+				updateInboxCounter(1);
+			} else if (data['moved_to_archive']) {
+				updateArchiveCounter(1);
+			}
 		} else {
 			console.log("Failed to unstar link");
 			console.log(data);
@@ -178,7 +196,27 @@ function unstarLink(id) {
 	});
 }
 
-/////////// Modals //////////
+////////// Counters //////////
+
+function updateCounter(counter, amount) {
+	currentCount = $('#' + counter + ' .count').html();
+	newCount = parseInt(currentCount) + amount;
+	$('#' + counter + ' .count').html(newCount);
+}
+
+function updateInboxCounter(amount) {
+	updateCounter('inbox-link', amount);
+}
+
+function updateStarredCounter(amount) {
+	updateCounter('starred-link', amount);
+}
+
+function updateArchiveCounter(amount) {
+	updateCounter('archive-link', amount);
+}
+
+////////// Modals //////////
 
 function addLinkFromModal() {
 	hideAddError();
