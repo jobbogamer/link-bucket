@@ -115,6 +115,17 @@ a:hover {
 	margin-top: 5px;
 }
 
+.navbar-nav li {
+	text-align: center;
+}
+
+/*
+.navbar-nav li:not(#stats-link) a {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+*/
+
 div#search {
 	margin-left: 6px;
 	padding-right: 0;

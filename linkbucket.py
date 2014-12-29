@@ -32,6 +32,7 @@ def index():
 		'title': "Inbox - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 0,
+		'counts': database.get_counts(),
 	}
 	links = database.get_matching_links(unread=True)
 
@@ -48,6 +49,7 @@ def archive():
 		'title': "Archive - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 2,
+		'counts': database.get_counts(),
 	}
 	links = database.get_matching_links(archived=True)
 
@@ -64,6 +66,7 @@ def starred():
 		'title': "Starred - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 1,
+		'counts': database.get_counts(),
 	}
 	links = database.get_matching_links(starred=True)
 	links.extend(database.get_matching_links(starred=True, unread=True))
@@ -83,7 +86,8 @@ def search():
 		'title': 'Search results for "{0}" - Linkbucket'.format(query),
 		'viewmode_visible': False,
 		'active_page': -1,
-		'query': query
+		'query': query,
+		'counts': database.get_counts(),
 	}
 	links = database.search_for_links(query)
 
@@ -100,7 +104,8 @@ def stats():
 		'title': "Stats - Linkbucket",
 		'viewmode_visible': False,
 		'active_page': 3,
-		'releases': github.get_latest_releases('jobbogamer', 'linkbucket', 3)
+		'releases': github.get_latest_releases('jobbogamer', 'linkbucket', 3),
+		'counts': database.get_counts(),
 	}
 	
 	stats = database.get_stats()
@@ -165,6 +170,10 @@ def api_facebook_parse():
 	most_recent_id = request.form['most_recent_id']
 	json = request.form['json']
 	return api.facebook_parse_messages(thread_id, most_recent_id, json)
+
+@app.route('/api/notifications', methods=['GET'])
+def api_notifications():
+	return api.notifications()
 
 @app.route('/api/ping', methods=['GET'])
 def api_ping():

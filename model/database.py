@@ -329,6 +329,12 @@ def get_archived_links():
 	links = sorted(links, key=lambda link: link.date, reverse=True)
 	return links
 
+def get_counts():
+	unread_count = len(get_matching_links(unread=True))
+	starred_count = len(get_matching_links(unread=True, starred=True)) + len(get_matching_links(starred=True))
+	archive_count = len(get_matching_links(archived=True))
+	return unread_count, starred_count, archive_count
+
 def get_link_by_id(id):
 	link = Link.query.filter_by(id = id).first()
 	return link

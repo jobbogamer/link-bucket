@@ -91,9 +91,15 @@ def click(id):
 	result = { }
 
 	try:
+		link = database.get_link_by_id(id)
+		if link.unread and not link.starred:
+			result['moved_to_archive'] = True
+		else:
+			result['moved_to_archive'] = False
+
 		database.mark_link_as_read(id)
 		database.archive_link(id)
-		result = { 'success': True }
+		result['success'] = True
 
 	except Exception as error:
 		result = { 'success': False, 'message': str(error) }
@@ -240,6 +246,15 @@ def get_pageviews_chart_data():
 	return json.dumps(output)
 
 
+def notifications():
+	unread_links = database.get_matching_links(unread=True, starred=False, archived=False)
+	result = {
+		'success': True,
+		'value': len(unread_links)
+	}
+	return jsonify(result)
+
+
 def ping():
 	result = { 'success': True }
 	return jsonify(result)
@@ -249,9 +264,17 @@ def star(id):
 	result = { }
 
 	try:
+		link = database.get_link_by_id(id)
+		if link.unread:
+			result['moved_from_inbox'] = True
+			result['moved_from_archive'] = False
+		else:
+			result['moved_from_inbox'] = False
+			result['moved_from_archive'] = True
+
 		database.mark_link_as_starred(id)
 		database.unarchive_link(id)
-		result = { 'success': result }
+		result['success'] = True
 	
 	except Exception as error:
 		result = { 'success': False, 'message': str(error) }
@@ -290,9 +313,14 @@ def unstar(id):
 	try:
 		database.mark_link_as_unstarred(id)
 		link = database.get_link_by_id(id)
-		if not link.unread:
+		if link.unread:
+			result['moved_to_archive'] = False
+			result['moved_to_inbox'] = True
+		else:
+			result['moved_to_archive'] = True
+			result['moved_to_inbox'] = False
 			database.archive_link(id)
-		result = { 'success': True }
+		result['success'] = True
 	
 	except Exception as error:
 		result = { 'success': False, 'message': str(error) }
