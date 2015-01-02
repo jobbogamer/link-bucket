@@ -35,7 +35,7 @@ def add(url, title=''):
 				result = { 'success': False, 'valid_url': True, 'message': str(error) }
 
 		else:
-			result = { 'success': False, 'valid_url': utils.page_exists(url), 'no_url': False }
+			result = { 'success': False, 'valid_url': False, 'no_url': False }
 
 	else:
 		result = { 'success': False, 'valid_url': False, 'no_url': True}
