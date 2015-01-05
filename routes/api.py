@@ -94,11 +94,11 @@ def click(id):
 		link = database.get_link_by_id(id)
 		if link.unread and not link.starred:
 			result['moved_to_archive'] = True
+			database.archive_link(id)
 		else:
 			result['moved_to_archive'] = False
 
 		database.mark_link_as_read(id)
-		database.archive_link(id)
 		result['success'] = True
 
 	except Exception as error:
