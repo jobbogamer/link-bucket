@@ -39,12 +39,12 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
                 		'<a class="embed-link"' +
                    			'data-toggle="modal"' +
                    			'data-target="#embed-modal"' +
-                   			'onclick="clickLink({{ link.id }}); setUpEmbedPopover({{ link.id }}, {{ link.embed_type }}, \'{{ link.embed_url }}\', \'{{ link.url }}\');">';
+                   			'onclick="clickLink(' + id + '); setUpEmbedPopover(' + id + ', ' + embedType + ", '" + embedURL + "', '" + url + ');">';
 		} else {
 			var aTag = '<!-- Normal link with no embedded item -->' +
                 	   	'<a target="_blank"' +
-                   	   		'href="{{ link.url }}"' +
-                   			'onclick="clickLink({{ link.id }});">';
+                   	   		'href="' + url + '"' +
+                   			'onclick="clickLink(' + id + ');">';
 		}
 
 		if (embedType == 1) {
