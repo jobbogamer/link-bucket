@@ -20,10 +20,10 @@ function clickLink(id) {
 		}
 	}).done(function(data) {
 		if (data['success']) {
-			hideLink(id);
 			if (data['moved_to_archive']) {
 				updateInboxCounter(-1);
 				updateArchiveCounter(1);
+				hideLink(id);
 			}
 		} else {
 			console.log("Failed to log click");
