@@ -130,6 +130,7 @@ def api_add():
 
 @app.route('/api/add.json', methods=['POST'])
 def api_add_json():
+	print request.form
 	url = request.form['url']
 	try:
 		title = request.form['title']
