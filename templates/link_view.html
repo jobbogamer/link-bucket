@@ -75,7 +75,8 @@
                             {% if link.embed_type > 0 %}
                             <!-- Direct link button for embedded items -->
                             <a href="{{ link.url }}"
-                               class="direct-link-button">
+                               class="direct-link-button"
+                               onclick="clickLink({{ link.id }});">
 
                                <i class="button fa fa-fw fa-external-link"></i>
 
