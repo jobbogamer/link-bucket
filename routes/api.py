@@ -18,7 +18,9 @@ def add(url, title=''):
 				if link.embed_type == 0:
 					duration = utils.reading_time(link.word_count)
 				elif link.embed_type == 1:
-					duraton = utils.video_duration(link.word_count)
+					duration = utils.video_duration(link.word_count)
+				else:
+					duration = ""
 
 				result = {
 					'success': True,
