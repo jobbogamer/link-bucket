@@ -247,7 +247,7 @@ def duration(seconds):
 	else:
 		seconds_str = str(leftover_seconds)
 
-	return "{0}:{1}".format(minutes, leftover_seconds)
+	return "{0}:{1}".format(minutes, seconds_str)
 
 @app.template_filter('reading_time')
 def reading_time(words):
