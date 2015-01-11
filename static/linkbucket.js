@@ -429,8 +429,12 @@ function setUpStatsChart() {
 	        mouseover: function(d, i) {
                 var df = d3.time.format('%b %d');
                 var date = df(d['date']);
+                var units = " pageview";
+                if (d['pageviews'] != 1) {
+                	units = " pageviews";
+                }
                 $('#pageviews-chart svg .mg-active-datapoint')
-                    .text(date + '  •  ' + d['pageviews'] + ' pageviews');
+                    .text(date + '  •  ' + d['pageviews'] + units);
             },
     	});
 	});
