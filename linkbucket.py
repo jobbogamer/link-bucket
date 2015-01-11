@@ -128,16 +128,6 @@ def api_add():
 	title = request.args.get('title', '')
 	return api.add(url, title)
 
-@app.route('/api/add.json', methods=['POST'])
-def api_add_json():
-	print request.form
-	url = request.form['url']
-	try:
-		title = request.form['title']
-	except KeyError as error:
-		title = ''
-	return api.add(url, title)
-
 @app.route('/api/all', methods=['GET'])
 def api_all():
 	return api.all()
