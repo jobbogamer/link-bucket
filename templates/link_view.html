@@ -75,6 +75,7 @@
                             {% if link.embed_type > 0 %}
                             <!-- Direct link button for embedded items -->
                             <a href="{{ link.url }}"
+                               target="_blank" 
                                class="direct-link-button"
                                onclick="clickLink({{ link.id }});">
 
