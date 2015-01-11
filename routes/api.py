@@ -15,6 +15,11 @@ def add(url, title=''):
 				if title and (len(title) > 0):
 					database.edit_title_without_counting(link.id, title)
 
+				if link.embed_type == 0:
+					duration = utils.reading_time(link.word_count)
+				elif link.embed_type == 1:
+					duraton = utils.video_duration(link.word_count)
+
 				result = {
 					'success': True,
 					'valid_url': True,
@@ -26,7 +31,8 @@ def add(url, title=''):
 						'embed_type': link.embed_type,
 						'embed_url': link.embed_url,
 						'image_url': link.image_url,
-						'screenshot_url': screenshots.get_screenshot(link.url)
+						'screenshot_url': screenshots.get_screenshot(link.url),
+						'duration': duration
 					}
 				}
 	

@@ -44,6 +44,17 @@ def parse_date(string):
 	date = date + time_diff
 	return date
 
+def reading_time(word_count):
+	if word_count is None:
+		return ""
+	else:
+		minutes = int(word_count / 250)
+
+		if minutes < 1:
+			return "<1m"
+		else:
+			return "{0}m".format(minutes)
+
 def timesince(date):
 	now = datetime.now()
 	delta = now - date
@@ -57,3 +68,25 @@ def timesince(date):
 		return str(int(seconds / (60 * 60))) + "h"
 	else:
 		return str(int(seconds / (24 * 60 * 60))) + "d"
+
+def video_duration(seconds):
+	hours = int(seconds / 3600)
+	leftover_seconds = seconds - (hours * 3600)
+
+	minutes = int(leftover_seconds / 60)
+	leftover_seconds -= (minutes * 60)
+
+	if minutes < 10:
+		minutes_str = "0{0}".format(minutes)
+	else:
+		minutes_str = str(minutes)
+
+	if leftover_seconds < 10:
+		seconds_str = "0{0}".format(leftover_seconds)
+	else:
+		seconds_str = str(leftover_seconds)
+
+	if hours > 0:
+		return "{0}:{1}:{2}".format(hours, minutes_str, seconds_str)
+	else:
+		return "{0}:{1}".format(minutes, seconds_str)

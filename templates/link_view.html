@@ -64,7 +64,7 @@
                         
                         {% if link.word_count and link.embed_type == 0 %}
                         <!-- Estimated reading time -->
-                        <p class="duration">&nbsp;{{ link.word_count | reading_time }}</p>
+                        <p class="duration">&nbsp;- {{ link.word_count | reading_time }}</p>
                         {% endif %}
 
                         <!-- Time since the link was added -->

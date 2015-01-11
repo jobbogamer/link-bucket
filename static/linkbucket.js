@@ -32,7 +32,7 @@ function clickLink(id) {
 	});
 }
 
-function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL) {
+function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, screenshotURL, duration) {
 	if (activePage == 0) {
 		if (embedType > 0) {
 			var aTag = '<!-- Link with some kind of embedded item -->' +
@@ -73,6 +73,9 @@ function createAddedLink(id, url, title, domain, embedType, embedURL, imageURL, 
 
                         			'<!-- Domain name -->' +
                         			'<p class="domain">' + domain + '</p>' +
+
+                        			'<!-- Estimated duration -->' +
+                        			'<p class="duration">&nbsp;- ' + duration + '</p>'
 
                         			'<!-- Time since the link was added -->' +
                         			'<time>&lt;1m</time>' +
@@ -234,7 +237,8 @@ function addLinkFromModal() {
 	}).done(function(data) {
 		if (data['success']) {
 			var link = data['link'];
-			createAddedLink(link['id'], link['url'], link['title'], link['domain'], link['embed_type'], link['embed_url'], link['image_url'], link['screenshot_url']);
+			console.log(link);
+			createAddedLink(link['id'], link['url'], link['title'], link['domain'], link['embed_type'], link['embed_url'], link['image_url'], link['screenshot_url'], link['duration']);
 			clearAddModal();
 			$('#add-modal').modal('hide');
 		} else {
