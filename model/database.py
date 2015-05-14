@@ -257,12 +257,32 @@ def _get_video_length(url):
 		id_end += 1
 		video_id = url[id_start:id_end]
 
-	api_url = 'http://gdata.youtube.com/feeds/api/videos/{0}?v=2&alt=jsonc'.format(video_id)
+	api_key = 'AIzaSyDcUqb-ed-ijMc2tnzPN7Rvka_HVilCSs0'
+	api_url = 'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id={0}&key={1}'.format(video_id, api_key)
 	response = requests.get(api_url)
 	json_data = json.loads(response.text or response.content)
 
-	duration = json_data["data"]["duration"]
-	return int(duration)
+	duration_string = json_data["items"][0]["contentDetails"]["duration"]
+	start = 2
+	hours_end = duration_string.find("H")
+	minutes_end = duration_string.find("M")
+	seconds_end = duration_string.find("S")
+
+	if hours_end != -1:
+		hours = int(duration_string[start:hours_end])
+		start = hours_end + 1
+	else:
+		hours = 0
+
+	if minutes_end != -1:
+		minutes = int(duration_string[start:minutes_end])
+		start = minutes_end + 1
+	else:
+		minutes = 0
+
+	seconds = int(duration_string[start:seconds_end])
+
+	return (hours * 3600) + (minutes * 60) + seconds
 
 ##### Public API #####
 
